@@ -410,13 +410,19 @@ def hero_html(fm, body_lede):
     if card:
         op = OPS[card["op"]]
         kind = card.get("kind", "casino")
+        # Prefer a punchy headline: explicit override > sports offer > short form > full text
+        offer = card.get("offer")
+        if not offer and kind == "sports" and op.get("welcomeSports"):
+            offer = op["welcomeSports"]
+        if not offer:
+            offer = op.get("short") or op["welcome"]
         cardhtml = f'''<aside class="hero-card" aria-label="Editor's top pick">
 <div class="hc-band">{card.get("band", "Editor's #1 pick for New Zealand")}</div>
 <div class="hc-body">
-<img class="hc-logo" src="{op_logo(card["op"], sports=(kind=="sports"))}" alt="{op['name']} logo" width="150" height="64" loading="eager" decoding="async">
+<div class="hc-logobox"><img class="hc-logo" src="{op_logo(card["op"], sports=(kind=="sports"))}" alt="{op['name']} logo" width="150" height="64" loading="eager" decoding="async"></div>
 <p class="hc-name">{op['name']}</p>
 <p class="hc-sub">{card.get("sub", op['usp'])}</p>
-<p class="hc-offer">{card.get("offer", op['welcome'])}</p>
+<div class="hc-offerbox"><span class="hc-offerlab">Exclusive welcome offer</span><p class="hc-offer">{offer}</p></div>
 <div class="hc-score">{stars(op['rating'])}<b>{op['rating']}</b><span class="of5">/5</span></div>
 <p class="hc-meta">{card.get("meta", "")}</p>
 {cta(card["op"], label=f"Visit {op['name']}", kind=kind, block=True)}
@@ -556,11 +562,19 @@ justify-content:center;font-family:var(--h);font-weight:800;font-size:.88rem;fle
 .hc-band{background:var(--lime);color:var(--ink);font-family:var(--h);font-weight:700;font-size:.76rem;
 text-transform:uppercase;letter-spacing:.07em;padding:9px 18px;text-align:center}
 .hc-body{padding:20px 20px 18px;text-align:center}
-.hc-logo{max-height:46px;width:auto;margin:0 auto 14px;object-fit:contain}
+.hc-logobox{display:block;background:#fff;border:1px solid var(--line);border-radius:10px;
+padding:11px 16px;margin:0 auto 13px;max-width:212px}
+.hc-logo{max-height:46px;width:auto;margin:0 auto;object-fit:contain}
 .hc-name{font-family:var(--h);font-weight:700;font-size:1.24rem;color:var(--ink);margin:0 0 2px}
-.hc-sub{font-size:.86rem;color:var(--muted);margin:0 0 12px;line-height:1.45}
-.hc-offer{font-family:var(--h);font-weight:700;font-size:1.02rem;color:var(--ink);background:var(--paper);
-border:1px solid var(--line);border-radius:9px;padding:11px 12px;margin:0 0 12px;line-height:1.35}
+.hc-sub{font-size:.86rem;color:var(--muted);margin:0 0 14px;line-height:1.45}
+.hc-offerbox{position:relative;background:var(--ink);border-radius:12px;
+padding:14px 14px 15px;margin:0 0 14px;box-shadow:0 10px 26px -12px rgba(18,21,26,.85)}
+.hc-offerlab{display:block;font-family:var(--h);font-size:.64rem;font-weight:800;text-transform:uppercase;
+letter-spacing:.13em;color:var(--lime);margin-bottom:6px}
+.hc-offerlab::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;
+background:var(--lime);vertical-align:.17em;margin-right:.55em}
+.hc-offer{font-family:var(--h);font-weight:800;font-size:1.2rem;color:var(--lime);margin:0;
+line-height:1.24;letter-spacing:-.02em;text-wrap:balance}
 .hc-score{display:flex;align-items:center;justify-content:center;gap:6px;margin:0 0 12px;font-size:.92rem}
 .hc-score b{font-family:var(--h)}
 .hc-score .of5{color:var(--muted);font-size:.85rem}
