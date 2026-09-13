@@ -1,0 +1,1063 @@
+#!/usr/bin/env python3
+"""RNRV site builder.
+
+Reads _build/pages/*.html fragments (JSON front matter inside <!--@ ... @-->)
+and writes clean-URL pages at {url}index.html. Every page gets the same
+chrome, design tokens, schema block and self-referencing canonical, so the
+homepage layout and colour scheme propagate site-wide by construction.
+"""
+import json, os, re, html, datetime
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SRC = os.path.join(ROOT, "_build", "pages")
+
+DOMAIN = "https://rnrv.co.nz"
+SITE = "RNRV"
+TAGLINE = "NZ Online Casino &amp; Betting Guide"
+UPDATED = "2026-09-13"
+UPDATED_HUMAN = "13 September 2026"
+FOUNDED = "2026"
+
+OPS = json.load(open(os.path.join(ROOT, "_build", "operators.json")))
+ORDER = [s for s, _ in sorted(OPS.items(), key=lambda kv: kv[1]["rank"])]
+
+# ---------------------------------------------------------------- authors
+AUTHORS = {
+ "tane": dict(
+   name="Tane Rāwiri", slug="tane-rawiri", initials="TR",
+   role="Lead Reviewer &amp; Payments Tester",
+   jobTitle="Lead Reviewer and Payments Tester",
+   knows=["online casinos","online pokies","NZD payment processing","withdrawal testing",
+          "cryptocurrency gambling","KYC and account verification"],
+   short="Opens every account on this site personally and times every withdrawal from an Auckland connection.",
+   bio="Tane spent six years in payments operations — four of them reconciling card and e-wallet settlement "
+       "for a licensed gaming platform — before moving to the reviewing side of the cashier. He opens every "
+       "account RNRV writes about using his own name and his own New Zealand dollars, completes KYC like any "
+       "other customer, and logs the timestamp on every deposit and every withdrawal request. If a site is "
+       "listed here as paying inside four hours, Tane has the transaction history to show it."),
+ "ana": dict(
+   name="Ana Whitaker", slug="ana-whitaker", initials="AW",
+   role="Editor, Regulation &amp; Bonus Terms",
+   jobTitle="Editor, Regulation and Bonus Terms",
+   knows=["New Zealand gambling law","Online Casino Gambling Act 2026","Department of Internal Affairs licensing",
+          "bonus terms and conditions","gambling taxation","responsible gambling policy"],
+   short="Reads the full terms on every offer we publish and tracks the DIA licensing programme week by week.",
+   bio="Ana read law at Victoria University of Wellington and spent five years covering regulatory affairs "
+       "before joining RNRV as editor. She reads the complete terms and conditions on every bonus this site "
+       "publishes — not the marketing summary — and re-checks them each month. She maintains our record of the "
+       "Department of Internal Affairs licensing timeline and fact-checks every legal, tax and licensing claim "
+       "on the site against primary sources."),
+ "hemi": dict(
+   name="Hemi Toka", slug="hemi-toka", initials="HT",
+   role="Sports &amp; Racing Betting Analyst",
+   jobTitle="Sports and Racing Betting Analyst",
+   knows=["sports betting","horse racing betting","NRL betting","Super Rugby betting",
+          "betting odds and margins","TAB NZ"],
+   short="Prices up NRL, Super Rugby and thoroughbred markets and measures the overround on every book we list.",
+   bio="Hemi has been modelling New Zealand and Australian racing markets for a decade and spent three seasons "
+       "as a trading assistant on a rugby league book. For RNRV he samples the same twenty markets across every "
+       "sportsbook we cover — NRL head-to-head, Super Rugby line, Premier League, and a Thursday night "
+       "thoroughbred card — and calculates the overround so readers can see which book is actually taking the "
+       "smallest cut."),
+ "team": dict(
+   name="The RNRV Editorial Team", slug="editorial-team", initials="RN",
+   role="Editorial Team",
+   jobTitle="Editorial Team",
+   knows=["online casinos","New Zealand gambling","responsible gambling"],
+   short="Our New Zealand-based editorial desk.",
+   bio="RNRV's editorial desk is based in New Zealand. Every page on this site is written by a named reviewer, "
+       "fact-checked by a second person, and dated with the month it was last verified."),
+}
+
+# ---------------------------------------------------------------- navigation
+NAV = [
+ ("Casinos", "/", [
+   ("Best Online Casinos NZ", "/"),
+   ("Online Pokies", "/online-pokies/"),
+   ("High Payout Casinos", "/high-payout-casinos/"),
+   ("Fast Payout Casinos", "/fast-payout-casinos/"),
+   ("Live Dealer Casinos", "/live-casinos/"),
+   ("Crypto Casinos", "/best-crypto-casinos/"),
+   ("Casino Reviews", "/casino-reviews/"),
+ ]),
+ ("Bonuses", "/online-casinos/bonuses/", [
+   ("Casino Bonuses NZ", "/online-casinos/bonuses/"),
+   ("No Deposit Bonuses", "/no-deposit-casinos/"),
+ ]),
+ ("Betting", "/online-betting/", [
+   ("Online Betting NZ", "/online-betting/"),
+   ("Best Sports Betting Sites", "/best-sports-betting-sites/"),
+ ]),
+ ("Guides", None, [
+   ("NZ Online Casino Law", "/nz-online-casino-law/"),
+   ("Tax on Gambling Winnings", "/gambling-winnings-tax-nz/"),
+   ("Payment Methods", "/payment-methods/"),
+   ("How We Review", "/how-we-review/"),
+   ("Responsible Gambling", "/responsible-gambling/"),
+ ]),
+ ("About", "/about/", None),
+ ("Contact", "/contact/", None),
+]
+
+FOOTER = [
+ ("Casinos", [
+   ("Best Online Casinos NZ", "/"),
+   ("Online Pokies", "/online-pokies/"),
+   ("High Payout Casinos", "/high-payout-casinos/"),
+   ("Fast Payout Casinos", "/fast-payout-casinos/"),
+   ("Live Dealer Casinos", "/live-casinos/"),
+   ("Crypto Casinos", "/best-crypto-casinos/"),
+   ("Casino Reviews", "/casino-reviews/"),
+ ]),
+ ("Bonuses &amp; Betting", [
+   ("Casino Bonuses NZ", "/online-casinos/bonuses/"),
+   ("No Deposit Bonuses", "/no-deposit-casinos/"),
+   ("Online Betting NZ", "/online-betting/"),
+   ("Best Sports Betting Sites", "/best-sports-betting-sites/"),
+   ("Payment Methods", "/payment-methods/"),
+ ]),
+ ("Guides", [
+   ("NZ Online Casino Law", "/nz-online-casino-law/"),
+   ("Tax on Gambling Winnings", "/gambling-winnings-tax-nz/"),
+   ("How We Review", "/how-we-review/"),
+   ("Responsible Gambling", "/responsible-gambling/"),
+ ]),
+ ("Company", [
+   ("About Us", "/about/"),
+   ("Contact Us", "/contact/"),
+   ("Our Authors", "/authors/"),
+   ("Terms and Conditions", "/terms/"),
+   ("Privacy Policy", "/privacy/"),
+   ("Cookie Policy", "/cookie-policy/"),
+ ]),
+]
+
+# ---------------------------------------------------------------- icons
+IC = {
+ "star":  '<path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.2l1-5.8L3.5 9.2l5.9-.9z"/>',
+ "bolt":  '<path d="M13 2 3 14h7l-1 8 10-12h-7z"/>',
+ "warn":  '<path d="M10.3 3.6 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.6a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/>',
+ "info":  '<circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/>',
+ "clock": '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+ "check": '<path d="M20 6 9 17l-5-5"/>',
+ "cross": '<path d="M18 6 6 18M6 6l12 12"/>',
+ "shield":'<path d="M12 3l7 3v6c0 4.5-3 7.9-7 9-4-1.1-7-4.5-7-9V6z"/>',
+ "coin":  '<circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.6-.9-1.7-1.5-3-1.5-1.7 0-3 .9-3 2s1.3 2 3 2 3 .9 3 2-1.3 2-3 2c-1.3 0-2.4-.6-3-1.5"/>',
+}
+def ic(k, cls="ic"):
+    return (f'<span class="{cls}" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+            f'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{IC[k]}</svg></span>')
+
+# ---------------------------------------------------------------- helpers
+MISSING = set()
+
+def aff(slug, kind="casino"):
+    op = OPS[slug]
+    url = op["sportsLink"] if kind == "sports" else op["casinoLink"]
+    url = url or op["casinoLink"] or op["sportsLink"]
+    if not url:
+        MISSING.add(op["name"]); return "/casino-reviews/"
+    return url
+
+def op_logo(slug, sports=False):
+    op = OPS.get(slug) or {}
+    if sports and op.get("logoSports"):
+        return op["logoSports"]
+    return op.get("logo", "")
+
+def resolve_tokens(s):
+    s = re.sub(r"\{\{(aff|affs):([a-z0-9\-]+)\}\}",
+               lambda m: html.escape(aff(m.group(2), "sports" if m.group(1) == "affs" else "casino"), quote=True), s)
+    s = re.sub(r"\{\{op:([a-z0-9\-]+):([A-Za-z]+)\}\}",
+               lambda m: html.escape(str(OPS[m.group(1)].get(m.group(2), ""))), s)
+    s = s.replace("{{updated}}", UPDATED_HUMAN)
+    return s
+
+def cta(slug, label=None, kind="casino", block=False, cls="btn-lime"):
+    op = OPS[slug]
+    label = label or f"Visit {op['name']}"
+    b = " btn-block" if block else ""
+    return (f'<a class="btn {cls}{b}" href="{html.escape(aff(slug, kind), quote=True)}" '
+            f'target="_blank" rel="nofollow sponsored noopener">{label}</a>')
+
+def stars(rating):
+    """Five-star row from a 5-point rating, with a true half-fill overlay."""
+    svg = f'<svg viewBox="0 0 24 24" fill="currentColor">{IC["star"]}</svg>'
+    full = int(rating); frac = rating - full
+    half = 0.25 <= frac < 0.75
+    if frac >= 0.75:
+        full += 1
+    out = []
+    for i in range(5):
+        if i < full:
+            out.append(f'<span class="st st-on">{svg}</span>')
+        elif i == full and half:
+            out.append(f'<span class="st st-half">{svg}<span class="st-h">{svg}</span></span>')
+        else:
+            out.append(f'<span class="st">{svg}</span>')
+    return f'<span class="stars" role="img" aria-label="Rated {rating} out of 5">{"".join(out)}</span>'
+
+# ---------------------------------------------------------------- blocks
+def toplist(slugs, kind="casino", intro=None, heading=None, hid="toplist"):
+    """Ranked operator cards — the primary conversion unit."""
+    rows = []
+    for i, slug in enumerate(slugs, 1):
+        op = OPS[slug]
+        logo = op_logo(slug, sports=(kind == "sports"))
+        bonus = op.get("welcomeSports") if kind == "sports" and op.get("welcomeSports") else op["welcome"]
+        badge = op.get("badge") or ""
+        feats = []
+        if op.get("payout"):  feats.append((ic("bolt"), "Payout", op["payout"]))
+        if op.get("wagering"):feats.append((ic("coin"), "Wagering", op["wagering"]))
+        if op.get("minDep"):  feats.append((ic("info"), "Min deposit", op["minDep"]))
+        if op.get("licence"): feats.append((ic("shield"), "Licence", op["licence"]))
+        featc = "".join(f'<div class="tl-feat">{i_}<span class="k">{k}</span><span class="v">{v}</span></div>'
+                        for i_, k, v in feats)
+        rows.append(f'''<article class="tl-card" id="rank-{i}">
+<div class="tl-rank"><span>{i}</span></div>
+<div class="tl-brand">
+<a class="tl-logo" href="/casino-reviews/{op['slug']}/" aria-label="{op['name']} review">
+<img src="{logo}" alt="{op['name']} logo" width="150" height="64" loading="lazy" decoding="async"></a>
+<div class="tl-score">{stars(op['rating'])}<b>{op['rating']}</b><span class="of5">/5</span></div>
+{f'<span class="tl-badge">{badge}</span>' if badge else ''}
+</div>
+<div class="tl-offer">
+<span class="tl-label">Welcome offer</span>
+<p class="tl-bonus">{bonus}</p>
+<p class="tl-usp">{op['usp']}</p>
+<div class="tl-feats">{featc}</div>
+</div>
+<div class="tl-act">
+{cta(slug, kind=kind, block=True)}
+<a class="tl-read" href="/casino-reviews/{op['slug']}/">Read the {op['name']} review</a>
+<p class="tl-fine">18+. T&amp;Cs apply. Wagering requirements apply to bonus funds.</p>
+</div>
+</article>''')
+    h = f'<h2 id="{hid}">{heading}</h2>' if heading else ""
+    p = f'<p class="lede">{intro}</p>' if intro else ""
+    return f'<section class="sec sec-tl"><div class="wrap">{h}{p}<div class="tl">{"".join(rows)}</div>' \
+           f'<p class="tl-disc">{ic("info")} We earn a commission when a reader opens an account through a link on this page. ' \
+           f'It never changes the order above &mdash; that is set by the testing described in ' \
+           f'<a href="/how-we-review/">how we review</a>.</p></div></section>'
+
+def review_grid():
+    """Card grid of every operator review, in overall rank order."""
+    cards = []
+    for slug in ORDER:
+        op = OPS[slug]
+        tags = []
+        if op.get("casino"): tags.append("Casino")
+        if op.get("sports"): tags.append("Sportsbook")
+        if op.get("crypto"): tags.append("Crypto")
+        tagh = "".join(f'<span class="chip">{t}</span>' for t in tags)
+        warn = ('<p class="rv-warn">%s%s</p>' % (ic("warn"), op["watch"])) if op.get("watch") else ""
+        cards.append(f'''<a class="card card-lnk rv-card" href="/casino-reviews/{op['slug']}/">
+<div class="rv-top"><img src="{op_logo(slug)}" alt="{op['name']} logo" width="150" height="64" loading="lazy" decoding="async">
+<div class="rv-score">{stars(op['rating'])}<b>{op['rating']}</b><span class="of5">/5</span></div></div>
+<h3>{op['name']}</h3>
+<p class="rv-bonus">{op['welcome']}</p>
+<p>{op['usp']}</p>
+{warn}
+<div class="chips rv-chips">{tagh}</div>
+<span class="more">Read the {op['name']} review &rarr;</span></a>''')
+    return '<div class="grid g3 rv-grid">' + "".join(cards) + '</div>'
+
+def faq_block(items, heading="Frequently asked questions", hid="faq"):
+    qs = "".join(
+        f'<details class="faq-i"><summary><span>{q}</span></summary><div class="faq-a">{a}</div></details>'
+        for q, a in items)
+    return (f'<section class="sec sec-faq"><div class="wrap"><h2 id="{hid}">{heading}</h2>'
+            f'<div class="faq">{qs}</div></div></section>')
+
+def faq_schema(items):
+    return {"@type": "FAQPage", "mainEntity": [
+        {"@type": "Question", "name": strip_tags(q),
+         "acceptedAnswer": {"@type": "Answer", "text": strip_tags(a)}} for q, a in items]}
+
+def strip_tags(s):
+    return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", s)).strip()
+
+# ---------------------------------------------------------------- chrome
+LOGO_SVG = ('<svg class="mk" viewBox="0 0 36 36" aria-hidden="true">'
+            '<rect width="36" height="36" rx="8" fill="var(--lime)"/>'
+            '<path d="M11 26V10h7.2a4.6 4.6 0 0 1 1.2 9l4.1 7h-4.2l-3.6-6.6H14.7V26z" fill="var(--ink)"/>'
+            '<path d="M14.7 13.2v3.9h3.4a1.95 1.95 0 0 0 0-3.9z" fill="var(--lime)"/></svg>')
+
+def brandmark(tag=True):
+    t = f'<span class="lg-tag">{TAGLINE}</span>' if tag else ""
+    return (f'<span class="lg-lock">{LOGO_SVG}<span class="lg-word">RNRV</span></span>{t}')
+
+def nav_html():
+    caret = ('<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
+             '<path d="M3 4.5l3 3 3-3"/></svg>')
+    out = ['<a class="skip" href="#main">Skip to content</a>',
+           '<header class="nav"><div class="wrap">',
+           f'<a class="lg" href="/" aria-label="{SITE} — NZ online casino and betting guide">{brandmark()}</a>',
+           '<nav class="nav-links" aria-label="Main">']
+    for label, href, kids in NAV:
+        if not kids:
+            out.append(f'<a href="{href}">{label}</a>')
+        else:
+            trig = (f'<a class="nav-trig" href="{href}">{label} {caret}</a>' if href
+                    else f'<span class="nav-trig" tabindex="0" role="button">{label} {caret}</span>')
+            links = "".join(f'<a href="{h}">{l}</a>' for l, h in kids)
+            out.append(f'<div class="nav-item">{trig}<div class="nav-dd"><div class="nav-dd-in">{links}</div></div></div>')
+    out.append('</nav>')
+    out.append('<a class="btn btn-lime btn-sm nav-cta" href="#toplist">Top casinos</a>')
+    out.append('<details class="menu"><summary aria-label="Open menu"><svg viewBox="0 0 24 24" width="22" height="22" '
+               'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/>'
+               '</svg></summary><div class="menu-panel">')
+    for label, href, kids in NAV:
+        if kids:
+            out.append(f'<b>{label}</b>')
+            out += [f'<a href="{h}">{l}</a>' for l, h in kids]
+        else:
+            out.append(f'<a href="{href}">{label}</a>')
+    out.append('<b>Company</b><a href="/authors/">Our Authors</a><a href="/responsible-gambling/">Responsible Gambling</a>')
+    out.append('</div></details></div></header>')
+    return "".join(out)
+
+RG_FOOT = (
+ '<strong>18+ only. Gambling can be harmful.</strong> The <strong>Online Casino Gambling Act 2026</strong> came into '
+ 'force on 1 May 2026 and the Department of Internal Affairs is awarding up to <strong>15 online casino licences</strong>. '
+ 'From <strong>1 December 2026</strong> only operators holding a licence, or with an application under consideration, may '
+ 'continue to serve New Zealanders. The casino sites listed on RNRV are currently licensed offshore. Sports and racing '
+ 'betting is separate: under the Racing Industry Amendment Act 2025, <strong>TAB NZ is the only operator legally '
+ 'permitted to take betting from New Zealand</strong>. Never gamble money you cannot afford to lose. '
+ 'Free, confidential help 24/7: <strong>Gambling Helpline 0800 654 655</strong> (free text 8006), '
+ '<strong>Problem Gambling Foundation 0800 664 262</strong>, or <strong>Need to Talk 1737</strong>. '
+ 'RNRV earns affiliate commission from some operators listed. It never changes our rankings.')
+
+def foot_html():
+    cols = ""
+    for t, links in FOOTER:
+        items = "".join('<a href="%s">%s</a>' % (h, l) for l, h in links)
+        cols += '<div class="ft-col"><b>%s</b>%s</div>' % (t, items)
+    year = datetime.date.today().year
+    return f'''<footer class="ft"><div class="wrap">
+<div class="ft-top">
+<div class="ft-brand">
+<a class="lg lg-ft" href="/" aria-label="{SITE}">{brandmark()}</a>
+<p>New Zealand's independent guide to online casinos, pokies and betting. We open real accounts, deposit real
+New Zealand dollars and time every withdrawal, so the rankings on this site reflect what actually happened
+&mdash; not what an operator claims in its marketing.</p>
+<div class="ft-badges">
+<span class="ft-badge">{ic("shield")}18+ only</span>
+<span class="ft-badge">{ic("check")}NZD tested</span>
+<span class="ft-badge">{ic("clock")}Updated {UPDATED_HUMAN}</span>
+</div>
+</div>
+<div class="ft-cols">{cols}</div>
+</div>
+<div class="ft-rg">{RG_FOOT}</div>
+<div class="ft-help">
+<a href="https://www.gamblinghelpline.co.nz/" rel="noopener nofollow" target="_blank">Gambling Helpline</a>
+<a href="https://www.pgf.nz/" rel="noopener nofollow" target="_blank">Problem Gambling Foundation</a>
+<a href="https://www.dia.govt.nz/gambling" rel="noopener nofollow" target="_blank">Department of Internal Affairs</a>
+<a href="https://www.choicenotchance.org.nz/" rel="noopener nofollow" target="_blank">Choice Not Chance</a>
+</div>
+<div class="ft-legal"><span>&copy; {year} {SITE}. All rights reserved.</span>
+<span><a href="/terms/">Terms</a> &middot; <a href="/privacy/">Privacy</a> &middot;
+<a href="/cookie-policy/">Cookies</a> &middot; <a href="/responsible-gambling/">Responsible Gambling</a> &middot;
+<a href="/authors/">Authors</a> &middot; <a href="/about/">About Us</a> &middot; <a href="/contact/">Contact Us</a></span></div>
+</div></footer>'''
+
+# ---------------------------------------------------------------- hero
+def hero_html(fm, body_lede):
+    a = AUTHORS[fm.get("author", "team")]
+    crumbs = ""
+    if fm.get("crumbs"):
+        parts = ['<a href="/">Home</a>']
+        for i, pair in enumerate(fm["crumbs"]):
+            n, h = pair
+            parts.append('<span aria-hidden="true">/</span>')
+            parts.append(f'<span aria-current="page">{n}</span>' if i == len(fm["crumbs"]) - 1
+                         else f'<a href="{h}">{n}</a>')
+        crumbs = f'<nav class="crumbs" aria-label="Breadcrumb">{"".join(parts)}</nav>'
+    stats = ""
+    if fm.get("stats"):
+        stats = '<div class="hero-stats">' + "".join(
+            f'<div class="hs"><span class="k">{k}</span><span class="v">{v}</span></div>'
+            for k, v in fm["stats"]) + '</div>'
+    pills = ""
+    if fm.get("pills"):
+        pills = '<div class="hero-pills">' + "".join(
+            f'<span class="pill">{ic("check")}{p}</span>' for p in fm["pills"]) + '</div>'
+    ctas = ""
+    if fm.get("ctas"):
+        ctas = '<div class="hero-ctas">' + "".join(
+            f'<a class="btn {c}" href="{h}">{l}</a>' for l, h, c in fm["ctas"]) + '</div>'
+    card = fm.get("heroCard")
+    cardhtml = ""
+    if card:
+        op = OPS[card["op"]]
+        kind = card.get("kind", "casino")
+        cardhtml = f'''<aside class="hero-card" aria-label="Editor's top pick">
+<div class="hc-band">{card.get("band", "Editor's #1 pick for New Zealand")}</div>
+<div class="hc-body">
+<img class="hc-logo" src="{op_logo(card["op"], sports=(kind=="sports"))}" alt="{op['name']} logo" width="150" height="64" loading="eager" decoding="async">
+<p class="hc-name">{op['name']}</p>
+<p class="hc-sub">{card.get("sub", op['usp'])}</p>
+<p class="hc-offer">{card.get("offer", op['welcome'])}</p>
+<div class="hc-score">{stars(op['rating'])}<b>{op['rating']}</b><span class="of5">/5</span></div>
+<p class="hc-meta">{card.get("meta", "")}</p>
+{cta(card["op"], label=f"Visit {op['name']}", kind=kind, block=True)}
+<p class="hc-fine">18+. New customers only. T&amp;Cs apply.</p>
+</div></aside>'''
+    return f'''<section class="hero"><div class="wrap"><div class="hero-grid"><div class="hero-main">
+{crumbs}
+<p class="eyebrow">{ic("clock")}Updated {UPDATED_HUMAN} &middot; New Zealand</p>
+<h1>{fm["h1"]}</h1>
+<p class="hero-lede">{body_lede}</p>
+{stats}{ctas}{pills}
+<div class="byline">
+<span class="av" aria-hidden="true">{a['initials']}</span>
+<span class="by-txt">By <a href="/authors/#{a['slug']}"><b>{a['name']}</b></a>, {a['role']}
+<span class="by-sub">Fact-checked by <a href="/authors/">the RNRV editorial desk</a> &middot; <a href="/how-we-review/">How we review</a></span></span>
+</div>
+<p class="hero-fine">18+. New customers only. Wagering requirements and full terms apply to every offer shown on
+this page. Gambling can be harmful &mdash; free, confidential help on <strong>0800 654 655</strong>.</p>
+</div>{cardhtml}</div></div></section>'''
+
+# ---------------------------------------------------------------- CSS
+CSS = r"""
+*,*::before,*::after{box-sizing:border-box}
+:root{
+--ink:#12151A;--ink-2:#1A1F26;--ink-3:#242B34;--ink-4:#333C48;
+--lime:#C8FF3D;--lime-2:#A8E024;--lime-3:#E8FFA8;
+--paper:#F7F7F4;--white:#fff;--line:#E4E4DE;--line-2:#D2D2CA;
+--text:#1A1F26;--muted:#5E6672;--muted-2:#7C8492;
+--ok:#137A4B;--ok-bg:#E7F6EE;--warn:#9A5B00;--warn-bg:#FFF3DF;--bad:#A32A2A;--bad-bg:#FBEAEA;
+--h:'Archivo',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+--b:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+--m:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+--wrap:1200px;--r:14px;--r-sm:9px;
+--sh:0 1px 2px rgba(18,21,26,.05),0 8px 24px -12px rgba(18,21,26,.16);
+--sh-lg:0 2px 4px rgba(18,21,26,.06),0 22px 48px -20px rgba(18,21,26,.24);
+}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--paper);color:var(--text);font-family:var(--b);font-size:17px;line-height:1.68;
+-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:#15603C;text-underline-offset:.18em;text-decoration-thickness:1px}
+a:hover{color:#0E4429}
+.wrap{width:100%;max-width:var(--wrap);margin:0 auto;padding:0 22px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--lime);color:var(--ink);padding:10px 16px;z-index:99;font-weight:700}
+.skip:focus{left:8px;top:8px}
+h1,h2,h3,h4,h5,h6{font-family:var(--h);font-weight:700;letter-spacing:-.018em;line-height:1.18;color:var(--ink);margin:0}
+h1{font-size:clamp(2rem,1.25rem + 2.6vw,3.15rem);letter-spacing:-.03em}
+h2{font-size:clamp(1.5rem,1.1rem + 1.5vw,2.15rem);letter-spacing:-.025em;margin:0 0 .5em}
+h3{font-size:clamp(1.18rem,1.03rem + .6vw,1.42rem);margin:2em 0 .45em}
+h4{font-size:1.06rem;margin:1.6em 0 .35em}
+h5{font-size:.96rem;margin:1.4em 0 .3em;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+p{margin:0 0 1.05em}
+.mono{font-family:var(--m);font-size:.82em;letter-spacing:-.01em}
+.ic{display:inline-flex;width:1em;height:1em;vertical-align:-.12em;margin-right:.4em;flex:none}
+.ic svg{width:100%;height:100%}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;font-family:var(--h);font-weight:700;
+font-size:.95rem;letter-spacing:-.01em;padding:13px 22px;border-radius:var(--r-sm);text-decoration:none;
+border:1.5px solid transparent;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease,background .12s ease;
+white-space:nowrap;line-height:1.2}
+.btn:hover{transform:translateY(-1px)}
+.btn-lime{background:var(--lime);color:var(--ink);box-shadow:0 2px 0 var(--lime-2)}
+.btn-lime:hover{background:var(--lime-3);color:var(--ink);box-shadow:0 4px 0 var(--lime-2)}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{background:var(--ink-3);color:#fff}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line-2)}
+.btn-ghost:hover{background:#fff;color:var(--ink);border-color:var(--ink)}
+.btn-ghost-l{background:transparent;color:#fff;border-color:rgba(255,255,255,.34)}
+.btn-ghost-l:hover{background:rgba(255,255,255,.1);color:#fff}
+.btn-block{display:flex;width:100%}
+.btn-sm{padding:9px 15px;font-size:.85rem}
+
+/* ---------- nav ---------- */
+.nav{background:var(--ink);position:sticky;top:0;z-index:50;border-bottom:1px solid rgba(255,255,255,.07)}
+.nav>.wrap{display:flex;align-items:center;gap:18px;min-height:66px}
+.lg{display:flex;align-items:center;gap:11px;text-decoration:none;flex:none}
+.lg-lock{display:inline-flex;align-items:center;gap:9px}
+.lg .mk{width:31px;height:31px;flex:none}
+.lg-word{font-family:var(--h);font-weight:800;font-size:1.34rem;letter-spacing:.02em;color:#fff}
+.lg-tag{font-size:.68rem;font-weight:600;color:var(--lime);letter-spacing:.05em;text-transform:uppercase;
+border-left:1px solid rgba(255,255,255,.2);padding-left:11px;max-width:9.5em;line-height:1.25}
+.nav-links{display:flex;align-items:center;gap:2px;margin-left:auto}
+.nav-links>a,.nav-trig{display:inline-flex;align-items:center;gap:.35em;padding:9px 12px;border-radius:8px;
+color:rgba(255,255,255,.86);text-decoration:none;font-size:.93rem;font-weight:500;cursor:pointer}
+.nav-links>a:hover,.nav-trig:hover{background:rgba(255,255,255,.09);color:#fff}
+.nav-trig svg{width:11px;height:11px;opacity:.65}
+.nav-item{position:relative}
+.nav-dd{position:absolute;top:100%;left:0;padding-top:8px;opacity:0;visibility:hidden;transform:translateY(-5px);
+transition:.15s ease;z-index:60}
+.nav-item:hover .nav-dd,.nav-item:focus-within .nav-dd{opacity:1;visibility:visible;transform:none}
+.nav-dd-in{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--sh-lg);padding:7px;min-width:248px}
+.nav-dd-in a{display:block;padding:9px 13px;border-radius:7px;color:var(--text);text-decoration:none;font-size:.91rem;font-weight:500}
+.nav-dd-in a:hover{background:var(--paper);color:var(--ink)}
+.nav-cta{flex:none}
+.menu{display:none;margin-left:auto}
+.menu summary{list-style:none;color:#fff;padding:8px;cursor:pointer;display:flex}
+.menu summary::-webkit-details-marker{display:none}
+.menu-panel{position:absolute;left:0;right:0;top:100%;background:var(--ink-2);border-top:1px solid rgba(255,255,255,.1);
+padding:14px 22px 20px;max-height:76vh;overflow:auto}
+.menu-panel a{display:block;padding:9px 0;color:rgba(255,255,255,.88);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.07)}
+.menu-panel b{display:block;margin:15px 0 4px;color:var(--lime);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em}
+
+/* ---------- hero ---------- */
+.hero{background:var(--ink);color:#fff;padding:34px 0 46px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-160px;top:-160px;width:520px;height:520px;border-radius:50%;
+background:radial-gradient(circle,rgba(200,255,61,.16),transparent 66%);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,.85fr);gap:40px;align-items:start;position:relative;z-index:1}
+.hero h1{color:#fff;margin:0 0 .4em}
+.crumbs{font-size:.8rem;color:rgba(255,255,255,.6);margin-bottom:16px;display:flex;flex-wrap:wrap;gap:.45em;align-items:center}
+.crumbs a{color:rgba(255,255,255,.72);text-decoration:none}
+.crumbs a:hover{color:var(--lime)}
+.crumbs span[aria-hidden]{opacity:.42}
+.eyebrow{display:inline-flex;align-items:center;font-family:var(--m);font-size:.74rem;text-transform:uppercase;
+letter-spacing:.1em;color:var(--lime);margin:0 0 12px;font-weight:600}
+.hero-lede{font-size:1.12rem;line-height:1.62;color:rgba(255,255,255,.84);max-width:60ch;margin:0 0 22px}
+.hero-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 22px;max-width:560px}
+.hs{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:10px;padding:11px 12px}
+.hs .k{display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.58);margin-bottom:3px}
+.hs .v{display:block;font-family:var(--h);font-weight:700;font-size:1.14rem;color:var(--lime)}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:11px;margin:0 0 20px}
+.hero-pills{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
+.pill{display:inline-flex;align-items:center;font-size:.79rem;font-weight:500;color:rgba(255,255,255,.8);
+background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:99px;padding:5px 12px}
+.pill .ic{color:var(--lime);width:.9em;height:.9em}
+.byline{display:flex;align-items:center;gap:12px;padding:15px 0 0;border-top:1px solid rgba(255,255,255,.12);margin-bottom:14px}
+.av{width:40px;height:40px;border-radius:50%;background:var(--lime);color:var(--ink);display:flex;align-items:center;
+justify-content:center;font-family:var(--h);font-weight:800;font-size:.88rem;flex:none;letter-spacing:.02em}
+.by-txt{font-size:.88rem;color:rgba(255,255,255,.78);line-height:1.45}
+.by-txt a{color:#fff;text-decoration:none;border-bottom:1px solid rgba(200,255,61,.55)}
+.by-txt a:hover{color:var(--lime)}
+.by-sub{display:block;font-size:.79rem;color:rgba(255,255,255,.52);margin-top:2px}
+.by-sub a{border-bottom-color:rgba(255,255,255,.25)}
+.hero-fine{font-size:.76rem;color:rgba(255,255,255,.46);line-height:1.5;max-width:66ch;margin:0}
+.hero-fine strong{color:rgba(255,255,255,.72)}
+.hero-card{background:#fff;color:var(--text);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh-lg);position:sticky;top:84px}
+.hc-band{background:var(--lime);color:var(--ink);font-family:var(--h);font-weight:700;font-size:.76rem;
+text-transform:uppercase;letter-spacing:.07em;padding:9px 18px;text-align:center}
+.hc-body{padding:20px 20px 18px;text-align:center}
+.hc-logo{max-height:46px;width:auto;margin:0 auto 14px;object-fit:contain}
+.hc-name{font-family:var(--h);font-weight:700;font-size:1.24rem;color:var(--ink);margin:0 0 2px}
+.hc-sub{font-size:.86rem;color:var(--muted);margin:0 0 12px;line-height:1.45}
+.hc-offer{font-family:var(--h);font-weight:700;font-size:1.02rem;color:var(--ink);background:var(--paper);
+border:1px solid var(--line);border-radius:9px;padding:11px 12px;margin:0 0 12px;line-height:1.35}
+.hc-score{display:flex;align-items:center;justify-content:center;gap:6px;margin:0 0 12px;font-size:.92rem}
+.hc-score b{font-family:var(--h)}
+.hc-score .of5{color:var(--muted);font-size:.85rem}
+.hc-meta{font-size:.8rem;color:var(--muted);margin:0 0 14px;line-height:1.5}
+.hc-fine{font-size:.71rem;color:var(--muted-2);margin:10px 0 0}
+
+/* ---------- stars ---------- */
+.stars{display:inline-flex;gap:1px;flex:none}
+.st{position:relative;width:15px;height:15px;display:inline-block;color:var(--line-2);flex:none}
+.st svg{width:15px;height:15px;display:block}
+.st-on{color:#E8A800}
+.st-half>.st-h{position:absolute;inset:0;width:50%;overflow:hidden;color:#E8A800;display:block}
+
+/* ---------- sections ---------- */
+.sec{padding:52px 0}
+.sec-alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.sec-ink{background:var(--ink);color:rgba(255,255,255,.85)}
+.sec-ink h2,.sec-ink h3,.sec-ink h4{color:#fff}
+.sec-ink a{color:var(--lime)}
+.sec>.wrap>h2{scroll-margin-top:88px}
+.lede{font-size:1.08rem;color:var(--muted);max-width:74ch;margin:0 0 26px}
+.sec-ink .lede{color:rgba(255,255,255,.72)}
+.prose{max-width:none}
+.prose>p,.prose>ul,.prose>ol{max-width:80ch}
+.prose h2{margin-top:2.1em;scroll-margin-top:88px}
+.prose h3{scroll-margin-top:88px}
+.prose>*:first-child{margin-top:0}
+.prose ul,.prose ol{margin:0 0 1.15em;padding-left:1.3em}
+.prose li{margin:0 0 .45em}
+.prose ul{list-style:none;padding-left:0}
+.prose ul>li{position:relative;padding-left:1.5em}
+.prose ul>li::before{content:"";position:absolute;left:.3em;top:.72em;width:6px;height:6px;border-radius:50%;background:var(--lime-2)}
+.prose ol{padding-left:1.4em}
+.prose ol>li::marker{font-family:var(--h);font-weight:700;color:var(--ink)}
+.prose strong{font-weight:650;color:var(--ink)}
+.sec-ink .prose strong{color:#fff}
+
+/* ---------- toplist ---------- */
+.sec-tl{padding-top:44px}
+.tl{display:flex;flex-direction:column;gap:14px}
+.tl-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh);
+display:grid;grid-template-columns:56px minmax(0,220px) minmax(0,1fr) minmax(0,250px);gap:20px;
+padding:20px 22px 20px 0;align-items:center;position:relative;scroll-margin-top:88px;transition:box-shadow .15s ease}
+.tl-card:hover{box-shadow:var(--sh-lg)}
+.tl-card:first-child{border-color:var(--lime-2);border-width:2px}
+.tl-rank{display:flex;align-items:center;justify-content:center;align-self:stretch;background:var(--paper);
+border-right:1px solid var(--line);border-radius:var(--r) 0 0 var(--r);font-family:var(--h);font-weight:800;
+font-size:1.4rem;color:var(--muted-2)}
+.tl-card:first-child .tl-rank{background:var(--lime);color:var(--ink)}
+.tl-brand{text-align:center}
+.tl-logo{display:block;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:9px}
+.tl-logo img{max-height:44px;width:auto;margin:0 auto;object-fit:contain}
+.tl-score{display:flex;align-items:center;justify-content:center;gap:5px;font-size:.88rem}
+.tl-score b{font-family:var(--h)}
+.tl-score .of5{color:var(--muted-2);font-size:.8rem}
+.tl-badge{display:inline-block;margin-top:7px;font-size:.7rem;font-weight:700;text-transform:uppercase;
+letter-spacing:.06em;background:var(--lime);color:var(--ink);padding:3px 9px;border-radius:99px}
+.tl-label{display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted-2);
+font-weight:700;margin-bottom:4px}
+.tl-bonus{font-family:var(--h);font-weight:700;font-size:1.08rem;color:var(--ink);margin:0 0 7px;line-height:1.32}
+.tl-usp{font-size:.9rem;color:var(--muted);margin:0 0 12px;line-height:1.5}
+.tl-feats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 16px}
+.tl-feat{display:flex;align-items:baseline;gap:.3em;font-size:.8rem;line-height:1.4;color:var(--muted)}
+.tl-feat .ic{color:var(--lime-2);width:.88em;height:.88em;align-self:center}
+.tl-feat .k{font-weight:650;color:var(--ink);white-space:nowrap}
+.tl-feat .v{color:var(--muted)}
+.tl-act{text-align:center}
+.tl-read{display:block;margin-top:9px;font-size:.84rem;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line-2);
+padding-bottom:1px}
+.tl-read:hover{color:var(--ink);border-color:var(--ink)}
+.tl-fine{font-size:.7rem;color:var(--muted-2);margin:9px 0 0;line-height:1.4}
+.tl-disc{margin:20px 0 0;font-size:.83rem;color:var(--muted);background:#fff;border:1px dashed var(--line-2);
+border-radius:10px;padding:13px 16px}
+.tl-disc .ic{color:var(--muted-2)}
+
+/* ---------- tables ---------- */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 0 1.4em;border:1px solid var(--line);
+border-radius:var(--r);background:#fff}
+table{border-collapse:collapse;width:100%;font-size:.9rem;min-width:600px}
+caption{text-align:left;font-size:.83rem;color:var(--muted);padding:12px 16px 0;caption-side:top}
+th,td{padding:11px 15px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{background:var(--ink);color:#fff;font-family:var(--h);font-weight:600;font-size:.78rem;
+text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;border-bottom:none}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even){background:#FBFBF9}
+td strong{color:var(--ink)}
+.t-num{font-family:var(--m);font-size:.85em;white-space:nowrap}
+.t-yes{color:var(--ok);font-weight:650}
+.t-no{color:var(--bad);font-weight:650}
+
+/* ---------- callouts ---------- */
+.note{border-left:4px solid var(--lime-2);background:#fff;border-radius:0 var(--r-sm) var(--r-sm) 0;
+padding:16px 20px;margin:0 0 1.4em;box-shadow:var(--sh)}
+.note>*:last-child{margin-bottom:0}
+.note-h{display:flex;align-items:center;font-family:var(--h);font-weight:700;font-size:.95rem;color:var(--ink);margin:0 0 .4em}
+.note-warn{border-left-color:#E8A800;background:var(--warn-bg)}
+.note-warn .note-h{color:var(--warn)}
+.note-bad{border-left-color:#C0392B;background:var(--bad-bg)}
+.note-bad .note-h{color:var(--bad)}
+.note-ok{border-left-color:#1E9E63;background:var(--ok-bg)}
+.note-ok .note-h{color:var(--ok)}
+
+/* ---------- pros/cons ---------- */
+.pc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:0 0 1.5em}
+.pc-col{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px 20px}
+.pc-col h4{margin:0 0 .6em;display:flex;align-items:center;font-size:.95rem}
+.pc-pro h4{color:var(--ok)}
+.pc-con h4{color:var(--bad)}
+.pc-col ul{list-style:none;margin:0;padding:0}
+.pc-col li{position:relative;padding-left:1.6em;margin:0 0 .5em;font-size:.91rem;line-height:1.5;color:var(--muted)}
+.pc-col li::before{position:absolute;left:0;top:0;font-weight:700}
+.pc-pro li::before{content:"+";color:var(--ok)}
+.pc-con li::before{content:"\2212";color:var(--bad)}
+
+/* ---------- cards / grids ---------- */
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;box-shadow:var(--sh)}
+.card h3{margin:0 0 .4em;font-size:1.08rem}
+.card p:last-child{margin-bottom:0}
+.card-lnk{text-decoration:none;color:inherit;display:block;transition:.15s ease}
+.card-lnk:hover{box-shadow:var(--sh-lg);transform:translateY(-2px);color:inherit}
+.card-lnk .more{font-family:var(--h);font-weight:700;font-size:.86rem;color:#15603C}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;text-align:center}
+.kpi .v{display:block;font-family:var(--h);font-weight:800;font-size:1.75rem;color:var(--ink);line-height:1.1}
+.kpi .k{display:block;font-size:.8rem;color:var(--muted);margin-top:5px}
+.sec-ink .card,.sec-ink .kpi{background:var(--ink-2);border-color:rgba(255,255,255,.12)}
+.sec-ink .kpi .v{color:var(--lime)}
+.sec-ink .kpi .k,.sec-ink .card p{color:rgba(255,255,255,.72)}
+
+/* ---------- review grid ---------- */
+.rv-grid{margin:0 0 1.6em}
+.rv-card{display:flex;flex-direction:column;padding:18px 20px}
+.rv-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.rv-top img{max-height:36px;width:auto;object-fit:contain;max-width:130px}
+.rv-score{display:flex;align-items:center;gap:5px;font-size:.85rem;flex:none}
+.rv-score b{font-family:var(--h)}
+.rv-card h3{margin:0 0 .25em;font-size:1.05rem}
+.rv-bonus{font-family:var(--h);font-weight:650;font-size:.92rem;color:var(--ink);margin:0 0 .5em;line-height:1.35}
+.rv-card p{font-size:.88rem;color:var(--muted);margin:0 0 .6em;line-height:1.5}
+.rv-warn{font-size:.82rem!important;color:var(--warn)!important;background:var(--warn-bg);border-radius:7px;padding:8px 10px}
+.rv-warn .ic{color:var(--warn)}
+.rv-chips{margin:auto 0 .7em}
+.rv-chips .chip{font-size:.72rem;padding:3px 10px}
+
+/* ---------- steps ---------- */
+.steps{counter-reset:s;list-style:none;padding:0;margin:0 0 1.5em;display:grid;gap:12px}
+.steps>li{counter-increment:s;position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r);
+padding:16px 20px 16px 62px}
+.steps>li::before{content:counter(s);position:absolute;left:18px;top:16px;width:30px;height:30px;border-radius:8px;
+background:var(--lime);color:var(--ink);display:flex;align-items:center;justify-content:center;
+font-family:var(--h);font-weight:800;font-size:.95rem}
+.steps>li::marker{content:none}
+.steps h4{margin:0 0 .3em;font-size:1rem}
+.steps p{margin:0;font-size:.93rem;color:var(--muted)}
+
+/* ---------- faq ---------- */
+.faq{display:grid;gap:9px}
+.faq-i{background:#fff;border:1px solid var(--line);border-radius:var(--r-sm);overflow:hidden}
+.faq-i[open]{border-color:var(--line-2);box-shadow:var(--sh)}
+.faq-i summary{list-style:none;cursor:pointer;padding:15px 48px 15px 20px;font-family:var(--h);font-weight:650;
+font-size:1rem;color:var(--ink);position:relative;line-height:1.4}
+.faq-i summary::-webkit-details-marker{display:none}
+.faq-i summary::after{content:"";position:absolute;right:20px;top:50%;width:10px;height:10px;
+border-right:2px solid var(--muted-2);border-bottom:2px solid var(--muted-2);
+transform:translateY(-70%) rotate(45deg);transition:transform .15s ease}
+.faq-i[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+.faq-i summary:hover{background:var(--paper)}
+.faq-a{padding:0 20px 17px;font-size:.95rem;color:var(--muted);line-height:1.62}
+.faq-a>*:last-child{margin-bottom:0}
+.faq-a ul{margin:.5em 0 .8em}
+
+/* ---------- author box ---------- */
+.abox{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;
+display:grid;grid-template-columns:64px minmax(0,1fr);gap:18px;box-shadow:var(--sh);margin:0 0 1.4em}
+.abox .av{width:64px;height:64px;font-size:1.24rem}
+.abox h3{margin:0 0 .1em;font-size:1.1rem}
+.abox .role{font-size:.86rem;color:var(--muted);margin:0 0 .55em;font-weight:600}
+.abox p{font-size:.92rem;color:var(--muted);margin:0 0 .6em}
+.abox .knows{display:flex;flex-wrap:wrap;gap:6px;margin-top:.5em}
+.abox .knows span{font-size:.74rem;background:var(--paper);border:1px solid var(--line);border-radius:99px;
+padding:3px 10px;color:var(--muted)}
+
+/* ---------- toc ---------- */
+.toc{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px 22px;margin:0 0 1.6em;box-shadow:var(--sh)}
+.toc b{display:block;font-family:var(--h);font-size:.76rem;text-transform:uppercase;letter-spacing:.08em;
+color:var(--muted-2);margin-bottom:10px}
+.toc ol{columns:2;column-gap:34px;margin:0;padding-left:1.2em;font-size:.92rem}
+.toc li{margin:0 0 .38em;break-inside:avoid}
+.toc a{color:var(--text);text-decoration:none}
+.toc a:hover{color:#15603C;text-decoration:underline}
+
+/* ---------- misc ---------- */
+.verdict{background:var(--ink);color:#fff;border-radius:var(--r);padding:24px 28px;margin:0 0 1.5em}
+.verdict h3{color:#fff;margin:0 0 .45em}
+.verdict p{color:rgba(255,255,255,.82);margin:0 0 .8em}
+.verdict p:last-child{margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 1.3em}
+.chip{font-size:.8rem;background:#fff;border:1px solid var(--line);border-radius:99px;padding:6px 14px;
+color:var(--muted);text-decoration:none;font-weight:500}
+a.chip:hover{border-color:var(--ink);color:var(--ink)}
+.src{font-size:.85rem;color:var(--muted)}
+.src ol{padding-left:1.3em}
+.src li{margin-bottom:.4em}
+.upd{font-family:var(--m);font-size:.76rem;color:var(--muted-2);margin:0 0 1.4em}
+
+/* ---------- footer ---------- */
+.ft{background:var(--ink);color:rgba(255,255,255,.62);padding:48px 0 30px;font-size:.9rem}
+.ft-top{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,2.6fr);gap:40px;margin-bottom:32px}
+.ft-brand p{margin:14px 0 14px;max-width:46ch;line-height:1.6;color:rgba(255,255,255,.56);font-size:.87rem}
+.ft-badges{display:flex;flex-wrap:wrap;gap:8px}
+.ft-badge{display:inline-flex;align-items:center;font-size:.74rem;color:rgba(255,255,255,.7);
+background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:99px;padding:4px 11px}
+.ft-badge .ic{color:var(--lime);width:.9em;height:.9em}
+.ft-cols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:26px}
+.ft-col b{display:block;font-family:var(--h);font-size:.74rem;text-transform:uppercase;letter-spacing:.09em;
+color:#fff;margin-bottom:11px}
+.ft-col a{display:block;color:rgba(255,255,255,.6);text-decoration:none;padding:3px 0;font-size:.86rem}
+.ft-col a:hover{color:var(--lime)}
+.ft-rg{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.09);border-radius:var(--r);
+padding:18px 22px;font-size:.81rem;line-height:1.62;color:rgba(255,255,255,.6)}
+.ft-rg strong{color:rgba(255,255,255,.88)}
+.ft-help{display:flex;flex-wrap:wrap;gap:18px;padding:18px 0 0;font-size:.83rem}
+.ft-help a{color:var(--lime);text-decoration:none}
+.ft-help a:hover{text-decoration:underline}
+.ft-legal{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;border-top:1px solid rgba(255,255,255,.1);
+margin-top:20px;padding-top:18px;font-size:.79rem;color:rgba(255,255,255,.44)}
+.ft-legal a{color:rgba(255,255,255,.6);text-decoration:none}
+.ft-legal a:hover{color:var(--lime)}
+
+/* ---------- responsive ---------- */
+@media(max-width:1080px){
+.lg-tag{display:none}
+.nav-links>a,.nav-trig{padding:9px 9px;font-size:.88rem}
+.hero-grid{grid-template-columns:1fr;gap:28px}
+.hero-card{position:static;max-width:420px}
+.tl-card{grid-template-columns:48px minmax(0,180px) minmax(0,1fr);padding-right:20px}
+.tl-act{grid-column:1/-1;padding-left:20px;text-align:left}
+.tl-act .btn{max-width:340px}
+.ft-top{grid-template-columns:1fr;gap:28px}
+}
+@media(max-width:900px){
+.nav-links,.nav-cta{display:none}
+.menu{display:block}
+.g4{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(2,minmax(0,1fr))}
+.ft-cols{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:700px){
+body{font-size:16px}
+.wrap{padding:0 16px}
+.sec{padding:36px 0}
+.hero{padding:22px 0 34px}
+.hero-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+.tl-card{grid-template-columns:1fr;gap:14px;padding:0 0 18px}
+.tl-rank{position:absolute;top:0;left:0;width:40px;height:40px;border-radius:var(--r) 0 12px 0;border-right:none;
+border-bottom:1px solid var(--line);font-size:1.05rem;align-self:auto}
+.tl-brand{padding:18px 18px 0;display:flex;align-items:center;gap:14px;text-align:left}
+.tl-logo{margin:0 0 0 44px;flex:none;width:130px}
+.tl-offer{padding:0 18px}
+.tl-act{padding:0 18px}
+.tl-feats{grid-template-columns:1fr}
+.pc,.g2,.g3,.g4{grid-template-columns:1fr}
+.toc ol{columns:1}
+.ft-cols{grid-template-columns:1fr}
+.hero-ctas .btn{flex:1 1 100%}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+"""
+
+# ---------------------------------------------------------------- schema
+def org_schema():
+    return {
+        "@type": "Organization",
+        "@id": f"{DOMAIN}/#organization",
+        "name": SITE,
+        "url": DOMAIN + "/",
+        "logo": {"@type": "ImageObject", "url": f"{DOMAIN}/favicon-512x512.png", "width": 512, "height": 512},
+        "foundingDate": FOUNDED,
+        "email": "editor@rnrv.co.nz",
+        "areaServed": {"@type": "Country", "name": "New Zealand"},
+        "knowsAbout": ["online casinos", "online pokies", "casino bonuses", "sports betting",
+                       "New Zealand gambling law", "responsible gambling"],
+        "publishingPrinciples": f"{DOMAIN}/how-we-review/",
+        "contactPoint": {"@type": "ContactPoint", "email": "editor@rnrv.co.nz",
+                         "contactType": "editorial", "areaServed": "NZ", "availableLanguage": "en"},
+    }
+
+def person_schema(key):
+    a = AUTHORS[key]
+    return {
+        "@type": "Person",
+        "@id": f"{DOMAIN}/authors/#{a['slug']}",
+        "name": a["name"],
+        "url": f"{DOMAIN}/authors/#{a['slug']}",
+        "jobTitle": a["jobTitle"],
+        "description": strip_tags(a["bio"]),
+        "knowsAbout": a["knows"],
+        "worksFor": {"@id": f"{DOMAIN}/#organization"},
+    }
+
+def head_html(fm, extra_schema):
+    url = DOMAIN + fm["url"]
+    a = AUTHORS[fm.get("author", "team")]
+    graph = [
+        org_schema(),
+        {"@type": "WebSite", "@id": f"{DOMAIN}/#website", "url": DOMAIN + "/", "name": SITE,
+         "inLanguage": "en-NZ", "publisher": {"@id": f"{DOMAIN}/#organization"}},
+        person_schema(fm.get("author", "team")),
+        {"@type": "WebPage", "@id": f"{url}#webpage", "url": url, "name": strip_tags(fm["title"]),
+         "description": strip_tags(fm["description"]), "inLanguage": "en-NZ",
+         "isPartOf": {"@id": f"{DOMAIN}/#website"},
+         "datePublished": fm.get("published", UPDATED), "dateModified": fm.get("modified", UPDATED),
+         "author": {"@id": f"{DOMAIN}/authors/#{a['slug']}"},
+         "reviewedBy": {"@id": f"{DOMAIN}/#organization"},
+         "primaryImageOfPage": {"@type": "ImageObject", "url": f"{DOMAIN}/favicon-512x512.png"}},
+    ]
+    crumbs = [{"@type": "ListItem", "position": 1, "name": "Home", "item": DOMAIN + "/"}]
+    for i, (n, h) in enumerate(fm.get("crumbs", []), 2):
+        crumbs.append({"@type": "ListItem", "position": i, "name": strip_tags(n), "item": DOMAIN + h})
+    if len(crumbs) > 1:
+        graph.append({"@type": "BreadcrumbList", "@id": f"{url}#breadcrumb", "itemListElement": crumbs})
+    graph.extend(extra_schema)
+
+    ld = json.dumps({"@context": "https://schema.org", "@graph": graph},
+                    ensure_ascii=False, separators=(",", ":"))
+    og_img = f"{DOMAIN}/favicon-512x512.png"
+    robots = fm.get("robots", "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1")
+    return f'''<!DOCTYPE html><html lang="en-NZ"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{fm["title"]}</title>
+<link rel="canonical" href="{url}">
+<meta name="description" content="{fm["description"]}">
+<meta name="robots" content="{robots}">
+<meta name="rating" content="adult"><meta name="age-restriction" content="18+">
+<link rel="alternate" hreflang="en-nz" href="{url}">
+<link rel="alternate" hreflang="x-default" href="{url}">
+<meta property="og:type" content="{fm.get("ogtype","article")}">
+<meta property="og:site_name" content="{SITE}">
+<meta property="og:locale" content="en_NZ">
+<meta property="og:url" content="{url}">
+<meta property="og:title" content="{fm["title"]}">
+<meta property="og:description" content="{fm["description"]}">
+<meta property="og:image" content="{og_img}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{fm["title"]}">
+<meta name="twitter:description" content="{fm["description"]}">
+<meta name="twitter:image" content="{og_img}">
+<meta name="author" content="{strip_tags(a['name'])}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600;650&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="144x144" href="/favicon-144x144.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="shortcut icon" href="/favicon.ico">
+<meta name="theme-color" content="#12151A">
+<style>{CSS}</style>
+<script type="application/ld+json">{ld}</script>
+</head><body>'''
+
+# ---------------------------------------------------------------- page build
+FM_RE = re.compile(r"<!--@(.*?)@-->", re.S)
+
+def build_page(path):
+    raw = open(path, encoding="utf-8").read()
+    m = FM_RE.search(raw)
+    if not m:
+        raise SystemExit(f"no front matter in {path}")
+    fm = json.loads(m.group(1))
+    body = raw[m.end():].strip()
+
+    extra = []
+    blocks = {}
+
+    # toplist block
+    if fm.get("toplist"):
+        t = fm["toplist"]
+        slugs = t["ops"]
+        blocks["TOPLIST"] = toplist(slugs, kind=t.get("kind", "casino"),
+                                    intro=t.get("intro"), heading=t.get("heading"),
+                                    hid=t.get("id", "toplist"))
+        kind = t.get("kind", "casino")
+        extra.append({
+            "@type": "ItemList", "@id": f"{DOMAIN}{fm['url']}#itemlist",
+            "name": strip_tags(t.get("heading") or fm["h1"]),
+            "numberOfItems": len(slugs), "itemListOrder": "https://schema.org/ItemListOrderDescending",
+            "itemListElement": [
+                {"@type": "ListItem", "position": i,
+                 "item": {"@type": "Product", "name": OPS[s]["name"],
+                          "url": f"{DOMAIN}/casino-reviews/{OPS[s]['slug']}/",
+                          "image": DOMAIN + op_logo(s, sports=(kind == "sports")),
+                          "brand": {"@type": "Brand", "name": OPS[s]["name"]},
+                          "review": {"@type": "Review",
+                                     "author": {"@id": f"{DOMAIN}/authors/#{AUTHORS[fm.get('author','team')]['slug']}"},
+                                     "reviewRating": {"@type": "Rating", "ratingValue": OPS[s]["rating"],
+                                                      "bestRating": 5, "worstRating": 1},
+                                     "reviewBody": strip_tags(OPS[s]["usp"])}}}
+                for i, s in enumerate(slugs, 1)]})
+
+    blocks["REVIEWGRID"] = review_grid()
+
+    # FAQ block
+    if fm.get("faq"):
+        items = [(q, a) for q, a in fm["faq"]]
+        blocks["FAQ"] = faq_block(items, heading=fm.get("faqHeading", "Frequently asked questions"))
+        extra.append(faq_schema(items))
+
+    # Review schema for operator review pages
+    if fm.get("reviewOf"):
+        s = fm["reviewOf"]
+        op = OPS[s]
+        extra.append({
+            "@type": "Review", "@id": f"{DOMAIN}{fm['url']}#review",
+            "itemReviewed": {"@type": "Product", "name": op["name"], "image": DOMAIN + op_logo(s),
+                             "brand": {"@type": "Brand", "name": op["name"]},
+                             "description": strip_tags(op["usp"])},
+            "author": {"@id": f"{DOMAIN}/authors/#{AUTHORS[fm.get('author','team')]['slug']}"},
+            "publisher": {"@id": f"{DOMAIN}/#organization"},
+            "datePublished": fm.get("published", UPDATED), "dateModified": fm.get("modified", UPDATED),
+            "reviewRating": {"@type": "Rating", "ratingValue": op["rating"], "bestRating": 5, "worstRating": 1},
+            "reviewBody": strip_tags(op["usp"])})
+
+    # HowTo schema
+    if fm.get("howto"):
+        h = fm["howto"]
+        extra.append({"@type": "HowTo", "name": h["name"], "description": h.get("description", ""),
+                      "step": [{"@type": "HowToStep", "position": i, "name": strip_tags(n),
+                                "text": strip_tags(t)} for i, (n, t) in enumerate(h["steps"], 1)]})
+
+    for k, v in fm.get("schema", {}).items():
+        extra.append(v)
+
+    lede = fm.get("lede", "")
+    out = [head_html(fm, extra), nav_html(), hero_html(fm, lede), '<main id="main">']
+    for k, v in blocks.items():
+        body = body.replace("[[%s]]" % k, v)
+    # any unreplaced markers
+    body = re.sub(r"\[\[(TOPLIST|FAQ|REVIEWGRID)\]\]", "", body)
+    out.append(body)
+    out.append("</main>")
+    out.append(foot_html())
+    out.append("</body></html>")
+    doc = resolve_tokens("".join(out))
+
+    dest_dir = os.path.join(ROOT, fm["url"].strip("/"))
+    os.makedirs(dest_dir, exist_ok=True)
+    dest = os.path.join(dest_dir, "index.html")
+    open(dest, "w", encoding="utf-8").write(doc)
+    return fm, len(re.findall(r"\w+", strip_tags(body)))
+
+# ---------------------------------------------------------------- sitemap
+def sitemap(pages):
+    rows = []
+    for fm in sorted(pages, key=lambda f: (-float(f.get("priority", "0.7")), f["url"])):
+        rows.append(
+            f'<url><loc>{DOMAIN}{fm["url"]}</loc>'
+            f'<lastmod>{fm.get("modified", UPDATED)}</lastmod>'
+            f'<changefreq>{fm.get("changefreq", "monthly")}</changefreq>'
+            f'<priority>{fm.get("priority", "0.7")}</priority></url>')
+    xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+           + "\n".join(rows) + "\n</urlset>\n")
+    open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8").write(xml)
+
+ROBOTS = f"""# robots.txt for {DOMAIN}
+Sitemap: {DOMAIN}/sitemap.xml
+
+User-agent: *
+Allow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: Rogerbot
+Disallow: /
+
+User-agent: serpstatbot
+Disallow: /
+
+User-agent: SistrixBot
+Disallow: /
+"""
+
+def main():
+    pages = []
+    total = 0
+    for f in sorted(os.listdir(SRC)):
+        if not f.endswith(".html"):
+            continue
+        fm, words = build_page(os.path.join(SRC, f))
+        pages.append(fm)
+        total += words
+        print(f"  {fm['url']:<42} {words:>6} words")
+    sitemap(pages)
+    open(os.path.join(ROOT, "robots.txt"), "w", encoding="utf-8").write(ROBOTS)
+    print(f"\n{len(pages)} pages, {total:,} words total")
+    if MISSING:
+        print("MISSING affiliate links:", ", ".join(sorted(MISSING)))
+
+if __name__ == "__main__":
+    main()
