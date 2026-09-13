@@ -199,46 +199,64 @@ def stars(rating):
 
 # ---------------------------------------------------------------- blocks
 def toplist(slugs, kind="casino", intro=None, heading=None, hid="toplist"):
-    """Ranked operator cards — the primary conversion unit."""
+    """Ranked operator cards — the primary conversion unit.
+
+    One markup structure serves both layouts: a horizontal grid on desktop, and a
+    stacked, centred card on mobile (rank, badge, logo, name, tagline, score bar,
+    offer box, CTA, fine print).
+    """
     rows = []
     for i, slug in enumerate(slugs, 1):
         op = OPS[slug]
         logo = op_logo(slug, sports=(kind == "sports"))
         bonus = op.get("welcomeSports") if kind == "sports" and op.get("welcomeSports") else op["welcome"]
-        badge = op.get("badge") or ""
+        short = op.get("welcomeSports") if kind == "sports" and op.get("welcomeSports") else op.get("short", bonus)
+        badge = op.get("badge") or ("Editor's #1" if i == 1 else "")
+        pct = round(op["rating"] / 5 * 100)
+        aff_url = html.escape(aff(slug, kind), quote=True)
         feats = []
-        if op.get("payout"):  feats.append((ic("bolt"), "Payout", op["payout"]))
-        if op.get("wagering"):feats.append((ic("coin"), "Wagering", op["wagering"]))
-        if op.get("minDep"):  feats.append((ic("info"), "Min deposit", op["minDep"]))
-        if op.get("licence"): feats.append((ic("shield"), "Licence", op["licence"]))
+        if op.get("payout"):   feats.append((ic("bolt"), "Payout", op["payout"]))
+        if op.get("wagering"): feats.append((ic("coin"), "Wagering", op["wagering"]))
+        if op.get("minDep"):   feats.append((ic("info"), "Min deposit", op["minDep"]))
+        if op.get("licence"):  feats.append((ic("shield"), "Licence", op["licence"]))
         featc = "".join(f'<div class="tl-feat">{i_}<span class="k">{k}</span><span class="v">{v}</span></div>'
                         for i_, k, v in feats)
-        rows.append(f'''<article class="tl-card" id="rank-{i}">
-<div class="tl-rank"><span>{i}</span></div>
-<div class="tl-brand">
-<a class="tl-logo" href="/casino-reviews/{op['slug']}/" aria-label="{op['name']} review">
-<img src="{logo}" alt="{op['name']} logo" width="150" height="64" loading="lazy" decoding="async"></a>
-<div class="tl-score">{stars(op['rating'])}<b>{op['rating']}</b><span class="of5">/5</span></div>
-{f'<span class="tl-badge">{badge}</span>' if badge else ''}
-</div>
-<div class="tl-offer">
-<span class="tl-label">Welcome offer</span>
-<p class="tl-bonus">{bonus}</p>
-<p class="tl-usp">{op['usp']}</p>
-<div class="tl-feats">{featc}</div>
-</div>
-<div class="tl-act">
-{cta(slug, kind=kind, block=True)}
-<a class="tl-read" href="/casino-reviews/{op['slug']}/">Read the {op['name']} review</a>
-<p class="tl-fine">18+. T&amp;Cs apply. Wagering requirements apply to bonus funds.</p>
-</div>
-</article>''')
+        badge_html = f'<span class="tl-badge">{badge}</span>' if badge else ""
+        rows.append(
+            f'<article class="tl-card" id="rank-{i}">'
+            f'<div class="tl-rank"><span>{i:02d}</span></div>'
+            f'{badge_html}'
+            f'<div class="tl-brand">'
+            f'<a class="tl-logo" href="/casino-reviews/{op["slug"]}/" aria-label="{op["name"]} review">'
+            f'<img src="{logo}" alt="{op["name"]} logo" width="150" height="64" loading="lazy" decoding="async"></a>'
+            f'<p class="tl-name">{op["name"]}</p>'
+            f'<p class="tl-tag">{op.get("tag", "")}</p>'
+            f'<div class="tl-bar" role="img" aria-label="Our score: {op["rating"]} out of 5">'
+            f'<span style="width:{pct}%"></span></div>'
+            f'<div class="tl-scorerow"><span class="tl-scorelab">Our score</span>'
+            f'<b>{op["rating"]}<span class="of5">/5</span></b></div>'
+            f'</div>'
+            f'<div class="tl-offer">'
+            f'<div class="tl-offerbox">'
+            f'<span class="tl-label">Welcome offer</span>'
+            f'<p class="tl-bonus">{short}</p>'
+            f'</div>'
+            f'<p class="tl-usp">{op["usp"]}</p>'
+            f'<div class="tl-feats">{featc}</div>'
+            f'</div>'
+            f'<div class="tl-act">'
+            f'<a class="btn btn-lime btn-block" href="{aff_url}" target="_blank" '
+            f'rel="nofollow sponsored noopener" aria-label="Get bonus at {op["name"]}">Get bonus</a>'
+            f'<a class="tl-read" href="/casino-reviews/{op["slug"]}/">Read the {op["name"]} review</a>'
+            f'<p class="tl-fine">{op.get("fine", "18+. T&amp;Cs apply.")}</p>'
+            f'</div>'
+            f'</article>')
     h = f'<h2 id="{hid}">{heading}</h2>' if heading else ""
     p = f'<p class="lede">{intro}</p>' if intro else ""
-    return f'<section class="sec sec-tl"><div class="wrap">{h}{p}<div class="tl">{"".join(rows)}</div>' \
-           f'<p class="tl-disc">{ic("info")} We earn a commission when a reader opens an account through a link on this page. ' \
-           f'It never changes the order above &mdash; that is set by the testing described in ' \
-           f'<a href="/how-we-review/">how we review</a>.</p></div></section>'
+    return (f'<section class="sec sec-tl"><div class="wrap">{h}{p}<div class="tl">{"".join(rows)}</div>'
+            f'<p class="tl-disc">{ic("info")} We earn a commission when a reader opens an account through a '
+            f'link on this page. It never changes the order above &mdash; that is set by the testing described '
+            f'in <a href="/how-we-review/">how we review</a>.</p></div></section>')
 
 def review_grid():
     """Card grid of every operator review, in overall rank order."""
@@ -584,36 +602,48 @@ border:1px solid var(--line);border-radius:9px;padding:11px 12px;margin:0 0 12px
 .sec-tl{padding-top:44px}
 .tl{display:flex;flex-direction:column;gap:14px}
 .tl-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh);
-display:grid;grid-template-columns:56px minmax(0,220px) minmax(0,1fr) minmax(0,250px);gap:20px;
-padding:20px 22px 20px 0;align-items:center;position:relative;scroll-margin-top:88px;transition:box-shadow .15s ease}
+display:grid;grid-template-columns:58px minmax(0,225px) minmax(0,1fr) minmax(0,250px);gap:20px;
+padding:20px 22px 20px 0;align-items:center;position:relative;scroll-margin-top:88px;
+transition:box-shadow .15s ease}
 .tl-card:hover{box-shadow:var(--sh-lg)}
 .tl-card:first-child{border-color:var(--lime-2);border-width:2px}
 .tl-rank{display:flex;align-items:center;justify-content:center;align-self:stretch;background:var(--paper);
 border-right:1px solid var(--line);border-radius:var(--r) 0 0 var(--r);font-family:var(--h);font-weight:800;
-font-size:1.4rem;color:var(--muted-2)}
+font-size:1.3rem;color:var(--muted-2);letter-spacing:-.03em}
 .tl-card:first-child .tl-rank{background:var(--lime);color:var(--ink)}
-.tl-brand{text-align:center}
+.tl-badge{position:absolute;top:10px;right:14px;font-size:.66rem;font-weight:800;text-transform:uppercase;
+letter-spacing:.08em;background:var(--lime);color:var(--ink);padding:4px 11px;border-radius:99px;
+font-family:var(--h);white-space:nowrap;z-index:2}
+.tl-brand{text-align:center;min-width:0}
 .tl-logo{display:block;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:9px}
-.tl-logo img{max-height:44px;width:auto;margin:0 auto;object-fit:contain}
-.tl-score{display:flex;align-items:center;justify-content:center;gap:5px;font-size:.88rem}
-.tl-score b{font-family:var(--h)}
-.tl-score .of5{color:var(--muted-2);font-size:.8rem}
-.tl-badge{display:inline-block;margin-top:7px;font-size:.7rem;font-weight:700;text-transform:uppercase;
-letter-spacing:.06em;background:var(--lime);color:var(--ink);padding:3px 9px;border-radius:99px}
-.tl-label{display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted-2);
-font-weight:700;margin-bottom:4px}
-.tl-bonus{font-family:var(--h);font-weight:700;font-size:1.08rem;color:var(--ink);margin:0 0 7px;line-height:1.32}
-.tl-usp{font-size:.9rem;color:var(--muted);margin:0 0 12px;line-height:1.5}
+.tl-logo img{max-height:42px;width:auto;margin:0 auto;object-fit:contain}
+.tl-name{font-family:var(--h);font-weight:700;font-size:1rem;color:var(--ink);margin:0 0 6px;line-height:1.25}
+.tl-tag{display:none}
+.tl-bar{height:7px;border-radius:99px;background:var(--line);overflow:hidden;margin:0 0 7px}
+.tl-bar>span{display:block;height:100%;border-radius:99px;
+background:linear-gradient(90deg,var(--lime-2),var(--lime))}
+.tl-scorerow{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:.86rem}
+.tl-scorelab{color:var(--muted-2)}
+.tl-scorerow b{font-family:var(--h);font-size:1.02rem;color:var(--ink)}
+.tl-scorerow .of5{color:var(--muted-2);font-size:.8rem;font-weight:500}
+.tl-offer{min-width:0}
+.tl-offerbox{background:#F6FFE4;border:1px solid #DFF3AE;border-radius:10px;padding:11px 14px;margin:0 0 10px}
+.tl-label{display:block;font-size:.64rem;text-transform:uppercase;letter-spacing:.1em;color:#5E7C10;
+font-weight:800;font-family:var(--h);margin-bottom:4px}
+.tl-label::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;
+background:#8FB61C;vertical-align:.15em;margin-right:.5em}
+.tl-bonus{font-family:var(--h);font-weight:700;font-size:1.02rem;color:var(--ink);margin:0;line-height:1.32}
+.tl-usp{font-size:.89rem;color:var(--muted);margin:0 0 11px;line-height:1.5}
 .tl-feats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 16px}
-.tl-feat{display:flex;align-items:baseline;gap:.3em;font-size:.8rem;line-height:1.4;color:var(--muted)}
+.tl-feat{display:flex;align-items:baseline;gap:.3em;font-size:.79rem;line-height:1.4;color:var(--muted)}
 .tl-feat .ic{color:var(--lime-2);width:.88em;height:.88em;align-self:center}
 .tl-feat .k{font-weight:650;color:var(--ink);white-space:nowrap}
 .tl-feat .v{color:var(--muted)}
-.tl-act{text-align:center}
-.tl-read{display:block;margin-top:9px;font-size:.84rem;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line-2);
-padding-bottom:1px}
+.tl-act{text-align:center;min-width:0}
+.tl-read{display:block;margin-top:9px;font-size:.84rem;color:var(--muted);text-decoration:none;
+border-bottom:1px solid var(--line-2);padding-bottom:1px}
 .tl-read:hover{color:var(--ink);border-color:var(--ink)}
-.tl-fine{font-size:.7rem;color:var(--muted-2);margin:9px 0 0;line-height:1.4}
+.tl-fine{font-size:.71rem;color:var(--muted-2);margin:9px 0 0;line-height:1.45}
 .tl-disc{margin:20px 0 0;font-size:.83rem;color:var(--muted);background:#fff;border:1px dashed var(--line-2);
 border-radius:10px;padding:13px 16px}
 .tl-disc .ic{color:var(--muted-2)}
@@ -781,8 +811,8 @@ margin-top:20px;padding-top:18px;font-size:.79rem;color:rgba(255,255,255,.44)}
 .nav-links>a,.nav-trig{padding:9px 9px;font-size:.88rem}
 .hero-grid{grid-template-columns:1fr;gap:28px}
 .hero-card{position:static;max-width:420px}
-.tl-card{grid-template-columns:48px minmax(0,180px) minmax(0,1fr);padding-right:20px}
-.tl-act{grid-column:1/-1;padding-left:20px;text-align:left}
+.tl-card{grid-template-columns:50px minmax(0,195px) minmax(0,1fr);padding-right:20px}
+.tl-act{grid-column:2/-1;text-align:left}
 .tl-act .btn{max-width:340px}
 .ft-top{grid-template-columns:1fr;gap:28px}
 }
@@ -797,20 +827,60 @@ margin-top:20px;padding-top:18px;font-size:.79rem;color:rgba(255,255,255,.44)}
 body{font-size:16px}
 .wrap{padding:0 16px}
 .sec{padding:36px 0}
-.hero{padding:22px 0 34px}
-.hero-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
-.tl-card{grid-template-columns:1fr;gap:14px;padding:0 0 18px}
-.tl-rank{position:absolute;top:0;left:0;width:40px;height:40px;border-radius:var(--r) 0 12px 0;border-right:none;
-border-bottom:1px solid var(--line);font-size:1.05rem;align-self:auto}
-.tl-brand{padding:18px 18px 0;display:flex;align-items:center;gap:14px;text-align:left}
-.tl-logo{margin:0 0 0 44px;flex:none;width:130px}
-.tl-offer{padding:0 18px}
-.tl-act{padding:0 18px}
-.tl-feats{grid-template-columns:1fr}
+
+/* --- compressed hero: H1, author and updated date stay above the fold --- */
+.hero{padding:12px 0 14px}
+.hero::after{width:320px;height:320px;right:-120px;top:-120px}
+.hero-grid{gap:0}
+.hero-main{display:flex;flex-direction:column}
+.crumbs{order:1;margin-bottom:10px;font-size:.76rem}
+.eyebrow{order:2;margin:0 0 8px;font-size:.7rem;letter-spacing:.08em}
+.hero h1{order:3;font-size:1.72rem;line-height:1.14;margin:0 0 10px}
+.byline{order:4;padding:0;border-top:none;margin:0 0 10px;gap:10px}
+.byline .av{width:34px;height:34px;font-size:.75rem}
+.by-txt{font-size:.82rem}
+.by-sub{font-size:.74rem;margin-top:1px}
+.hero-lede{order:5;font-size:.95rem;line-height:1.5;margin:0 0 4px;
+display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.hero-stats,.hero-ctas,.hero-pills,.hero-fine,.hero-card{display:none}
+
+/* --- toplist: stacked card --- */
+.sec-tl{padding:16px 0 32px}
+.sec-tl>.wrap>h2{font-size:1.32rem;line-height:1.2;margin:0 0 10px}
+.sec-tl>.wrap>.lede{font-size:.9rem;margin:0 0 13px;
+display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tl{gap:16px}
+.tl-card{display:block;padding:13px 14px 15px;border-radius:16px;border-color:var(--line-2)}
+.tl-card:first-child{border-color:var(--lime-2)}
+.tl-rank{position:static;display:block;background:none;border:none;border-radius:0;
+font-size:1.45rem;color:#5E7C10;text-align:left;line-height:1;margin:0 0 2px;padding:0}
+.tl-card:first-child .tl-rank{background:none;color:#5E7C10}
+.tl-badge{top:12px;right:12px;font-size:.6rem;padding:5px 10px}
+.tl-brand{margin-top:6px}
+.tl-logo{display:inline-block;padding:8px 14px;margin:0 auto 8px;border-radius:9px;min-width:150px}
+.tl-logo img{max-height:38px}
+.tl-name{font-size:1.12rem;margin:0 0 4px}
+.tl-tag{display:block;font-size:.8rem;color:var(--muted);margin:0 0 10px;line-height:1.4;
+padding:0 4px}
+.tl-bar{height:8px;margin:0 0 7px}
+.tl-scorerow{margin:0 0 11px;font-size:.88rem}
+.tl-scorerow b{font-size:1.08rem}
+.tl-offerbox{text-align:center;padding:11px 14px;margin:0 0 11px;border-radius:10px}
+.tl-bonus{font-size:1rem}
+.tl-usp,.tl-feats{display:none}
+.tl-act .btn{height:48px;font-size:1rem;border-radius:10px}
+.tl-read{margin-top:11px;font-size:.82rem;display:inline-block;border-bottom-color:var(--line-2)}
+.tl-fine{margin-top:9px;font-size:.72rem}
+.tl-disc{font-size:.79rem;padding:12px 14px}
+
 .pc,.g2,.g3,.g4{grid-template-columns:1fr}
 .toc ol{columns:1}
 .ft-cols{grid-template-columns:1fr}
-.hero-ctas .btn{flex:1 1 100%}
+}
+@media(max-width:400px){
+.hero h1{font-size:1.56rem}
+.tl-tag{font-size:.77rem}
+.sec-tl>.wrap>h2{font-size:1.24rem}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 """

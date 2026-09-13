@@ -25,7 +25,22 @@
     "usp": "The largest headline match on the list at 390%, on a Hollycorn platform we already trust for NZD handling.",
     "watch": "Withdrawal approval is slower than the crypto-first sites — budget a full day before the coins move.",
     "logo": "/logos/crownslots.png",
-    "methods": ["Visa", "Mastercard", "Skrill", "Neteller", "MiFinity", "AstroPay", "Flexepin", "Bank transfer", "BTC", "ETH", "USDT"]
+    "methods": [
+      "Visa",
+      "Mastercard",
+      "Skrill",
+      "Neteller",
+      "MiFinity",
+      "AstroPay",
+      "Flexepin",
+      "Bank transfer",
+      "BTC",
+      "ETH",
+      "USDT"
+    ],
+    "tag": "Biggest verified match · Curaçao GCB · 6,000+ games",
+    "fine": "~40x wagering · NZ$20 min deposit · 18+ T&Cs apply",
+    "short": "390% total up to NZ$7,250 + 175 free spins"
   },
   "spinjo": {
     "name": "Spinjo Casino",
@@ -53,7 +68,21 @@
     "usp": "The deepest game library we counted, paired with a crypto cashier that actually moves inside a working day.",
     "watch": "The NZ$30 minimum to trigger the package is higher than most — a NZ$20 deposit will not qualify.",
     "logo": "/logos/spinjo.png",
-    "methods": ["Visa", "Mastercard", "Skrill", "Neteller", "Neosurf", "Bank transfer", "BTC", "ETH", "USDT", "LTC"]
+    "methods": [
+      "Visa",
+      "Mastercard",
+      "Skrill",
+      "Neteller",
+      "Neosurf",
+      "Bank transfer",
+      "BTC",
+      "ETH",
+      "USDT",
+      "LTC"
+    ],
+    "tag": "Deepest game library · Curaçao GCB · 8,000+ pokies",
+    "fine": "40x wagering · NZ$30 to qualify · 18+ T&Cs apply",
+    "short": "Up to NZ$5,000 + 300 free spins"
   },
   "madcasino": {
     "name": "MadCasino",
@@ -83,7 +112,17 @@
     "usp": "The biggest headline number anywhere on this site — 777% across casino and 250% across sport.",
     "watch": "The licence is not published and the wagering terms are not stated up front. Treat it as a bonus-hunting account, not a main one.",
     "logo": "/logos/svg/madcasino.svg",
-    "methods": ["Visa", "Mastercard", "BTC", "ETH", "USDT", "LTC"]
+    "methods": [
+      "Visa",
+      "Mastercard",
+      "BTC",
+      "ETH",
+      "USDT",
+      "LTC"
+    ],
+    "tag": "Largest headline bonus · Licence not published · casino + sport",
+    "fine": "Wagering not published · 18+ T&Cs apply",
+    "short": "777% total up to NZ$14,500"
   },
   "gunsbet": {
     "name": "Gunsbet",
@@ -112,7 +151,17 @@
     "usp": "A Dama N.V. sportsbook with the longest-running track record on this list and a 285% opening match.",
     "watch": "No crypto cashier, so withdrawals run on card and e-wallet timelines rather than blockchain ones.",
     "logo": "/logos/gunsbet.png",
-    "methods": ["Visa", "Mastercard", "Skrill", "Neteller", "Neosurf", "Bank transfer"]
+    "methods": [
+      "Visa",
+      "Mastercard",
+      "Skrill",
+      "Neteller",
+      "Neosurf",
+      "Bank transfer"
+    ],
+    "tag": "Longest track record · Curaçao GCB · sportsbook + 4,000 games",
+    "fine": "Turnover applies · check terms · 18+ T&Cs apply",
+    "short": "285% up to NZ$14,700 + 285 free spins"
   },
   "kingdom": {
     "name": "Kingdom Casino",
@@ -142,7 +191,20 @@
     "usp": "Crypto withdrawals cleared in two to four hours with no operator fee — the fastest timings in our logs.",
     "watch": "The NZ$40 minimum deposit is the highest on this list.",
     "logo": "/logos/svg/kingdom.svg",
-    "methods": ["Visa", "Mastercard", "Skrill", "Neteller", "BTC", "ETH", "USDT", "LTC", "DOGE"]
+    "methods": [
+      "Visa",
+      "Mastercard",
+      "Skrill",
+      "Neteller",
+      "BTC",
+      "ETH",
+      "USDT",
+      "LTC",
+      "DOGE"
+    ],
+    "tag": "Fastest payouts we logged · Curaçao eGaming · 7,000+ games",
+    "fine": "30x wagering · ~NZ$40 min deposit · 18+ T&Cs apply",
+    "short": "600% total up to NZ$18,500"
   },
   "smash": {
     "name": "Smash Casino",
@@ -172,7 +234,18 @@
     "usp": "10x wagering sits far below the 35–40x market norm, which makes this the most genuinely clearable big bonus we found.",
     "watch": "Anjouan licensing is newer and less tested than Curaçao — keep balances modest.",
     "logo": "/logos/svg/smash.svg",
-    "methods": ["Visa", "Mastercard", "Skrill", "Neteller", "BTC", "ETH", "USDT"]
+    "methods": [
+      "Visa",
+      "Mastercard",
+      "Skrill",
+      "Neteller",
+      "BTC",
+      "ETH",
+      "USDT"
+    ],
+    "tag": "Lowest wagering at 10x · Anjouan · 40+ studios",
+    "fine": "10x wagering · deposit + bonus · 18+ T&Cs apply",
+    "short": "600% total up to NZ$19,500"
   },
   "rivo": {
     "name": "Rivo Casino",
@@ -202,7 +275,18 @@
     "usp": "25% VIP cashback on top of 10x wagering — the best ongoing value for a returning player.",
     "watch": "KYC is strict here. Upload your documents on day one or your first withdrawal will stall.",
     "logo": "/logos/svg/rivo.svg",
-    "methods": ["Visa", "Mastercard", "Skrill", "Neteller", "BTC", "ETH", "USDT"]
+    "methods": [
+      "Visa",
+      "Mastercard",
+      "Skrill",
+      "Neteller",
+      "BTC",
+      "ETH",
+      "USDT"
+    ],
+    "tag": "25% VIP cashback · Curaçao GA · 4,000+ games",
+    "fine": "10x wagering · 25% VIP cashback · 18+ T&Cs apply",
+    "short": "1000% total up to NZ$19,500"
   },
   "bet-and-play": {
     "name": "Bet&Play",
@@ -231,7 +315,19 @@
     "usp": "The deepest pre-match and in-play market list of every crypto-friendly book we checked.",
     "watch": "50x wagering on the casino side is steep — take the sports offer instead.",
     "logo": "/logos/betandplay.png",
-    "methods": ["Visa", "Mastercard", "Skrill", "Neteller", "Neosurf", "BTC", "ETH", "USDT"]
+    "methods": [
+      "Visa",
+      "Mastercard",
+      "Skrill",
+      "Neteller",
+      "Neosurf",
+      "BTC",
+      "ETH",
+      "USDT"
+    ],
+    "tag": "Deepest betting markets · Curaçao GCB · 5,000+ games",
+    "fine": "Code SPORT at deposit · NZ$20 min · 18+ T&Cs apply",
+    "short": "50% up to NZ$400 free bet"
   },
   "lucky7even": {
     "name": "Lucky7even",
@@ -259,7 +355,19 @@
     "usp": "One of very few sites here with a real no-deposit offer you can claim before funding an account.",
     "watch": "50x on the free spins means the no-deposit winnings are hard to convert — treat them as a free look.",
     "logo": "/logos/lucky7even.jpg",
-    "methods": ["Visa", "Mastercard", "Skrill", "Neteller", "Neosurf", "BTC", "ETH", "USDT"]
+    "methods": [
+      "Visa",
+      "Mastercard",
+      "Skrill",
+      "Neteller",
+      "Neosurf",
+      "BTC",
+      "ETH",
+      "USDT"
+    ],
+    "tag": "Real no-deposit spins · Curaçao GCB · 3,000+ pokies",
+    "fine": "50x on free spins · ~NZ$35 min deposit · 18+ T&Cs apply",
+    "short": "100% up to NZ$1,700 + 20 no-deposit spins"
   },
   "lucky-vibe": {
     "name": "Lucky Vibe",
@@ -287,7 +395,19 @@
     "usp": "Casino and sportsbook share one wallet, so a racing bet and a pokies session draw on the same balance.",
     "watch": "Bonuses expire in three days. Plan the session before you claim or you will forfeit the balance.",
     "logo": "/logos/lucky-vibe.jpg",
-    "methods": ["Visa", "Mastercard", "Skrill", "Neteller", "Neosurf", "BTC", "ETH", "USDT"]
+    "methods": [
+      "Visa",
+      "Mastercard",
+      "Skrill",
+      "Neteller",
+      "Neosurf",
+      "BTC",
+      "ETH",
+      "USDT"
+    ],
+    "tag": "One wallet, casino + sport · Curaçao GCB · 149 studios",
+    "fine": "3-day bonus expiry · NZ$20 min deposit · 18+ T&Cs apply",
+    "short": "Up to NZ$5,000 + 300 free spins"
   },
   "rooster-bet": {
     "name": "Rooster Bet",
@@ -316,7 +436,19 @@
     "usp": "The strongest sportsbook-plus-casino combination on this list, with NRL and Super Rugby priced properly.",
     "watch": "The casino welcome carries 40x, so the sports free bet is the better opening claim.",
     "logo": "/logos/rooster-bet.png",
-    "methods": ["Visa", "Mastercard", "Skrill", "Neteller", "Neosurf", "BTC", "ETH", "USDT"]
+    "methods": [
+      "Visa",
+      "Mastercard",
+      "Skrill",
+      "Neteller",
+      "Neosurf",
+      "BTC",
+      "ETH",
+      "USDT"
+    ],
+    "tag": "Tightest NRL odds · Curaçao GA · 8,000+ games",
+    "fine": "40x on casino offer · NZ$20 min deposit · 18+ T&Cs apply",
+    "short": "100% up to NZ$350 free bet"
   },
   "fortune-play": {
     "name": "Fortune Play",
@@ -344,7 +476,19 @@
     "usp": "The best crash and instant-win range we found — Aviator, bonus buys and a full sportsbook on one account.",
     "watch": "Wagering is not stated on the landing page. Open the terms tab before you deposit.",
     "logo": "/logos/fortune-play.png",
-    "methods": ["Visa", "Mastercard", "Skrill", "Neteller", "Neosurf", "BTC", "ETH", "USDT"]
+    "methods": [
+      "Visa",
+      "Mastercard",
+      "Skrill",
+      "Neteller",
+      "Neosurf",
+      "BTC",
+      "ETH",
+      "USDT"
+    ],
+    "tag": "Best crash games · Curaçao GCB · 8,000+ titles",
+    "fine": "Wagering in terms tab · NZ$20 min deposit · 18+ T&Cs apply",
+    "short": "Up to NZ$5,000 + 300 free spins"
   },
   "lucky-circus": {
     "name": "Lucky Circus",
@@ -372,7 +516,19 @@
     "usp": "A recurring Monday free-spins drop makes this the best value on the list for a regular low-stakes player.",
     "watch": "Headline percentages only reach 300% if you fund all four deposits — the first is 100%.",
     "logo": "/logos/lucky-circus.jpg",
-    "methods": ["Visa", "Mastercard", "Skrill", "Neteller", "Neosurf", "BTC", "ETH", "USDT"]
+    "methods": [
+      "Visa",
+      "Mastercard",
+      "Skrill",
+      "Neteller",
+      "Neosurf",
+      "BTC",
+      "ETH",
+      "USDT"
+    ],
+    "tag": "Weekly free-spins drop · Curaçao GCB · 4,000+ pokies",
+    "fine": "100% first deposit · NZ$20 min deposit · 18+ T&Cs apply",
+    "short": "100% up to NZ$1,500 + 150 free spins"
   },
   "roby": {
     "name": "Roby Casino",
@@ -400,7 +556,18 @@
     "usp": "The largest catalogue we counted anywhere — 13,500+ titles from more than 120 studios.",
     "watch": "Withdrawals took three days in our testing and the licence is not clearly published.",
     "logo": "/logos/roby-casino.jpg",
-    "methods": ["Visa", "Mastercard", "Skrill", "Neteller", "BTC", "ETH", "USDT"]
+    "methods": [
+      "Visa",
+      "Mastercard",
+      "Skrill",
+      "Neteller",
+      "BTC",
+      "ETH",
+      "USDT"
+    ],
+    "tag": "Largest catalogue · Licence unclear · 13,500+ games",
+    "fine": "35x wagering · ~72h withdrawals · 18+ T&Cs apply",
+    "short": "250% up to NZ$4,300 + 250 free spins"
   },
   "spino": {
     "name": "Spino Casino",
@@ -428,7 +595,16 @@
     "usp": "A 0x-wagering welcome offer is close to unheard of — anything you win is withdrawable straight away.",
     "watch": "Crypto only. There is no NZD card rail, so you need an exchange account first.",
     "logo": "/logos/spino.jpg",
-    "methods": ["BTC", "ETH", "USDT", "LTC", "DOGE"]
+    "methods": [
+      "BTC",
+      "ETH",
+      "USDT",
+      "LTC",
+      "DOGE"
+    ],
+    "tag": "0x wagering offer · Tobique · crypto only",
+    "fine": "0x wagering · crypto only · 18+ T&Cs apply",
+    "short": "Crypto package up to 2,000 USDT"
   },
   "ivibet": {
     "name": "IviBet",
@@ -458,7 +634,18 @@
     "watch": "Verify your ID on day one. KYC is the bottleneck here, not the cashier.",
     "logo": "/logos/ivibet.png",
     "logoSports": "/logos/ivibet-sportsbook.jpg",
-    "methods": ["Visa", "Mastercard", "Skrill", "Neteller", "Neosurf", "BTC", "ETH"]
+    "methods": [
+      "Visa",
+      "Mastercard",
+      "Skrill",
+      "Neteller",
+      "Neosurf",
+      "BTC",
+      "ETH"
+    ],
+    "tag": "Casino + sport, one login · Curaçao eGaming · 5,000+ games",
+    "fine": "Check current terms · low min deposit · 18+ T&Cs apply",
+    "short": "100% up to NZ$180 + 120 free spins"
   },
   "hellspin": {
     "name": "HellSpin",
@@ -486,7 +673,18 @@
     "usp": "The fastest lobby on the list — fewest clicks from landing page to first spin, which suits a short mobile session.",
     "watch": "Bonus terms are thin on the landing page. Read the promotions tab first.",
     "logo": "/logos/hellspin.jpg",
-    "methods": ["Visa", "Mastercard", "Skrill", "Neteller", "Neosurf", "BTC", "ETH"]
+    "methods": [
+      "Visa",
+      "Mastercard",
+      "Skrill",
+      "Neteller",
+      "Neosurf",
+      "BTC",
+      "ETH"
+    ],
+    "tag": "Fastest lobby on mobile · Curaçao eGaming · 5,000+ pokies",
+    "fine": "Terms in promotions tab · 18+ T&Cs apply",
+    "short": "Multi-deposit package + reload spins"
   },
   "slotsgem": {
     "name": "SlotsGem",
@@ -514,6 +712,17 @@
     "usp": "Sister site to IviBet and HellSpin on the same cashier — useful as a second account when a bonus elsewhere is spent.",
     "watch": "Nearly identical to HellSpin. There is little reason to hold both.",
     "logo": "/logos/slotgem.png",
-    "methods": ["Visa", "Mastercard", "Skrill", "Neteller", "Neosurf", "BTC", "ETH"]
+    "methods": [
+      "Visa",
+      "Mastercard",
+      "Skrill",
+      "Neteller",
+      "Neosurf",
+      "BTC",
+      "ETH"
+    ],
+    "tag": "Solid second account · Curaçao eGaming · 4,000+ pokies",
+    "fine": "Terms in promotions tab · 18+ T&Cs apply",
+    "short": "Tiered welcome package"
   }
 }
