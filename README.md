@@ -96,16 +96,24 @@ Two operators carry standing warnings that appear everywhere they are listed:
 Copied from the shared master set at `MY_SITES/logos/` and resized to 420px wide
 where larger, which cut total image weight by 46%.
 
-**Two placeholders need replacing when vendor artwork arrives:**
-
-| Brand | File | Status |
+| Brand | File | Source |
 |---|---|---|
-| CrownSlots | `logos/crownslots.png` | **Generated wordmark** — crownslots.com is geo-blocked from NZ |
-| Gunsbet | `logos/gunsbet.png` | **Generated wordmark** — gunsbet.com is geo-blocked from NZ |
+| CrownSlots | `logos/crownslots.png` | Real artwork, taken from `11woodward.co.nz/logos/norm/` |
+| CrownSlots | `logos/crownslots-white.png` | Reversed variant, for dark backgrounds only |
+| Gunsbet | `logos/gunsbet.png` | **Generated wordmark** — no vendor artwork found on this machine |
 
-Both render correctly on the white `.tl-logo` tile. Replace with the vendor files
-from the Brand Materials drive when available, keeping the same filenames — no
-code change is needed.
+Per the master README convention, the file used on the white `.tl-logo` tile must
+be the **dark** artwork. CrownSlots' `-rev` variant sets "crown" in white and
+disappears on the tile, so `norm` is the one installed. Both CrownSlots files were
+trimmed of transparent padding, resized to 420px wide and palette-quantised
+(60KB → 8.6KB with no visible loss).
+
+**Gunsbet is still a placeholder.** It is not in the shared master set and no copy
+exists in any sibling site; gunsbet.com is geo-blocked from New Zealand. Drop the
+vendor file in at `logos/gunsbet.png` when it arrives — no code change is needed.
+
+Neither CrownSlots nor Gunsbet is in `MY_SITES/logos/` (the master set). Worth
+adding CrownSlots there so the other sites can pick it up.
 
 ---
 
