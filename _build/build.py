@@ -1207,6 +1207,10 @@ Sitemap: {DOMAIN}/sitemap.xml
 
 User-agent: *
 Allow: /
+# Internal strategy documents. Jekyll copies these verbatim on GitHub Pages,
+# so they are reachable on the domain even though nothing links to them.
+Disallow: /research/
+Disallow: /_build/
 
 User-agent: AhrefsBot
 Disallow: /
