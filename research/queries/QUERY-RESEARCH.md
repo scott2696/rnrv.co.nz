@@ -106,19 +106,19 @@ Note: most "Reddit" results for these keywords are **SEO spam wikis in unrelated
 |---|---|---|
 | `/` | 6 | do online casinos pay real money · most trusted online casino nz · best mobile casino nz · how to win real money online casino · are casinos a waste of money · what to do if a casino won't pay |
 | `/online-pokies/` | 3 | can you play pokies online for real money · how much do pokies pay out · how to win on pokie machines nz |
-| `/online-casinos/bonuses/` | 3 + **new section** | what is a 40x/20x/10x wagering requirement · how to calculate wagering requirements · how to beat wagering requirements |
+| `/casino-bonus/` | 3 + **new section** | what is a 40x/20x/10x wagering requirement · how to calculate wagering requirements · how to beat wagering requirements |
 | `/gambling-winnings-tax-nz/` | 3 | gambling winnings tax rate nz · why is gambling not taxed · are lottery winnings taxable in nz |
 | `/fast-payout-casinos/` | 2 | can a casino refuse to pay out · do casinos pay out more on certain days |
-| `/high-payout-casinos/` | 2 | can casinos change rtp · how to calculate rtp |
-| `/best-crypto-casinos/` | 2 | is crypto legal in nz · how to buy bitcoin in nz |
-| `/payment-methods/` | 2 | what is poli payment nz · $1 deposit casino nz |
-| `/nz-online-casino-law/` | 1 | is online poker legal in new zealand |
+| `/casino-payout-percentages/` | 2 | can casinos change rtp · how to calculate rtp |
+| `/crypto-casinos-nz/` | 2 | is crypto legal in nz · how to buy bitcoin in nz |
+| `/casino-payment-methods/` | 2 | what is poli payment nz · $1 deposit casino nz |
+| `/licensed-online-casinos/` | 1 | is online poker legal in new zealand |
 | `/best-sports-betting-sites/` | 1 | which sports betting app is best |
-| `/live-casinos/` | 1 | can you win real money at a live casino |
-| `/no-deposit-casinos/` | 1 | how to get free spins no deposit |
+| `/live-casino/` | 1 | can you win real money at a live casino |
+| `/no-deposit-bonus/` | 1 | how to get free spins no deposit |
 
 ### The new section
-**`/online-casinos/bonuses/#multiples` — "What each wagering multiple actually means"**
+**`/casino-bonus/#multiples` — "What each wagering multiple actually means"**
 A table running 0x / 10x / 20x / 30x / 35x / 40x / 50x / not-published against the turnover each demands on a NZ$100 bonus and the expected cost of clearing it, plus which operators sit at each level. Directly targets the numeric query cluster and is built for a featured snippet.
 
 ### Site totals after this pass

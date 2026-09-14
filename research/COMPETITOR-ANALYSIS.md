@@ -138,17 +138,17 @@ RNRV additionally targets entities **no competitor uses**: Online Casino Gamblin
 |---|---|---|
 | Payout claims with no evidence | 94 timed withdrawals, approval and settlement split | `/fast-payout-casinos/` |
 | No pub-pokies comparison | Full RTP table: 87% Class 4 vs 96% online | `/online-pokies/`, `/` |
-| Regulatory content is generic | Full DIA timeline with player actions per milestone | `/nz-online-casino-law/` |
+| Regulatory content is generic | Full DIA timeline with player actions per milestone | `/licensed-online-casinos/` |
 | Betting/casino regimes conflated | Side-by-side table of the two regimes | `/online-betting/` |
 | No fund protection content | Dedicated section on offshore segregation | `/#fund-protection` |
 | Withdrawal caps unpublished | Dedicated section + the script to get a figure from support | `/#caps` |
 | "Withdrawal pending" unanswered | Six-cause diagnostic with observed frequencies | `/fast-payout-casinos/#pending` |
-| Bonus value asserted, never calculated | Expected cost to clear, per operator, in NZD | `/online-casinos/bonuses/#arithmetic` |
+| Bonus value asserted, never calculated | Expected cost to clear, per operator, in NZD | `/casino-bonus/#arithmetic` |
 | Sportsbooks ranked on bonus size | Measured overround across 20 markets per book | `/online-betting/#margins` |
-| Live dealer written for Europe | NZ connection latency tested at NZ peak | `/live-casinos/#latency` |
-| Crypto tax ignored | IRD property treatment with worked examples | `/best-crypto-casinos/#tax` |
-| No sources | Sources block with primary legislation cited | `/#sources`, `/nz-online-casino-law/#sources` |
-| No commission disclosure detail | Commission rates published against rankings | `/how-we-review/#money` |
+| Live dealer written for Europe | NZ connection latency tested at NZ peak | `/live-casino/#latency` |
+| Crypto tax ignored | IRD property treatment with worked examples | `/crypto-casinos-nz/#tax` |
+| No sources | Sources block with primary legislation cited | `/#sources`, `/licensed-online-casinos/#sources` |
+| No commission disclosure detail | Commission rates published against rankings | `/how-we-rate-casinos/#money` |
 | No negative recommendations | Two operators listed with standing warnings | `/casino-reviews/#warnings` |
 
 ---

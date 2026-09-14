@@ -33,15 +33,15 @@ We cannot beat those domains on authority in the short term. We can beat them on
 
 ### Authoritativeness
 - **Primary sources cited** — legislation by name and commencement date, DIA publications, IRD guidance
-- Sources blocks on `/`, `/nz-online-casino-law/`, `/gambling-winnings-tax-nz/`, `/online-betting/`
+- Sources blocks on `/`, `/licensed-online-casinos/`, `/gambling-winnings-tax-nz/`, `/online-betting/`
 - Regulatory detail no competitor carries: the 15-licence cap, the 1 Dec 2026 cliff, NZ$5m penalties, the Part 4 advertising prohibitions
-- Consistent `Organization` schema with `publishingPrinciples` pointing at `/how-we-review/`
+- Consistent `Organization` schema with `publishingPrinciples` pointing at `/how-we-rate-casinos/`
 
 ### Trustworthiness
 | Signal | Implementation |
 |---|---|
 | Affiliate disclosure | On every page carrying a link, in the body not the footer |
-| Commission transparency | **Actual rates published against rankings** on `/how-we-review/#money` |
+| Commission transparency | **Actual rates published against rankings** on `/how-we-rate-casinos/#money` |
 | Falsifiable independence | Lowest-paying operator ranks 2nd for payouts; a 45%-rate operator ranked 3rd with a warning |
 | Negative recommendations | Two operators listed with standing warnings; a "payment methods to avoid" section |
 | Recommending a non-paying option | TAB NZ recommended above the affiliate links on both betting pages |
@@ -81,13 +81,13 @@ Each of these is written as a **direct, self-contained answer in the first 40–
 
 | Query type | Page · section | Format |
 |---|---|---|
-| what is RTP | `/high-payout-casinos/#what-is-payout` | definition |
-| what is a wagering requirement | `/online-casinos/bonuses/#terms` | definition |
+| what is RTP | `/casino-payout-percentages/#what-is-payout` | definition |
+| what is a wagering requirement | `/casino-bonus/#terms` | definition |
 | what is overround | `/online-betting/#odds` | definition |
 | why is my withdrawal pending | `/fast-payout-casinos/#pending` | ordered list + table |
 | how to speed up a casino withdrawal | `/fast-payout-casinos/#speed-up` | numbered list |
 | how to choose an online casino NZ | `/#what-makes-best` | list |
-| is online gambling legal in NZ | `/nz-online-casino-law/#position` | direct answer box |
+| is online gambling legal in NZ | `/licensed-online-casinos/#position` | direct answer box |
 | do you pay tax on gambling winnings NZ | `/gambling-winnings-tax-nz/` | direct answer box |
 | how to complain about an online casino | `/#complaints` | numbered list |
 | decimal odds to probability | `/online-betting/#odds` | table |
@@ -164,15 +164,15 @@ Each strengthens an existing money page and captures its own long-tail.
 | New page | Targets | Supports |
 |---|---|---|
 | `/online-casinos/new/` | new online casinos NZ · newest casino sites NZ | `/` |
-| `/minimum-deposit-casinos/` | $1 deposit casino NZ · $5 deposit casino NZ · low deposit casino NZ | `/payment-methods/` |
+| `/minimum-deposit-casinos/` | $1 deposit casino NZ · $5 deposit casino NZ · low deposit casino NZ | `/casino-payment-methods/` |
 | `/online-pokies/megaways/` | megaways pokies NZ · best megaways slots | `/online-pokies/` |
 | `/online-pokies/jackpot/` | jackpot pokies NZ · progressive jackpot slots NZ | `/online-pokies/` |
-| `/online-pokies/high-rtp/` | high RTP pokies NZ · loosest pokies NZ | `/high-payout-casinos/` |
-| `/live-casinos/blackjack/` | live blackjack NZ · online blackjack real money NZ | `/live-casinos/` |
-| `/live-casinos/roulette/` | live roulette NZ · online roulette NZ | `/live-casinos/` |
-| `/payment-methods/neosurf/` | Neosurf casino NZ | `/payment-methods/` |
-| `/payment-methods/skrill/` | Skrill casino NZ | `/payment-methods/` |
-| `/payment-methods/poli/` | POLi casino NZ · POLi alternatives NZ | `/payment-methods/` |
+| `/online-pokies/high-rtp/` | high RTP pokies NZ · loosest pokies NZ | `/casino-payout-percentages/` |
+| `/live-casino/blackjack/` | live blackjack NZ · online blackjack real money NZ | `/live-casino/` |
+| `/live-casino/roulette/` | live roulette NZ · online roulette NZ | `/live-casino/` |
+| `/casino-payment-methods/neosurf/` | Neosurf casino NZ | `/casino-payment-methods/` |
+| `/casino-payment-methods/skrill/` | Skrill casino NZ | `/casino-payment-methods/` |
+| `/casino-payment-methods/poli/` | POLi casino NZ · POLi alternatives NZ | `/casino-payment-methods/` |
 | `/best-sports-betting-sites/nrl/` | NRL betting NZ · best NRL odds | `/best-sports-betting-sites/` |
 | `/best-sports-betting-sites/horse-racing/` | horse racing betting NZ | `/online-betting/` |
 
@@ -210,10 +210,10 @@ A `/news/` section is the single highest-leverage addition, because the DIA lice
 
 ### Cross-linking strategy as the site grows
 - **Hub-and-spoke.** Each cluster page links up to its hub and sideways to two siblings; the hub links down to every spoke.
-- **Every new page** links to `/how-we-review/` and `/authors/` (E-E-A-T reinforcement) and to `/responsible-gambling/`.
+- **Every new page** links to `/how-we-rate-casinos/` and `/authors/` (E-E-A-T reinforcement) and to `/responsible-gambling/`.
 - **Every new page** earns at least one contextual link from an existing money page within a week of publishing — orphaned pages do not rank.
 - **Anchor rotation** per the table in `KEYWORD-STRATEGY.md`; never the same exact-match anchor twice on one page.
-- **Review pages** are the link sink: each links to `/`, `/casino-reviews/`, `/how-we-review/` and two category pages.
+- **Review pages** are the link sink: each links to `/`, `/casino-reviews/`, `/how-we-rate-casinos/` and two category pages.
 
 ### Additional high-value keywords to target later
 online casino no deposit bonus codes NZ · best payout pokies NZ · casino apps NZ · NZ casino bonus codes · instant bank transfer casino NZ · casino cashback NZ · VIP casino NZ · new pokies releases NZ · online baccarat NZ · online keno NZ · casino tournaments NZ · Evolution live casino NZ · Pragmatic Play casinos NZ · casino withdrawal limits NZ · sports betting odds comparison NZ
@@ -224,7 +224,7 @@ online casino no deposit bonus codes NZ · best payout pokies NZ · casino apps 
 
 **Months 1–3.** Indexation and rich results. FAQ and Review schema should surface first. Long-tail queries with no competition — "why is my withdrawal pending", "what happens if a casino goes bust", "crypto casino tax NZ" — should rank early because nothing else answers them.
 
-**Months 3–9.** Long-tail traffic compounds into topical authority. The category pages (`/online-pokies/`, `/fast-payout-casinos/`) should reach page one before the homepage does, because they face weaker competition. The `/nz-online-casino-law/` page should spike around the 1 December 2026 transition — that is a date-driven traffic event nobody else is properly prepared for.
+**Months 3–9.** Long-tail traffic compounds into topical authority. The category pages (`/online-pokies/`, `/fast-payout-casinos/`) should reach page one before the homepage does, because they face weaker competition. The `/licensed-online-casinos/` page should spike around the 1 December 2026 transition — that is a date-driven traffic event nobody else is properly prepared for.
 
 **Months 9–24.** The homepage becomes competitive for the head term as the cluster matures and the site accumulates genuine brand signals. This is the slowest part and it depends on links and brand queries, not on-page work.
 

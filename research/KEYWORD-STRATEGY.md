@@ -9,7 +9,7 @@ Architecture: one money page per intent cluster, supported by guide pages that o
 
 ## 1. Primary keyword clusters
 
-### Cluster A — Casino (money) → `/`
+### Cluster A — Casino (money) → `/online-casinos/`
 **Head:** best online casino sites NZ
 
 | Variant | Intent | Where it is used |
@@ -31,31 +31,31 @@ online pokies NZ · real money pokies NZ · pokies online NZ · best pokie sites
 ### Cluster C — Payout speed → `/fast-payout-casinos/`
 fast payout casino NZ · fastest withdrawal casino NZ · instant withdrawal casino NZ · quick withdrawal casino NZ · same day payout casino NZ · instant payout online casino NZ · casino withdrawal times NZ · why is my casino withdrawal pending · fastest paying online casino NZ · instant withdrawal no verification
 
-### Cluster D — Payout percentage → `/high-payout-casinos/`
+### Cluster D — Payout percentage → `/casino-payout-percentages/`
 high payout casino NZ · highest RTP online casino NZ · best payout online casino NZ · highest paying online casino NZ · best RTP casino games · loosest slots NZ · online casino payout percentage NZ
 
-### Cluster E — Bonuses → `/online-casinos/bonuses/`
+### Cluster E — Bonuses → `/casino-bonus/`
 casino bonus NZ · casino bonuses New Zealand · welcome bonus casino NZ · deposit match bonus NZ · reload bonus NZ · cashback casino NZ · wagering requirements explained · no wagering bonus NZ · best casino bonus NZ · low wagering casino NZ · casino sign up bonus NZ
 
-### Cluster F — No deposit → `/no-deposit-casinos/`
+### Cluster F — No deposit → `/no-deposit-bonus/`
 no deposit bonus NZ · free spins no deposit NZ · no deposit casino NZ · keep what you win NZ · free bonus no deposit NZ · no deposit bonus codes NZ · 20 free spins no deposit NZ
 
-### Cluster G — Crypto → `/best-crypto-casinos/`
+### Cluster G — Crypto → `/crypto-casinos-nz/`
 crypto casino NZ · bitcoin casino NZ · best crypto casinos NZ · USDT casino NZ · ethereum casino NZ · crypto gambling NZ · no KYC casino NZ · provably fair casino · bitcoin gambling New Zealand
 
-### Cluster H — Live dealer → `/live-casinos/`
+### Cluster H — Live dealer → `/live-casino/`
 live casino NZ · live dealer casino NZ · live blackjack NZ · live roulette NZ · Evolution gaming NZ · Crazy Time NZ · game show casino NZ · live baccarat NZ
 
 ### Cluster I — Betting → `/online-betting/` + `/best-sports-betting-sites/`
 online betting NZ · sports betting NZ · best betting sites NZ · online bookmakers NZ · NRL betting NZ · rugby betting NZ · horse racing betting NZ · TAB alternatives NZ · betting odds NZ · best odds NZ · online betting sites New Zealand
 
-### Cluster J — Payments → `/payment-methods/`
+### Cluster J — Payments → `/casino-payment-methods/`
 casino payment methods NZ · POLi casino NZ · online EFTPOS casino · NZD casino deposit · Neosurf casino NZ · Skrill casino NZ · casino deposit declined NZ · $20 deposit casino NZ · casino withdrawal methods NZ
 
-### Cluster K — Law & tax → `/nz-online-casino-law/` + `/gambling-winnings-tax-nz/`
+### Cluster K — Law & tax → `/licensed-online-casinos/` + `/gambling-winnings-tax-nz/`
 are online casinos legal in NZ · NZ online casino law · DIA online casino licence · Online Casino Gambling Act 2026 · online gambling legal New Zealand · tax on gambling winnings NZ · do you pay tax on pokies winnings NZ · GST on gambling winnings · gambling age NZ
 
-### Cluster L — Trust & brand → `/how-we-review/` · `/authors/` · `/about/` · `/casino-reviews/`
+### Cluster L — Trust & brand → `/how-we-rate-casinos/` · `/authors/` · `/about/` · `/casino-reviews/`
 how we review casinos · casino review methodology · [brand] casino review NZ (×18) · is [brand] casino legit · [brand] casino withdrawal time
 
 ---
@@ -66,20 +66,20 @@ how we review casinos · casino review methodology · [brand] casino review NZ (
 | Long-tail query | Page | Section |
 |---|---|---|
 | why is my casino withdrawal pending | `/fast-payout-casinos/` | `#pending` |
-| what happens if an online casino goes bust | `/` | `#fund-protection` |
-| how do I complain about an online casino NZ | `/` | `#complaints` |
-| what is the maximum withdrawal at an online casino | `/` | `#caps` |
+| what happens if an online casino goes bust | `/online-casinos/` | `#fund-protection` |
+| how do I complain about an online casino NZ | `/online-casinos/` | `#complaints` |
+| what is the maximum withdrawal at an online casino | `/online-casinos/` | `#caps` |
 | do pub pokies pay less than online pokies | `/online-pokies/` | `#rtp-comparison` |
-| what happens on 1 December 2026 online casino NZ | `/nz-online-casino-law/` | `#timeline` |
+| what happens on 1 December 2026 online casino NZ | `/licensed-online-casinos/` | `#timeline` |
 | do I pay tax on crypto casino winnings NZ | `/gambling-winnings-tax-nz/` | `#crypto` |
 | is it illegal to bet with an offshore bookmaker NZ | `/online-betting/` | `#legal` |
-| how much does a casino bonus cost to clear | `/online-casinos/bonuses/` | `#arithmetic` |
+| how much does a casino bonus cost to clear | `/casino-bonus/` | `#arithmetic` |
 | what is overround in betting | `/online-betting/` | `#odds` |
-| does live dealer lag from New Zealand | `/live-casinos/` | `#latency` |
+| does live dealer lag from New Zealand | `/live-casino/` | `#latency` |
 | can my bank block gambling transactions NZ | `/responsible-gambling/` | `#bank` |
-| what is a no deposit bonus actually worth | `/no-deposit-casinos/` | `#value` |
-| why was my casino bonus voided | `/online-casinos/bonuses/` | `#traps` |
-| should I decline a casino bonus | `/online-casinos/bonuses/` | `#decline` |
+| what is a no deposit bonus actually worth | `/no-deposit-bonus/` | `#value` |
+| why was my casino bonus voided | `/casino-bonus/` | `#traps` |
+| should I decline a casino bonus | `/casino-bonus/` | `#decline` |
 
 ### Question-based (People Also Ask targets)
 Is online gambling legal in New Zealand? · Do you pay tax on gambling winnings in NZ? · What is the best online casino in NZ? · Are online casinos safe in NZ? · What is the legal gambling age in New Zealand? · How long do casino withdrawals take? · What is a wagering requirement? · What does RTP mean? · Can I play pokies on my phone? · What pokies pay out the most? · Which casino pays out fastest in NZ? · Can I use POLi at online casinos? · Is Bitcoin gambling legal in NZ? · Who can legally take a bet in New Zealand? · What is the minimum deposit at NZ casinos?
@@ -119,19 +119,19 @@ Entities embedded across the site so that topical relevance is established by co
 | `/` | best online casino sites NZ | best online casinos NZ; online casino NZ; real money casino NZ | fund protection; withdrawal caps; complaints process; player types | 1.0 |
 | `/online-pokies/` | online pokies NZ | real money pokies NZ; best pokie sites NZ | pub pokies vs online RTP; megaways; bonus buy; volatility | 0.9 |
 | `/online-betting/` | online betting NZ | sports betting NZ; best betting sites NZ | who can legally take a NZ bet; overround explained; free bet value | 0.9 |
-| `/high-payout-casinos/` | high payout casinos NZ | highest RTP casino NZ; best payout casino NZ | catalogue RTP methodology; conversion caps | 0.85 |
+| `/casino-payout-percentages/` | high payout casinos NZ | highest RTP casino NZ; best payout casino NZ | catalogue RTP methodology; conversion caps | 0.85 |
 | `/fast-payout-casinos/` | fast payout casinos NZ | fastest withdrawal casino NZ; instant withdrawal casino NZ | why is my withdrawal pending; approval vs settlement | 0.85 |
-| `/best-crypto-casinos/` | best crypto casinos NZ | bitcoin casino NZ; USDT casino NZ | crypto tax on winnings; provably fair explained; TRC-20 vs ERC-20 | 0.85 |
-| `/online-casinos/bonuses/` | casino bonuses NZ | casino bonus NZ; welcome bonus casino NZ | cost to clear a bonus; when to decline; bonus voiding traps | 0.85 |
+| `/crypto-casinos-nz/` | best crypto casinos NZ | bitcoin casino NZ; USDT casino NZ | crypto tax on winnings; provably fair explained; TRC-20 vs ERC-20 | 0.85 |
+| `/casino-bonus/` | casino bonuses NZ | casino bonus NZ; welcome bonus casino NZ | cost to clear a bonus; when to decline; bonus voiding traps | 0.85 |
 | `/best-sports-betting-sites/` | best sports betting sites NZ | online bookmakers NZ; best odds NZ | best NRL odds NZ; measured overround by book | 0.85 |
-| `/nz-online-casino-law/` | NZ online casino law | is online gambling legal in NZ; Online Casino Gambling Act 2026 | 1 December 2026 deadline; 15 DIA licences; advertising rules | 0.85 |
+| `/licensed-online-casinos/` | NZ online casino law | is online gambling legal in NZ; Online Casino Gambling Act 2026 | 1 December 2026 deadline; 15 DIA licences; advertising rules | 0.85 |
 | `/casino-reviews/` | casino reviews NZ | online casino reviews New Zealand | operators listed with warnings | 0.85 |
-| `/live-casinos/` | live casino NZ | live dealer casino NZ; live blackjack NZ | latency from NZ; live games and bonus weighting | 0.8 |
-| `/no-deposit-casinos/` | no deposit bonus NZ | free spins no deposit NZ | what a no deposit bonus is actually worth | 0.8 |
-| `/payment-methods/` | casino payment methods NZ | NZD casino deposit; POLi casino NZ | methods to avoid; closed-loop rule; FX cost | 0.8 |
+| `/live-casino/` | live casino NZ | live dealer casino NZ; live blackjack NZ | latency from NZ; live games and bonus weighting | 0.8 |
+| `/no-deposit-bonus/` | no deposit bonus NZ | free spins no deposit NZ | what a no deposit bonus is actually worth | 0.8 |
+| `/casino-payment-methods/` | casino payment methods NZ | NZD casino deposit; POLi casino NZ | methods to avoid; closed-loop rule; FX cost | 0.8 |
 | `/gambling-winnings-tax-nz/` | tax on gambling winnings NZ | do you pay tax on casino winnings NZ | professional gambler test; crypto as property | 0.8 |
 | `/responsible-gambling/` | responsible gambling NZ | gambling help NZ; self exclusion NZ | bank gambling blocks; helping someone else | 0.8 |
-| `/how-we-review/` | how we review casinos | casino review methodology | scoring weights; commission vs rankings | 0.7 |
+| `/how-we-rate-casinos/` | how we review casinos | casino review methodology | scoring weights; commission vs rankings | 0.7 |
 | `/authors/` | RNRV authors | casino reviewers NZ | named reviewer credentials | 0.7 |
 | `/about/` | about RNRV | independent casino guide NZ | how we are funded | 0.75 |
 | `/contact/` | contact RNRV | report a casino problem NZ | what to include in a report | 0.7 |
@@ -149,22 +149,22 @@ Varied, descriptive anchors — never repeated exact-match across a page.
 | `/` | best online casino sites NZ · our flagship ranking · the main ranking · best online casinos NZ |
 | `/online-pokies/` | online pokies NZ · the pokies guide · online pokies · real money pokies |
 | `/fast-payout-casinos/` | fast payout casinos · fast payout casinos NZ · our measured withdrawal timings · see the timings |
-| `/high-payout-casinos/` | high payout casinos · RTP rankings · our RTP tables · highest payout sites |
-| `/online-casinos/bonuses/` | casino bonuses NZ · compare bonus terms · what each bonus costs to clear · when to decline a bonus |
-| `/no-deposit-casinos/` | no deposit bonuses · no deposit offers · what a no deposit bonus is worth |
-| `/best-crypto-casinos/` | crypto casinos NZ · the crypto tax section · best crypto casinos |
-| `/live-casinos/` | live dealer casinos NZ · live casinos · the live dealer guide |
+| `/casino-payout-percentages/` | high payout casinos · RTP rankings · our RTP tables · highest payout sites |
+| `/casino-bonus/` | casino bonuses NZ · compare bonus terms · what each bonus costs to clear · when to decline a bonus |
+| `/no-deposit-bonus/` | no deposit bonuses · no deposit offers · what a no deposit bonus is worth |
+| `/crypto-casinos-nz/` | crypto casinos NZ · the crypto tax section · best crypto casinos |
+| `/live-casino/` | live dealer casinos NZ · live casinos · the live dealer guide |
 | `/online-betting/` | online betting NZ · the legal position · the betting guide |
 | `/best-sports-betting-sites/` | best sports betting sites · the sportsbook comparison · our sportsbook rankings |
-| `/payment-methods/` | NZ payment methods · compare methods · payment methods |
-| `/nz-online-casino-law/` | NZ online casino law · the law guide · what changes on 1 December 2026 |
+| `/casino-payment-methods/` | NZ payment methods · compare methods · payment methods |
+| `/licensed-online-casinos/` | NZ online casino law · the law guide · what changes on 1 December 2026 |
 | `/gambling-winnings-tax-nz/` | tax on gambling winnings · the tax guide · tax on gambling winnings in NZ |
-| `/how-we-review/` | how we review · our methodology · our review methodology · scoring weights |
+| `/how-we-rate-casinos/` | how we review · our methodology · our review methodology · scoring weights |
 | `/authors/` | our authors · the RNRV editorial desk · meet the team · full profile |
 | `/responsible-gambling/` | responsible gambling · free confidential help · get support |
 | `/casino-reviews/{brand}/` | read the {brand} review · full {brand} review · {brand} |
 
-**Rule applied throughout:** every money page links to at least four sibling money pages and at least two trust pages (`/how-we-review/`, `/authors/`, `/responsible-gambling/`). Every review links back to `/`, `/casino-reviews/`, `/how-we-review/` and two relevant category pages.
+**Rule applied throughout:** every money page links to at least four sibling money pages and at least two trust pages (`/how-we-rate-casinos/`, `/authors/`, `/responsible-gambling/`). Every review links back to `/`, `/casino-reviews/`, `/how-we-rate-casinos/` and two relevant category pages.
 
 ---
 
@@ -183,4 +183,4 @@ Varied, descriptive anchors — never repeated exact-match across a page.
 
 **Track monthly:** long-tail coverage (queries in GSC with impressions but no target page — these become the next cluster pages); assisted conversions per page; time-on-page for the money pages against the guides.
 
-**Leading indicators of success before rankings move:** rich results appearing for FAQ and Review schema; the `/nz-online-casino-law/` page picking up impressions on date-sensitive queries around the 1 December milestone; and brand queries for "RNRV" appearing at all.
+**Leading indicators of success before rankings move:** rich results appearing for FAQ and Review schema; the `/licensed-online-casinos/` page picking up impressions on date-sensitive queries around the 1 December milestone; and brand queries for "RNRV" appearing at all.

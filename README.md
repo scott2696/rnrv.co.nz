@@ -14,8 +14,12 @@ design tokens, schema and canonical handling by construction.
 
 ```bash
 python3 _build/gen_reviews.py   # regenerate the 18 operator review fragments
-python3 _build/build.py         # build all pages + sitemap.xml + robots.txt
+python3 _build/build.py         # build all pages + sitemap.xml + robots.txt + redirect stubs
 ```
+
+`{{month}}` in any title, H1, description or body resolves to the current month
+and year at build time (`MONTH_YEAR` in `build.py`), so "September 2026" in a
+title refreshes on rebuild rather than going stale in place. Rebuild monthly.
 
 `build.py` writes `{url}index.html` for every fragment in `_build/pages/`, then
 regenerates `sitemap.xml` and `robots.txt`. It prints a word count per page and
@@ -42,7 +46,30 @@ research/
   KEYWORD-STRATEGY.md      clusters, long-tail, per-page mapping, anchor text
   SEO-STRATEGY.md          E-E-A-T, schema, SERP features, scalability roadmap
 logos/              operator artwork (see "Logos" below)
+images/authors/     author portraits, 1x and 2x
 ```
+
+### URL map
+
+| URL | Role |
+|---|---|
+| `/` | Brand hub — routes to every cluster |
+| `/online-casinos/` | **Head money page** |
+| `/licensed-online-casinos/` | Licensing, legality, the 1 Dec 2026 transition |
+| `/new-casinos-nz/` | Running list of new and newly licensed casinos |
+| `/online-pokies/` · `/live-casino/` · `/crypto-casinos-nz/` | Product clusters |
+| `/casino-bonus/` · `/no-deposit-bonus/` | Bonus clusters, kept separate to avoid cannibalising |
+| `/casino-payout-percentages/` · `/fast-payout-casinos/` | Payout clusters (return vs speed) |
+| `/casino-payment-methods/` | Banking |
+| `/online-betting/` · `/best-sports-betting-sites/` | Betting |
+| `/how-we-rate-casinos/` · `/authors/` · `/about/` · `/contact/` | Trust |
+| `/casino-reviews/` + 18 children | Operator reviews |
+| `/instant-withdrawals/` | Redirect stub → `/fast-payout-casinos/` |
+
+**Redirect stubs are meta-refresh + canonical, not true 301s.** Static hosting
+cannot emit a 301. If the host supports real redirects (Cloudflare rules,
+Netlify `_redirects`, nginx), configure the 301 there and delete the stub
+directory. `REDIRECTS` in `build.py` is the source of truth for these.
 
 Everything outside `_build/`, `research/` and `logos/` is generated output —
 do not edit `index.html` files by hand, they will be overwritten.
@@ -160,4 +187,4 @@ Take New Zealand legal advice before significant paid promotion. See
 | `UPDATED` / `UPDATED_HUMAN` in `build.py` | Every content pass |
 
 The 1 December 2026 transition date is the next scheduled content event —
-`/nz-online-casino-law/` should be updated as licences are awarded.
+`/licensed-online-casinos/` should be updated as licences are awarded.
