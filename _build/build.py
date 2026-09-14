@@ -653,6 +653,9 @@ font-weight:700;font-size:.78rem;color:#fff;border-bottom:1px solid rgba(255,255
 
 /* ---------- toplist ---------- */
 .sec-tl{padding-top:44px}
+/* heading and intro run the full width of the table beneath them */
+.sec-tl>.wrap>h2{max-width:none}
+.sec-tl>.wrap>.lede{max-width:none}
 .tl{display:flex;flex-direction:column;gap:14px}
 .tl-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh);
 display:grid;grid-template-columns:58px minmax(0,225px) minmax(0,1fr) minmax(0,250px);gap:20px;
