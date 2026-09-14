@@ -62,15 +62,22 @@ We publish the things that are commercially awkward: that no-deposit bonuses are
 |---|---|---|
 | `Organization` | Every page | Entity establishment, `publishingPrinciples`, `knowsAbout`, `areaServed: NZ` |
 | `WebSite` | Every page | Site entity, `inLanguage: en-NZ` |
-| `WebPage` | Every page | `datePublished`, `dateModified`, `author`, `reviewedBy` |
-| `Person` | Every page | Author entity with credentials; three full profiles on `/authors/` |
-| `BreadcrumbList` | Every page with crumbs | Breadcrumb rich result |
-| `FAQPage` | 20 pages | FAQ rich results — the largest SERP real-estate win available |
-| `ItemList` + `Product` + `Review` + `Rating` | Every toplist page | Review stars on ranked entries |
-| `Review` | 18 operator reviews | Review rich result with `itemReviewed` and `reviewRating` |
-| `ContactPage` | `/contact/` | Entity clarity |
+| `WebPage` / `CollectionPage` / `AboutPage` / `ContactPage` | Every page | Correct page type per template, with `datePublished`, `dateModified`, `author`, `reviewedBy` |
+| `Person` | Every page | Claire Morrison (author) and Elizabeth King (reviewer), with `knowsAbout`, `jobTitle`, `image` |
+| `BreadcrumbList` | 40 pages | Breadcrumb rich result |
+| `FAQPage` | 39 pages | Entity and topic understanding — see the caveat below |
+| `ItemList` + `Product` + `Review` + `Rating` | 11 toplist pages | Ranked entries with ratings |
+| `ItemList` | `/casino-reviews/` | The 18 operator reviews as an ordered collection |
+| `Review` + `positiveNotes` / `negativeNotes` | 18 operator reviews | Pros and cons exposed as structured data, from the same lists rendered on the page |
 
-**Deliberately not deployed:** `AggregateRating` without genuine aggregate user input (it would be fabricated), and `HowTo` on pages where the steps are advisory rather than procedural.
+**`primaryImageOfPage` is set only on review pages**, where the operator logo is a genuine page image. It previously pointed at the favicon on all 42 pages, which asserted something untrue and added noise.
+
+**Deliberately not deployed:** `AggregateRating` without genuine aggregate user input (it would be fabricated), and `HowTo` where the steps are advisory rather than procedural.
+
+### Caveat on FAQ rich results
+**Do not expect FAQ rich results from this markup.** In August 2023 Google restricted FAQ rich results to authoritative government and health sites; a commercial comparison site will not get the expanded SERP treatment regardless of how clean the markup is. An earlier version of this document called FAQ schema "the largest SERP real-estate win available" — that was wrong and is corrected here.
+
+It is still worth deploying: it helps Google parse question–answer pairs for PAA and AI-surface extraction, and it costs nothing. But the SERP-footprint argument for it no longer holds, and any plan that budgets for FAQ rich results should be re-based.
 
 ---
 
@@ -95,8 +102,8 @@ Each of these is written as a **direct, self-contained answer in the first 40–
 ### People Also Ask
 Every PAA question observed in the NZ SERP is implemented **verbatim** as an H2, H3 or FAQ question. Answers lead with the direct response, then expand — PAA extraction favours the first sentence.
 
-### FAQ rich results
-20 pages carry `FAQPage` schema with 5–14 questions each. Questions are phrased as real searches, not as marketing prompts.
+### FAQ markup
+39 pages carry `FAQPage` schema, 401 question–answer pairs in total, phrased as real searches rather than marketing prompts. Note the caveat above: this supports parsing and PAA extraction, not an expanded SERP result.
 
 ### Review stars
 `ItemList` → `Product` → `Review` → `Rating` on every ranked list, plus standalone `Review` on all 18 operator pages.

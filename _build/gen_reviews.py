@@ -604,11 +604,13 @@ def build(slug, i):
         "lede": n["lede"],
         "author": n["author"],
         "published": "2026-03-01",
-        "modified": "2026-09-13",
+        "modified": "2026-09-14",
         "priority": "0.7",
         "changefreq": "monthly",
         "crumbs": [["Casino Reviews", "/casino-reviews/"], [op["name"], url]],
         "reviewOf": slug,
+        "pros": n["pros"],
+        "cons": n["cons"],
         "stats": [["Our rating", f"{op['rating']}/5"],
                   ["Licence", "Curaçao" if "Cura" in op["licence"] else
                               ("Anjouan" if "Anjouan" in op["licence"] else

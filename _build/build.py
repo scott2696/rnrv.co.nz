@@ -1015,14 +1015,20 @@ def head_html(fm, extra_schema):
          "inLanguage": "en-NZ", "publisher": {"@id": f"{DOMAIN}/#organization"}},
         person_schema(fm.get("author", WRITER)),
         person_schema(CHECKER),
-        {"@type": "WebPage", "@id": f"{url}#webpage", "url": url, "name": strip_tags(fm["title"]),
-         "description": strip_tags(fm["description"]), "inLanguage": "en-NZ",
-         "isPartOf": {"@id": f"{DOMAIN}/#website"},
-         "datePublished": fm.get("published", UPDATED), "dateModified": fm.get("modified", UPDATED),
-         "author": {"@id": f"{DOMAIN}/authors/#{a['slug']}"},
-         "reviewedBy": {"@id": f"{DOMAIN}/authors/#{ck['slug']}"},
-         "primaryImageOfPage": {"@type": "ImageObject", "url": f"{DOMAIN}/favicon-512x512.png"}},
     ]
+    page = {"@type": fm.get("pageType", "WebPage"), "@id": f"{url}#webpage", "url": url,
+            "name": strip_tags(fm["title"]),
+            "description": strip_tags(fm["description"]), "inLanguage": "en-NZ",
+            "isPartOf": {"@id": f"{DOMAIN}/#website"},
+            "datePublished": fm.get("published", UPDATED), "dateModified": fm.get("modified", UPDATED),
+            "author": {"@id": f"{DOMAIN}/authors/#{a['slug']}"},
+            "reviewedBy": {"@id": f"{DOMAIN}/authors/#{ck['slug']}"}}
+    # Only claim a primary image where the page genuinely has one. A favicon is
+    # not a page image, and asserting it on 42 pages is noise.
+    if fm.get("reviewOf"):
+        page["primaryImageOfPage"] = {"@type": "ImageObject",
+                                      "url": DOMAIN + op_logo(fm["reviewOf"])}
+    graph.append(page)
     crumbs = [{"@type": "ListItem", "position": 1, "name": "Home", "item": DOMAIN + "/"}]
     for i, (n, h) in enumerate(fm.get("crumbs", []), 2):
         crumbs.append({"@type": "ListItem", "position": i, "name": strip_tags(n), "item": DOMAIN + h})
@@ -1113,6 +1119,15 @@ def build_page(path):
                 for i, s in enumerate(slugs, 1)]})
 
     blocks["REVIEWGRID"] = review_grid()
+    if "[[REVIEWGRID]]" in body:
+        extra.append({
+            "@type": "ItemList", "@id": f"{DOMAIN}{fm['url']}#reviewlist",
+            "name": "Online casino reviews for New Zealand players",
+            "numberOfItems": len(ORDER),
+            "itemListOrder": "https://schema.org/ItemListOrderDescending",
+            "itemListElement": [
+                {"@type": "ListItem", "position": i, "url": f"{DOMAIN}/casino-reviews/{OPS[sl]['slug']}/",
+                 "name": OPS[sl]["name"]} for i, sl in enumerate(ORDER, 1)]})
 
     # FAQ block
     if fm.get("faq"):
@@ -1124,7 +1139,7 @@ def build_page(path):
     if fm.get("reviewOf"):
         s = fm["reviewOf"]
         op = OPS[s]
-        extra.append({
+        rv = {
             "@type": "Review", "@id": f"{DOMAIN}{fm['url']}#review",
             "itemReviewed": {"@type": "Product", "name": op["name"], "image": DOMAIN + op_logo(s),
                              "brand": {"@type": "Brand", "name": op["name"]},
@@ -1133,7 +1148,16 @@ def build_page(path):
             "publisher": {"@id": f"{DOMAIN}/#organization"},
             "datePublished": fm.get("published", UPDATED), "dateModified": fm.get("modified", UPDATED),
             "reviewRating": {"@type": "Rating", "ratingValue": op["rating"], "bestRating": 5, "worstRating": 1},
-            "reviewBody": strip_tags(op["usp"])})
+            "reviewBody": strip_tags(op["usp"])}
+        if fm.get("pros"):
+            rv["positiveNotes"] = {"@type": "ItemList", "itemListElement": [
+                {"@type": "ListItem", "position": i, "name": strip_tags(x)}
+                for i, x in enumerate(fm["pros"], 1)]}
+        if fm.get("cons"):
+            rv["negativeNotes"] = {"@type": "ItemList", "itemListElement": [
+                {"@type": "ListItem", "position": i, "name": strip_tags(x)}
+                for i, x in enumerate(fm["cons"], 1)]}
+        extra.append(rv)
 
     # HowTo schema
     if fm.get("howto"):

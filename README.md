@@ -203,3 +203,17 @@ Take New Zealand legal advice before significant paid promotion. See
 
 The 1 December 2026 transition date is the next scheduled content event —
 `/licensed-online-casinos/` should be updated as licences are awarded.
+
+### Sitemap and schema
+
+`sitemap.xml` is regenerated on every build from each fragment's `modified`,
+`priority` and `changefreq`. **Bump `modified` when you change a page** — a
+`lastmod` that does not move is worse than none, because it trains crawlers to
+ignore it.
+
+Schema is emitted per page from `head_html()` in `build.py`: `Organization`,
+`WebSite`, the page type (`WebPage` / `CollectionPage` / `AboutPage` /
+`ContactPage`, set via `pageType` in front matter), `Person` for both the author
+and the fact-checker, `BreadcrumbList`, `FAQPage`, `ItemList` for toplists and
+the review grid, and `Review` with `positiveNotes` / `negativeNotes` on operator
+reviews.
