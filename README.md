@@ -21,6 +21,21 @@ python3 _build/build.py         # build all pages + sitemap.xml + robots.txt + r
 and year at build time (`MONTH_YEAR` in `build.py`), so "September 2026" in a
 title refreshes on rebuild rather than going stale in place. Rebuild monthly.
 
+### Title width
+
+Google truncates SERP titles on **pixel width**, not character count. The build
+measures every title against `TITLE_PX_LIMIT` (580px) using exact Arial 20px
+advance widths embedded in `build.py`, and prints either a pass line or a list
+of offenders:
+
+```
+titles: all within 580px (widest 565.0px)
+```
+
+Titles use a bracket suffix — `Online Casinos NZ: Best Real Money Sites [September 2026]`.
+Widths are measured with "September" substituted because it is the longest
+month name, so a title that passes cannot overflow later in the year.
+
 `build.py` writes `{url}index.html` for every fragment in `_build/pages/`, then
 regenerates `sitemap.xml` and `robots.txt`. It prints a word count per page and
 warns about any operator with a missing affiliate link.

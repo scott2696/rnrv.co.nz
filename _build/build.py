@@ -955,6 +955,18 @@ padding:0 4px}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 """
 
+# ---------------------------------------------------------------- title width
+# Google truncates SERP titles on pixel width, not character count. These are
+# exact Arial 20px advance widths (the standard desktop-SERP approximation),
+# so a title can be checked at build time instead of eyeballed.
+TITLE_PX_LIMIT = 580
+ARIAL20 = {" ": 6.0, "!": 6.0, "\"": 7.0, "#": 11.0, "$": 11.0, "%": 18.0, "&": 13.0, "'": 4.0, "(": 7.0, ")": 7.0, "*": 8.0, "+": 12.0, ",": 6.0, "-": 7.0, ".": 6.0, "/": 6.0, "0": 11.0, "1": 11.0, "2": 11.0, "3": 11.0, "4": 11.0, "5": 11.0, "6": 11.0, "7": 11.0, "8": 11.0, "9": 11.0, ":": 6.0, ";": 6.0, "<": 12.0, "=": 12.0, ">": 12.0, "?": 11.0, "@": 20.0, "A": 13.0, "B": 13.0, "C": 14.0, "D": 14.0, "E": 13.0, "F": 12.0, "G": 16.0, "H": 14.0, "I": 6.0, "J": 10.0, "K": 13.0, "L": 11.0, "M": 17.0, "N": 14.0, "O": 16.0, "P": 13.0, "Q": 16.0, "R": 14.0, "S": 13.0, "T": 12.0, "U": 14.0, "V": 13.0, "W": 19.0, "X": 13.0, "Y": 13.0, "Z": 12.0, "[": 6.0, "\\": 6.0, "]": 6.0, "^": 9.0, "_": 11.0, "`": 7.0, "a": 11.0, "b": 11.0, "c": 10.0, "d": 11.0, "e": 11.0, "f": 6.0, "g": 11.0, "h": 11.0, "i": 4.0, "j": 4.0, "k": 10.0, "l": 4.0, "m": 17.0, "n": 11.0, "o": 11.0, "p": 11.0, "q": 11.0, "r": 7.0, "s": 10.0, "t": 6.0, "u": 11.0, "v": 10.0, "w": 14.0, "x": 10.0, "y": 10.0, "z": 10.0, "{": 7.0, "|": 5.0, "}": 7.0, "~": 12.0, "—": 20.0, "–": 11.0, "’": 4.0, "‘": 4.0, "“": 7.0, "”": 7.0, "…": 20.0, "é": 11.0, "ç": 10.0, "ā": 11.0, "ē": 11.0, "ī": 6.0, "ō": 11.0, "ū": 11.0, "À": 13.0}
+
+def title_px(text):
+    """Rendered width of a title in pixels at Arial 20px."""
+    t = html.unescape(re.sub(r"<[^>]+>", "", text)).replace("{{month}}", MONTH_YEAR)
+    return round(sum(ARIAL20.get(c, 11.12) for c in t), 1)
+
 # ---------------------------------------------------------------- schema
 def org_schema():
     return {
@@ -1232,6 +1244,16 @@ def main():
     sitemap(pages)
     open(os.path.join(ROOT, "robots.txt"), "w", encoding="utf-8").write(ROBOTS)
     print(f"\n{len(pages)} pages, {total:,} words total")
+
+    wide = [(title_px(fm["title"]), fm["url"], fm["title"]) for fm in pages
+            if title_px(fm["title"]) > TITLE_PX_LIMIT]
+    widest = max(title_px(fm["title"]) for fm in pages)
+    if wide:
+        print(f"\n!! {len(wide)} title(s) over {TITLE_PX_LIMIT}px and will be truncated in SERPs:")
+        for w, u, t in sorted(wide, reverse=True):
+            print(f"   {w:>6.1f}px  {u}  {t}")
+    else:
+        print(f"titles: all within {TITLE_PX_LIMIT}px (widest {widest}px)")
     if MISSING:
         print("MISSING affiliate links:", ", ".join(sorted(MISSING)))
 
