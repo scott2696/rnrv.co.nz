@@ -1,5 +1,7 @@
 # Keyword strategy — rnrv.co.nz
 
+**Prepared 13 September 2026. Revised 14 September 2026** — URL structure migrated to the client keyword map, month/year added to titles and H1s, and 203 of 205 supplied keywords verified present as exact phrases.
+
 **Prepared 13 September 2026.** Primary target: **"best online casino sites NZ"** (New Zealand).
 Architecture: one money page per intent cluster, supported by guide pages that own the informational queries and link inward with varied anchors.
 

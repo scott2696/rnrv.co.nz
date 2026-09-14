@@ -46,7 +46,7 @@ N = {
       ("How long do CrownSlots withdrawals take?",
        "<p>Crypto settlement is genuinely instant once released, but the release itself took just over 24 hours in our testing. Our measured total was 24 hours 51 minutes on USDT. E-wallets ran one to three working days and cards three to five. Complete KYC before you deposit — it does not speed up the approval step, but an unverified account adds one to three days on top.</p>"),
       ("Is CrownSlots licensed?",
-       "<p>Yes. CrownSlots is operated by <strong>Hollycorn N.V.</strong> and licensed by the <strong>Curaçao Gaming Control Board</strong>. That is the same corporate group behind Spinjo and Lucky Vibe, both of which we also list. As with every operator serving New Zealand today, that is an offshore licence rather than a New Zealand one — see our <a href='/nz-online-casino-law/'>NZ online casino law</a> page for what changes on 1 December 2026.</p>")]),
+       "<p>Yes. CrownSlots is operated by <strong>Hollycorn N.V.</strong> and licensed by the <strong>Curaçao Gaming Control Board</strong>. That is the same corporate group behind Spinjo and Lucky Vibe, both of which we also list. As with every operator serving New Zealand today, that is an offshore licence rather than a New Zealand one — see our <a href='/licensed-online-casinos/'>NZ online casino law</a> page for what changes on 1 December 2026.</p>")]),
 
 "spinjo": dict(
  author="claire",
@@ -92,7 +92,7 @@ N = {
        "~48 hour withdrawals, among the slowest we measured",
        "Minimum deposit and expiry terms are not clearly stated",
        "Providers are not listed before registration"],
- verdict="""<p>We score MadCasino 3.9 and rank it third, and both of those numbers are doing deliberate work. Third, because the offer size is real and readers are searching for it. 3.9, because an unpublished licence caps an operator below first place under our <a href="/how-we-review/#hard-gates">transparency gate</a>, and an unpublished wagering requirement scores zero on the bonus criterion rather than a neutral estimate.</p>
+ verdict="""<p>We score MadCasino 3.9 and rank it third, and both of those numbers are doing deliberate work. Third, because the offer size is real and readers are searching for it. 3.9, because an unpublished licence caps an operator below first place under our <a href="/how-we-rate-casinos/#hard-gates">transparency gate</a>, and an unpublished wagering requirement scores zero on the bonus criterion rather than a neutral estimate.</p>
 <p>Our honest recommendation: treat this as a bonus-hunting account, not a main one. Deposit an amount you would be relaxed about losing entirely, do not accumulate a balance, and withdraw promptly. If you want a large offer you can actually price, <a href="/casino-reviews/smash/">Smash at 10x</a> is the better decision by a wide margin.</p>""",
  who="For a bonus hunter who wants the biggest headline and understands the trade. Not for anyone who intends to hold a balance or treat this as a primary account.",
  faq=[("Is MadCasino licensed?",
@@ -100,7 +100,7 @@ N = {
       ("What is the MadCasino wagering requirement?",
        "<p>It is not published. The 777% headline appears prominently; the multiple required to convert it does not appear on the offer, in the bonus policy or in the general terms.</p><p>Our scoring treats an unpublished wagering requirement as zero value rather than estimating one, because an offer you cannot price cannot be compared. If you claim it, get the figure from support in writing first and keep the transcript.</p>"),
       ("Is MadCasino safe to use?",
-       "<p>The withdrawal we requested was paid, in about 48 hours, without dispute — so it is not a site that simply refuses to pay. But safety is about what happens when something goes wrong, and without a named licensing authority there is no regulator to escalate to and no register to check.</p><p>Practical advice: deposit only what you are content to lose, do not let a balance accumulate, withdraw promptly, and complete KYC on day one. See our <a href='/#fund-protection'>section on what happens if a casino goes bust</a>.</p>")]),
+       "<p>The withdrawal we requested was paid, in about 48 hours, without dispute — so it is not a site that simply refuses to pay. But safety is about what happens when something goes wrong, and without a named licensing authority there is no regulator to escalate to and no register to check.</p><p>Practical advice: deposit only what you are content to lose, do not let a balance accumulate, withdraw promptly, and complete KYC on day one. See our <a href='/online-casinos/#fund-protection'>section on what happens if a casino goes bust</a>.</p>")]),
 
 "gunsbet": dict(
  author="claire",
@@ -175,13 +175,13 @@ N = {
        "10x applies to deposit plus bonus, so the effective figure is 20x on bonus",
        "Minimum deposit not clearly published",
        "NRL overround of 105.9% is toward the wide end"],
- verdict="""<p>On bonus value, Smash is the best offer on this site and it is not close. The arithmetic is published on our <a href="/online-casinos/bonuses/#arithmetic">bonuses page</a> and it holds up: you receive NZ$600 in bonus funds and it costs roughly NZ$280 in expected losses to convert. Most large offers cost more to clear than they are worth.</p>
+ verdict="""<p>On bonus value, Smash is the best offer on this site and it is not close. The arithmetic is published on our <a href="/casino-bonus/#arithmetic">bonuses page</a> and it holds up: you receive NZ$600 in bonus funds and it costs roughly NZ$280 in expected losses to convert. Most large offers cost more to clear than they are worth.</p>
 <p>The Anjouan licence is the thing to weigh. It is a real licence, but the regime is newer and less tested than Curaçao, with a shorter enforcement record. Our advice is the same as for any offshore operator, applied a little more strictly: keep your playing balance on site and withdraw the rest.</p>""",
  who="Best for a bonus-aware player who can calculate expected value and wants a large offer that is genuinely clearable. Weigh the newer licence if you plan to hold a balance.",
  faq=[("Is the Smash Casino bonus actually clearable?",
-       "<p>Yes, and unusually so. At 10x on deposit plus bonus, a NZ$100 deposit with a NZ$600 bonus requires NZ$7,000 of turnover. At 96% RTP pokies the expected cost of generating that is about <strong>NZ$280</strong> — against NZ$600 of bonus funds received.</p><p>Compare that with a 40x-on-bonus offer of the same size, which would require NZ$24,000 of turnover at an expected cost of roughly NZ$960 to convert the same NZ$600. The full working is on our <a href='/online-casinos/bonuses/#arithmetic'>bonuses page</a>.</p>"),
+       "<p>Yes, and unusually so. At 10x on deposit plus bonus, a NZ$100 deposit with a NZ$600 bonus requires NZ$7,000 of turnover. At 96% RTP pokies the expected cost of generating that is about <strong>NZ$280</strong> — against NZ$600 of bonus funds received.</p><p>Compare that with a 40x-on-bonus offer of the same size, which would require NZ$24,000 of turnover at an expected cost of roughly NZ$960 to convert the same NZ$600. The full working is on our <a href='/casino-bonus/#arithmetic'>bonuses page</a>.</p>"),
       ("What is the Anjouan gaming licence?",
-       "<p>A licensing regime operated by the Anjouan Gaming Authority in the Comoros. It has become more common among newer operators as Curaçao restructured its own licensing. It is a genuine licence, but the regime is younger, its enforcement record is shorter, and — like Curaçao — it does not require operators to segregate customer funds.</p><p>Practically: it is not a reason to avoid Smash, but it is a reason to withdraw winnings rather than hold a balance. See <a href='/#fund-protection'>what happens if a casino goes bust</a>.</p>"),
+       "<p>A licensing regime operated by the Anjouan Gaming Authority in the Comoros. It has become more common among newer operators as Curaçao restructured its own licensing. It is a genuine licence, but the regime is younger, its enforcement record is shorter, and — like Curaçao — it does not require operators to segregate customer funds.</p><p>Practically: it is not a reason to avoid Smash, but it is a reason to withdraw winnings rather than hold a balance. See <a href='/online-casinos/#fund-protection'>what happens if a casino goes bust</a>.</p>"),
       ("What is the maximum bet while clearing the Smash bonus?",
        "<p>Around NZ$5 per spin while a bonus is active. A single spin above that lets the operator void the bonus and every dollar won from it — not reduce it, void it.</p><p>The most common way people breach this is autoplay configured at a higher stake earlier in a session. Set your stake deliberately at the start of a bonus session and leave it alone.</p>")]),
 
@@ -257,12 +257,12 @@ N = {
        "~NZ$35 minimum deposit is on the high side",
        "Crypto payouts of 12–24 hours are slower than half the sites here"],
  verdict="""<p>Claim the 20 spins. They cost you nothing but an email address, and they let you see the lobby, the cashier and the interface before committing money — which is genuinely worth more than the spins themselves.</p>
-<p>Do not build expectations on them. At 50x, the winnings are a lottery ticket rather than a balance. If you want value from a bonus, the clearable large offers at <a href="/casino-reviews/smash/">Smash</a> and <a href="/casino-reviews/rivo/">Rivo</a> are where it actually is, and our <a href="/no-deposit-casinos/#value">no-deposit valuation page</a> shows the full working behind the NZ$1–4 figure.</p>""",
+<p>Do not build expectations on them. At 50x, the winnings are a lottery ticket rather than a balance. If you want value from a bonus, the clearable large offers at <a href="/casino-reviews/smash/">Smash</a> and <a href="/casino-reviews/rivo/">Rivo</a> are where it actually is, and our <a href="/no-deposit-bonus/#value">no-deposit valuation page</a> shows the full working behind the NZ$1–4 figure.</p>""",
  who="Worth claiming to test the site at zero cost. Not a route to cash, and not a primary account on the strength of the no-deposit offer alone.",
  faq=[("Is the Lucky7even no deposit bonus real?",
        "<p>Yes — 20 free spins on Book of the Fallen, credited after email verification, with no deposit and no card required. We verified it by registering an account ourselves. It is the only standing no-deposit offer we could confirm for New Zealand players across all 38 operators we assessed.</p>"),
       ("What is the no deposit bonus actually worth?",
-       "<p>About <strong>NZ$1 to NZ$4</strong>. Twenty spins at NZ$0.20 is NZ$4 of stake; expected winnings at 96% RTP are NZ$3.84; and 50x wagering on those winnings requires NZ$192 of turnover, which costs about NZ$7.68 in expected losses to generate.</p><p>The expected value is negative, so the offer's worth sits in the small chance of a large spin win — which a conversion cap then limits. Claim it to look around the site, not for the money. Full working on our <a href='/no-deposit-casinos/#value'>no deposit page</a>.</p>"),
+       "<p>About <strong>NZ$1 to NZ$4</strong>. Twenty spins at NZ$0.20 is NZ$4 of stake; expected winnings at 96% RTP are NZ$3.84; and 50x wagering on those winnings requires NZ$192 of turnover, which costs about NZ$7.68 in expected losses to generate.</p><p>The expected value is negative, so the offer's worth sits in the small chance of a large spin win — which a conversion cap then limits. Claim it to look around the site, not for the money. Full working on our <a href='/no-deposit-bonus/#value'>no deposit page</a>.</p>"),
       ("What is Lucky7even's minimum deposit?",
        "<p>Around NZ$35 on most methods, which is toward the high end — most operators here sit at NZ$20 and only Kingdom is higher at about NZ$40. If you want to start smaller, <a href='/casino-reviews/lucky-circus/'>Lucky Circus</a> or <a href='/casino-reviews/lucky-vibe/'>Lucky Vibe</a> take NZ$20.</p>")]),
 
@@ -283,7 +283,7 @@ N = {
        "Sportsbook overround of 106.4% on NRL is the widest here",
        "The four-deposit package structure needs real commitment"],
  verdict="""<p>Lucky Vibe is a good all-round account for someone who wants both products in one place and does not want to run two cashiers. The catalogue breadth is real and the payout speed is respectable.</p>
-<p>The three-day expiry is the thing to think about before claiming. If you play a couple of evenings a week, that window is not enough to clear a package of this size and the bonus becomes a restriction on your own deposit rather than a benefit. It is entirely reasonable to deposit here and decline the offer — see <a href="/online-casinos/bonuses/#decline">when to decline a bonus</a>.</p>""",
+<p>The three-day expiry is the thing to think about before claiming. If you play a couple of evenings a week, that window is not enough to clear a package of this size and the bonus becomes a restriction on your own deposit rather than a benefit. It is entirely reasonable to deposit here and decline the offer — see <a href="/casino-bonus/#decline">when to decline a bonus</a>.</p>""",
  who="Best for someone who wants casino and sport on one balance. Think carefully about the three-day bonus window before claiming.",
  faq=[("How long do Lucky Vibe bonuses last?",
        "<p><strong>Three days</strong>, which is the tightest expiry window of any operator on this site. Most competitors allow seven to 30 days.</p><p>On a package with a NZ$5,000 ceiling, three days means committing substantial session time immediately or forfeiting the balance — and since a claimed bonus also locks your own deposit until wagering completes, an unclearable bonus is worse than no bonus. Work out the required turnover at your normal stakes before claiming.</p>"),
@@ -401,7 +401,7 @@ N = {
       ("Why are Roby withdrawals so slow?",
        "<p>The delay is at the approval stage, not the payment rail. Every other operator here clears crypto in hours because blockchain settlement is minutes and approval is the variable; Roby's approval takes about three days regardless of method, so crypto is no faster than a card.</p><p>That means there is no workaround. You cannot switch rails to speed it up. Our fastest logged Roby withdrawal was 70 hours.</p>"),
       ("Is Roby Casino licensed?",
-       "<p>Not clearly. We could not find a licensing authority named with a verifiable reference anywhere on the site. That is the same transparency failure as MadCasino, and under our <a href='/how-we-review/#hard-gates'>hard gates</a> it caps how high Roby can rank regardless of its other scores.</p><p>Practical advice: deposit only what you are content to lose, withdraw promptly despite the delay, and do not hold a balance. See <a href='/#fund-protection'>what happens if a casino goes bust</a>.</p>")]),
+       "<p>Not clearly. We could not find a licensing authority named with a verifiable reference anywhere on the site. That is the same transparency failure as MadCasino, and under our <a href='/how-we-rate-casinos/#hard-gates'>hard gates</a> it caps how high Roby can rank regardless of its other scores.</p><p>Practical advice: deposit only what you are content to lose, withdraw promptly despite the delay, and do not hold a balance. See <a href='/online-casinos/#fund-protection'>what happens if a casino goes bust</a>.</p>")]),
 
 "spino": dict(
  author="claire",
@@ -429,7 +429,7 @@ N = {
       ("Can I use a credit card or NZD at Spino?",
        "<p>No. Spino is <strong>crypto only</strong> — no Visa, no Mastercard, no e-wallets, no bank transfer, and no New Zealand dollar balance. You need an exchange account and a wallet before you can deposit.</p><p>If you want a fast-paying site with a fiat cashier, <a href='/casino-reviews/kingdom/'>Kingdom</a> pays crypto in two to four hours and also accepts NZD cards and e-wallets.</p>"),
       ("Is Spino safe? It is very new.",
-       "<p>Spino launched in 2026 under Empire of Kingdoms Limitada with a <strong>Tobique Gaming Commission</strong> licence — the newest operator and the least-tested licensing regime on this site. It paid our withdrawals promptly and without dispute, in one to four hours.</p><p>A short track record is not evidence of a problem, but it is less evidence of reliability than a nine-year record. Our advice: take the 0x offer, withdraw winnings promptly, and do not accumulate a balance. See <a href='/#fund-protection'>what happens if a casino goes bust</a>.</p>")]),
+       "<p>Spino launched in 2026 under Empire of Kingdoms Limitada with a <strong>Tobique Gaming Commission</strong> licence — the newest operator and the least-tested licensing regime on this site. It paid our withdrawals promptly and without dispute, in one to four hours.</p><p>A short track record is not evidence of a problem, but it is less evidence of reliability than a nine-year record. Our advice: take the 0x offer, withdraw winnings promptly, and do not accumulate a balance. See <a href='/online-casinos/#fund-protection'>what happens if a casino goes bust</a>.</p>")]),
 
 "ivibet": dict(
  author="claire",
@@ -622,9 +622,9 @@ def build(slug, i):
                      "meta": f"{op['licence']} &middot; {op['minDep']} minimum"},
         "faq": n["faq"] + [
             ("How did RNRV test " + op["name"] + "?",
-             "<p>We opened an account in a reviewer's own name from a New Zealand connection, completed KYC, deposited our own New Zealand dollars, played a minimum of 200 real-money spins or 100 live hands, and requested a withdrawal which we timed to the minute. Our editor separately read the complete terms and conditions, and we tested live chat with a specific question.</p><p>The full process and the scoring weights are on our <a href='/how-we-review/'>how we review</a> page.</p>"),
+             "<p>We opened an account in a reviewer's own name from a New Zealand connection, completed KYC, deposited our own New Zealand dollars, played a minimum of 200 real-money spins or 100 live hands, and requested a withdrawal which we timed to the minute. Our editor separately read the complete terms and conditions, and we tested live chat with a specific question.</p><p>The full process and the scoring weights are on our <a href='/how-we-rate-casinos/'>how we review</a> page.</p>"),
             ("Is " + op["name"] + " legal for New Zealand players?",
-             "<p>It is not an offence for a New Zealander to play at an offshore online casino — the Online Casino Gambling Act 2026 regulates operators, not players. From <strong>1 December 2026</strong>, an operator needs a New Zealand licence or a pending application to keep serving New Zealanders.</p><p>Our <a href='/nz-online-casino-law/'>NZ online casino law</a> page sets out the full timeline and what it means for your balance.</p>"),
+             "<p>It is not an offence for a New Zealander to play at an offshore online casino — the Online Casino Gambling Act 2026 regulates operators, not players. From <strong>1 December 2026</strong>, an operator needs a New Zealand licence or a pending application to keep serving New Zealanders.</p><p>Our <a href='/licensed-online-casinos/'>NZ online casino law</a> page sets out the full timeline and what it means for your balance.</p>"),
         ],
     }
 
@@ -666,14 +666,14 @@ def build(slug, i):
 <p><strong>Wagering:</strong> {op['wagering']}<br>
 <strong>Minimum deposit:</strong> {op['minDep']}
 {'<br><strong>Original currency:</strong> ' + op['welcomeEur'] if op.get('welcomeEur') else ''}</p>
-<p>Bonus terms change without notice. Always read the operator's current terms before claiming &mdash; and see <a href="/online-casinos/bonuses/#decline">when to decline a bonus</a>, because a bonus you cannot clear locks your own deposit too.</p></div>
-<p>Our editor read the complete terms on this offer rather than the promotional summary. The comparison against every other welcome offer we list, including the expected cost of clearing each one, is on our <a href="/online-casinos/bonuses/#arithmetic">casino bonuses page</a>.</p>
+<p>Bonus terms change without notice. Always read the operator's current terms before claiming &mdash; and see <a href="/casino-bonus/#decline">when to decline a bonus</a>, because a bonus you cannot clear locks your own deposit too.</p></div>
+<p>Our editor read the complete terms on this offer rather than the promotional summary. The comparison against every other welcome offer we list, including the expected cost of clearing each one, is on our <a href="/casino-bonus/#arithmetic">casino bonuses page</a>.</p>
 
 <h2 id="payments">Payments and payout speed</h2>
 <p><strong>Measured payout:</strong> {op['payout']}</p>
 <p>Payment methods we found in the cashier:</p>
 <div class="chips">{methods}</div>
-<p>As at every operator, the payment method determines your withdrawal speed more than the casino does &mdash; with the exception of operators whose approval step is the bottleneck. The full comparison of all 94 withdrawals we timed is on our <a href="/fast-payout-casinos/">fast payout casinos</a> page, and the method-by-method breakdown is on our <a href="/payment-methods/">NZ payment methods</a> page.</p>
+<p>As at every operator, the payment method determines your withdrawal speed more than the casino does &mdash; with the exception of operators whose approval step is the bottleneck. The full comparison of all 94 withdrawals we timed is on our <a href="/fast-payout-casinos/">fast payout casinos</a> page, and the method-by-method breakdown is on our <a href="/casino-payment-methods/">NZ payment methods</a> page.</p>
 <div class="note note-ok"><p class="note-h">The one thing that speeds up every withdrawal</p><p>Complete KYC on the day you register &mdash; photo ID, proof of address dated within three months, and proof of payment method &mdash; before you deposit. Around 70% of pending withdrawals in our testing were waiting on verification, not on the cashier.</p></div>
 
 <h2 id="verdict">Our verdict</h2>
@@ -688,11 +688,11 @@ def build(slug, i):
 
 <h2 id="next">Compare {op['name']} with the alternatives</h2>
 <div class="grid g3">
-<a class="card card-lnk" href="/"><h3>Best online casino sites NZ</h3><p>Where {op['name']} sits in our full ranking, and what else made the list.</p><span class="more">See the rankings &rarr;</span></a>
+<a class="card card-lnk" href="/online-casinos/"><h3>Best online casino sites NZ</h3><p>Where {op['name']} sits in our full ranking, and what else made the list.</p><span class="more">See the rankings &rarr;</span></a>
 <a class="card card-lnk" href="/fast-payout-casinos/"><h3>Fast payout casinos</h3><p>All 94 timed withdrawals compared side by side.</p><span class="more">See the timings &rarr;</span></a>
-<a class="card card-lnk" href="/online-casinos/bonuses/"><h3>Casino bonuses</h3><p>Every welcome offer with the cost of clearing it calculated.</p><span class="more">Compare bonuses &rarr;</span></a>
+<a class="card card-lnk" href="/casino-bonus/"><h3>Casino bonuses</h3><p>Every welcome offer with the cost of clearing it calculated.</p><span class="more">Compare bonuses &rarr;</span></a>
 <a class="card card-lnk" href="/casino-reviews/"><h3>All casino reviews</h3><p>Every operator we have tested, with the good and the bad.</p><span class="more">Browse reviews &rarr;</span></a>
-<a class="card card-lnk" href="/how-we-review/"><h3>How we review</h3><p>Our testing process, scoring weights and conflicts policy.</p><span class="more">Read the methodology &rarr;</span></a>
+<a class="card card-lnk" href="/how-we-rate-casinos/"><h3>How we review</h3><p>Our testing process, scoring weights and conflicts policy.</p><span class="more">Read the methodology &rarr;</span></a>
 <a class="card card-lnk" href="/responsible-gambling/"><h3>Responsible gambling</h3><p>Limits, self-exclusion and free confidential help in New Zealand.</p><span class="more">Get support &rarr;</span></a>
 </div>
 </div></div></section>
@@ -706,7 +706,7 @@ def build(slug, i):
 <h3>About the reviewer</h3>
 <p class="role">Claire Morrison &mdash; Senior Writer &amp; Reviewer</p>
 <p>This review is based on an account opened in Claire's own name from a New Zealand connection, funded with her own money, and a withdrawal timed to the minute. Every figure was checked by Elizabeth King against the testing log and the operator's own terms before publication. No operator saw this page beforehand and none has editorial input.</p>
-<p><a href="/authors/#claire-morrison">Full profile</a> &middot; <a href="/authors/#elizabeth-king">Fact-checked by Elizabeth King</a> &middot; <a href="/how-we-review/">Review methodology</a></p>
+<p><a href="/authors/#claire-morrison">Full profile</a> &middot; <a href="/authors/#elizabeth-king">Fact-checked by Elizabeth King</a> &middot; <a href="/how-we-rate-casinos/">Review methodology</a></p>
 </div></div>
 <p class="upd">Review last updated 13 September 2026. Bonus terms are re-verified monthly and payout timings re-measured quarterly. If your experience differs materially from what is published here, <a href="/contact/">tell us</a> &mdash; reader reports are how we catch changes between testing cycles.</p>
 </div></div></section>

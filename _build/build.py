@@ -16,6 +16,7 @@ SITE = "RNRV"
 TAGLINE = "NZ Online Casino &amp; Betting Guide"
 UPDATED = "2026-09-13"
 UPDATED_HUMAN = "13 September 2026"
+MONTH_YEAR = datetime.date.today().strftime("%B %Y")
 FOUNDED = "2026"
 
 OPS = json.load(open(os.path.join(ROOT, "_build", "operators.json")))
@@ -59,28 +60,29 @@ for _old in ("tane", "ana", "hemi", "team"):
 
 # ---------------------------------------------------------------- navigation
 NAV = [
- ("Casinos", "/", [
-   ("Best Online Casinos NZ", "/"),
+ ("Casinos", "/online-casinos/", [
+   ("Best Online Casinos NZ", "/online-casinos/"),
+   ("Licensed Online Casinos", "/licensed-online-casinos/"),
+   ("New Casinos NZ", "/new-casinos-nz/"),
    ("Online Pokies", "/online-pokies/"),
-   ("High Payout Casinos", "/high-payout-casinos/"),
+   ("Casino Payout Percentages", "/casino-payout-percentages/"),
    ("Fast Payout Casinos", "/fast-payout-casinos/"),
-   ("Live Dealer Casinos", "/live-casinos/"),
-   ("Crypto Casinos", "/best-crypto-casinos/"),
+   ("Live Casino", "/live-casino/"),
+   ("Crypto Casinos NZ", "/crypto-casinos-nz/"),
    ("Casino Reviews", "/casino-reviews/"),
  ]),
- ("Bonuses", "/online-casinos/bonuses/", [
-   ("Casino Bonuses NZ", "/online-casinos/bonuses/"),
-   ("No Deposit Bonuses", "/no-deposit-casinos/"),
+ ("Bonuses", "/casino-bonus/", [
+   ("Casino Bonus NZ", "/casino-bonus/"),
+   ("No Deposit Bonus NZ", "/no-deposit-bonus/"),
  ]),
  ("Betting", "/online-betting/", [
    ("Online Betting NZ", "/online-betting/"),
    ("Best Sports Betting Sites", "/best-sports-betting-sites/"),
  ]),
  ("Guides", None, [
-   ("NZ Online Casino Law", "/nz-online-casino-law/"),
+   ("Casino Payment Methods", "/casino-payment-methods/"),
    ("Tax on Gambling Winnings", "/gambling-winnings-tax-nz/"),
-   ("Payment Methods", "/payment-methods/"),
-   ("How We Review", "/how-we-review/"),
+   ("How We Rate Casinos", "/how-we-rate-casinos/"),
    ("Responsible Gambling", "/responsible-gambling/"),
  ]),
  ("About", "/about/", None),
@@ -88,26 +90,27 @@ NAV = [
 ]
 
 FOOTER = [
- ("Casinos", [
-   ("Best Online Casinos NZ", "/"),
-   ("Online Pokies", "/online-pokies/"),
-   ("High Payout Casinos", "/high-payout-casinos/"),
-   ("Fast Payout Casinos", "/fast-payout-casinos/"),
-   ("Live Dealer Casinos", "/live-casinos/"),
-   ("Crypto Casinos", "/best-crypto-casinos/"),
-   ("Casino Reviews", "/casino-reviews/"),
+ ("Online Casinos", [
+   ("Best Online Casinos NZ", "/online-casinos/"),
+   ("Licensed Online Casinos NZ", "/licensed-online-casinos/"),
+   ("New Casinos NZ", "/new-casinos-nz/"),
+   ("Online Pokies NZ", "/online-pokies/"),
+   ("Casino Payout Percentages", "/casino-payout-percentages/"),
+   ("Fast Payout Casinos NZ", "/fast-payout-casinos/"),
+   ("Live Casino NZ", "/live-casino/"),
+   ("Crypto Casinos NZ", "/crypto-casinos-nz/"),
  ]),
  ("Bonuses &amp; Betting", [
-   ("Casino Bonuses NZ", "/online-casinos/bonuses/"),
-   ("No Deposit Bonuses", "/no-deposit-casinos/"),
+   ("Casino Bonus NZ", "/casino-bonus/"),
+   ("No Deposit Bonus NZ", "/no-deposit-bonus/"),
    ("Online Betting NZ", "/online-betting/"),
-   ("Best Sports Betting Sites", "/best-sports-betting-sites/"),
-   ("Payment Methods", "/payment-methods/"),
+   ("Best Sports Betting Sites NZ", "/best-sports-betting-sites/"),
+   ("Casino Payment Methods", "/casino-payment-methods/"),
  ]),
  ("Guides", [
-   ("NZ Online Casino Law", "/nz-online-casino-law/"),
-   ("Tax on Gambling Winnings", "/gambling-winnings-tax-nz/"),
-   ("How We Review", "/how-we-review/"),
+   ("Casino Reviews", "/casino-reviews/"),
+   ("Tax on Gambling Winnings NZ", "/gambling-winnings-tax-nz/"),
+   ("How We Rate Casinos", "/how-we-rate-casinos/"),
    ("Responsible Gambling", "/responsible-gambling/"),
  ]),
  ("Company", [
@@ -159,6 +162,7 @@ def resolve_tokens(s):
     s = re.sub(r"\{\{op:([a-z0-9\-]+):([A-Za-z]+)\}\}",
                lambda m: html.escape(str(OPS[m.group(1)].get(m.group(2), ""))), s)
     s = s.replace("{{updated}}", UPDATED_HUMAN)
+    s = s.replace("{{month}}", MONTH_YEAR)
     return s
 
 def cta(slug, label=None, kind="casino", block=False, cls="btn-lime"):
@@ -248,7 +252,7 @@ def toplist(slugs, kind="casino", intro=None, heading=None, hid="toplist"):
     return (f'<section class="sec sec-tl"><div class="wrap">{h}{p}<div class="tl">{"".join(rows)}</div>'
             f'<p class="tl-disc">{ic("info")} We earn a commission when a reader opens an account through a '
             f'link on this page. It never changes the order above &mdash; that is set by the testing described '
-            f'in <a href="/how-we-review/">how we review</a>.</p></div></section>')
+            f'in <a href="/how-we-rate-casinos/">how we review</a>.</p></div></section>')
 
 def review_grid():
     """Card grid of every operator review, in overall rank order."""
@@ -435,7 +439,7 @@ def hero_html(fm, body_lede):
 <div class="byline">
 <a class="av" href="/authors/#{a['slug']}" aria-label="{strip_tags(a['name'])}, author"><img src="{a['photo']}" srcset="{a['photo']} 1x, {a['photo'].replace('.jpg','@2x.jpg')} 2x" alt="{strip_tags(a['name'])}" width="44" height="44" loading="eager" decoding="async"></a>
 <span class="by-txt">By <a href="/authors/#{a['slug']}"><b>{a['name']}</b></a>, {a['role']}
-<span class="by-sub">Fact-checked by <a href="/authors/#{ck['slug']}"><b>{ck['name']}</b></a> &middot; <a href="/how-we-review/">How we review</a></span></span>
+<span class="by-sub">Fact-checked by <a href="/authors/#{ck['slug']}"><b>{ck['name']}</b></a> &middot; <a href="/how-we-rate-casinos/">How we review</a></span></span>
 </div>
 <p class="hero-fine">18+. New customers only. Wagering requirements and full terms apply to every offer shown on
 this page. Gambling can be harmful &mdash; free, confidential help on <strong>0800 654 655</strong>.</p>
@@ -926,7 +930,7 @@ def org_schema():
         "areaServed": {"@type": "Country", "name": "New Zealand"},
         "knowsAbout": ["online casinos", "online pokies", "casino bonuses", "sports betting",
                        "New Zealand gambling law", "responsible gambling"],
-        "publishingPrinciples": f"{DOMAIN}/how-we-review/",
+        "publishingPrinciples": f"{DOMAIN}/how-we-rate-casinos/",
         "contactPoint": {"@type": "ContactPoint", "email": "editor@rnrv.co.nz",
                          "contactType": "editorial", "areaServed": "NZ", "availableLanguage": "en"},
     }
@@ -946,6 +950,9 @@ def person_schema(key):
     }
 
 def head_html(fm, extra_schema):
+    for _k in ("title", "description", "h1", "lede"):
+        if isinstance(fm.get(_k), str):
+            fm[_k] = fm[_k].replace("{{month}}", MONTH_YEAR)
     url = DOMAIN + fm["url"]
     a = AUTHORS[fm.get("author", WRITER)]
     ck = AUTHORS[CHECKER]
@@ -1144,6 +1151,34 @@ User-agent: SistrixBot
 Disallow: /
 """
 
+
+# ---------------------------------------------------------------- redirect stubs
+# Static hosting cannot emit a true 301, so these are meta-refresh + canonical,
+# which Google treats as a permanent redirect signal. If the host supports real
+# redirects (Cloudflare rules, Netlify _redirects, nginx), configure a 301 there
+# and delete the stub.
+REDIRECTS = {
+    "/instant-withdrawals/": "/fast-payout-casinos/",
+}
+
+def write_redirects():
+    for src, dest in REDIRECTS.items():
+        d = os.path.join(ROOT, src.strip("/"))
+        os.makedirs(d, exist_ok=True)
+        html_doc = f"""<!DOCTYPE html><html lang="en-NZ"><head><meta charset="utf-8">
+<title>Redirecting to {dest}</title>
+<link rel="canonical" href="{DOMAIN}{dest}">
+<meta http-equiv="refresh" content="0; url={dest}">
+<meta name="robots" content="noindex,follow">
+<style>body{{font:16px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+background:#12151A;color:#F7F7F4;margin:0;display:grid;place-items:center;min-height:100vh;padding:24px}}
+a{{color:#C8FF3D}}</style></head><body>
+<p>This page has moved to <a href="{dest}">{DOMAIN}{dest}</a>. Redirecting&hellip;</p>
+<script>location.replace("{dest}");</script>
+</body></html>"""
+        open(os.path.join(d, "index.html"), "w", encoding="utf-8").write(html_doc)
+    return list(REDIRECTS)
+
 def main():
     pages = []
     total = 0
@@ -1154,6 +1189,7 @@ def main():
         pages.append(fm)
         total += words
         print(f"  {fm['url']:<42} {words:>6} words")
+    write_redirects()
     sitemap(pages)
     open(os.path.join(ROOT, "robots.txt"), "w", encoding="utf-8").write(ROBOTS)
     print(f"\n{len(pages)} pages, {total:,} words total")
