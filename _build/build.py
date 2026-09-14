@@ -285,7 +285,12 @@ def faq_schema(items):
          "acceptedAnswer": {"@type": "Answer", "text": strip_tags(a)}} for q, a in items]}
 
 def strip_tags(s):
-    return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", s)).strip()
+    """Plain text for schema fields: drop tags, decode entities, collapse space."""
+    s = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", s, flags=re.S | re.I)
+    s = re.sub(r"</(p|div|li|h[1-6]|tr|br)>", " ", s, flags=re.I)
+    s = re.sub(r"<[^>]+>", "", s)
+    s = html.unescape(s)
+    return re.sub(r"\s+", " ", s).strip()
 
 # ---------------------------------------------------------------- chrome
 LOGO_SVG = ('<svg class="mk" viewBox="0 0 36 36" aria-hidden="true">'
