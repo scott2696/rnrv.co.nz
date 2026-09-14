@@ -262,9 +262,17 @@ background:#8FB61C;vertical-align:.15em;margin-right:.5em}
 border-bottom:1px solid var(--line-2);padding-bottom:1px}
 .tl-read:hover{color:var(--ink);border-color:var(--ink)}
 .tl-fine{font-size:.71rem;color:var(--muted-2);margin:9px 0 0;line-height:1.45}
-.tl-disc{margin:20px 0 0;font-size:.83rem;color:var(--muted);background:#fff;border:1px dashed var(--line-2);
-border-radius:10px;padding:13px 16px}
-.tl-disc .ic{color:var(--muted-2)}
+/* ---------- page-foot disclosures ---------- */
+.sec-disc{background:var(--paper);border-top:1px solid var(--line);padding:38px 0 44px}
+.disc h2{font-size:1.12rem;margin:0 0 4px;letter-spacing:-.01em}
+.disc h2::after{content:"";display:block;width:38px;height:3px;border-radius:2px;background:var(--lime-2);margin:9px 0 20px}
+.disc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.disc-item h3{display:flex;align-items:center;font-family:var(--h);font-weight:700;font-size:.88rem;
+color:var(--ink);margin:0 0 .5em;text-transform:uppercase;letter-spacing:.05em}
+.disc-item h3 .ic{color:var(--muted-2);width:.95em;height:.95em}
+.disc-item p{font-size:.82rem;line-height:1.6;color:var(--muted);margin:0 0 .7em}
+.disc-item p:last-child{margin-bottom:0}
+.disc-item strong{color:var(--ink)}
 
 /* ---------- tables ---------- */
 .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 0 1.4em;border:1px solid var(--line);
@@ -489,7 +497,8 @@ padding:0 4px}
 .tl-act .btn{height:48px;font-size:1rem;border-radius:10px}
 .tl-read{margin-top:11px;font-size:.82rem;display:inline-block;border-bottom-color:var(--line-2)}
 .tl-fine{margin-top:9px;font-size:.72rem}
-.tl-disc{font-size:.79rem;padding:12px 14px}
+.disc-grid{grid-template-columns:1fr;gap:18px}
+.sec-disc{padding:28px 0 34px}
 
 .pc,.g2,.g3,.g4{grid-template-columns:1fr}
 .toc ol{columns:1}
@@ -514,8 +523,6 @@ padding:0 4px}
 <span class="by-txt">By <a href="/authors/#claire-morrison"><b>Claire Morrison</b></a>, Senior Writer &amp; Reviewer
 <span class="by-sub">Fact-checked by <a href="/authors/#elizabeth-king"><b>Elizabeth King</b></a> &middot; <a href="/how-we-rate-casinos/">How we review</a></span></span>
 </div>
-<p class="hero-fine">18+. New customers only. Wagering requirements and full terms apply to every offer shown on
-this page. Gambling can be harmful &mdash; free, confidential help on <strong>0800 654 655</strong>.</p>
 </div><aside class="hero-card" aria-label="Editor's top pick">
 <div class="hc-band">Our rating: 4.1/5</div>
 <div class="hc-body">
@@ -607,7 +614,27 @@ this page. Gambling can be harmful &mdash; free, confidential help on <strong>08
 <p><a href="/authors/#claire-morrison">Full profile</a> &middot; <a href="/authors/#elizabeth-king">Fact-checked by Elizabeth King</a> &middot; <a href="/how-we-rate-casinos/">Review methodology</a></p>
 </div></div>
 <p class="upd">Review last updated 13 September 2026. Bonus terms are re-verified monthly and payout timings re-measured quarterly. If your experience differs materially from what is published here, <a href="/contact/">tell us</a> &mdash; reader reports are how we catch changes between testing cycles.</p>
-</div></div></section></main><footer class="ft"><div class="wrap">
+</div></div></section><section class="sec sec-disc"><div class="wrap"><div class="disc">
+<h2 id="disclosures">Disclosures</h2>
+<div class="disc-grid">
+<div class="disc-item"><h3><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.6-.9-1.7-1.5-3-1.5-1.7 0-3 .9-3 2s1.3 2 3 2 3 .9 3 2-1.3 2-3 2c-1.3 0-2.4-.6-3-1.5"/></svg></span>How we are funded</h3>
+<p>RNRV earns affiliate commission when a reader opens an account through a link on this page. That is the
+entire business model, and we would rather state it than bury it.</p>
+<p>It does not buy placement. No operator has paid for a position, seen a page before publication, or had
+editorial input. Our commission rates are published against our rankings on
+<a href="/how-we-rate-casinos/#money">how we rate casinos</a> so the claim is checkable rather than asserted.</p></div>
+<div class="disc-item"><h3><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg></span>Offers and terms</h3>
+<p>18+. New customers only. Wagering requirements and full terms apply to every offer shown on this page.
+Bonus terms change without notice &mdash; always read the operator's own current terms before claiming.</p>
+<p>Figures here were verified in September 2026 and are re-checked monthly. Where we could not verify a figure
+we say so rather than estimate.</p></div>
+<div class="disc-item"><h3><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.6 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.6a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg></span>Gambling carries risk</h3>
+<p>Every game referenced on this site has a negative expected value &mdash; it returns less than it takes.
+A higher RTP makes the entertainment cheaper, not profitable. Never gamble money you cannot afford to lose.</p>
+<p>Free, confidential help 24/7: <strong>Gambling Helpline 0800 654 655</strong> (free text 8006),
+<strong>Problem Gambling Foundation 0800 664 262</strong>, or <strong>Need to Talk 1737</strong>.
+See <a href="/responsible-gambling/">responsible gambling</a>.</p></div>
+</div></div></div></section></main><footer class="ft"><div class="wrap">
 <div class="ft-top">
 <div class="ft-brand">
 <a class="lg lg-ft" href="/" aria-label="RNRV"><span class="lg-lock"><svg class="mk" viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="8" fill="var(--lime)"/><path d="M11 26V10h7.2a4.6 4.6 0 0 1 1.2 9l4.1 7h-4.2l-3.6-6.6H14.7V26z" fill="var(--ink)"/><path d="M14.7 13.2v3.9h3.4a1.95 1.95 0 0 0 0-3.9z" fill="var(--lime)"/></svg><span class="lg-word">RNRV</span></span><span class="lg-tag">NZ Online Casino &amp; Betting Guide</span></a>

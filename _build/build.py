@@ -250,9 +250,7 @@ def toplist(slugs, kind="casino", intro=None, heading=None, hid="toplist"):
     h = f'<h2 id="{hid}">{heading}</h2>' if heading else ""
     p = f'<p class="lede">{intro}</p>' if intro else ""
     return (f'<section class="sec sec-tl"><div class="wrap">{h}{p}<div class="tl">{"".join(rows)}</div>'
-            f'<p class="tl-disc">{ic("info")} We earn a commission when a reader opens an account through a '
-            f'link on this page. It never changes the order above &mdash; that is set by the testing described '
-            f'in <a href="/how-we-rate-casinos/">how we review</a>.</p></div></section>')
+            f'</div></section>')
 
 def review_grid():
     """Card grid of every operator review, in overall rank order."""
@@ -441,9 +439,40 @@ def hero_html(fm, body_lede):
 <span class="by-txt">By <a href="/authors/#{a['slug']}"><b>{a['name']}</b></a>, {a['role']}
 <span class="by-sub">Fact-checked by <a href="/authors/#{ck['slug']}"><b>{ck['name']}</b></a> &middot; <a href="/how-we-rate-casinos/">How we review</a></span></span>
 </div>
-<p class="hero-fine">18+. New customers only. Wagering requirements and full terms apply to every offer shown on
-this page. Gambling can be harmful &mdash; free, confidential help on <strong>0800 654 655</strong>.</p>
 </div>{cardhtml}</div></div></section>'''
+
+def disclosures_html(fm):
+    """Site and page level disclosures, consolidated at the foot of the page.
+
+    Per-offer terms (wagering, minimum deposit, 18+) stay attached to each offer
+    and CTA, where advertising standards expect them. What moves down here is
+    the page-level material: the affiliate disclosure, the general terms notice
+    and the responsible gambling line.
+    """
+    has_affiliate = bool(fm.get("toplist") or fm.get("heroCard") or fm.get("reviewOf"))
+    if not has_affiliate:
+        return ""
+    return f'''<section class="sec sec-disc"><div class="wrap"><div class="disc">
+<h2 id="disclosures">Disclosures</h2>
+<div class="disc-grid">
+<div class="disc-item"><h3>{ic("coin")}How we are funded</h3>
+<p>RNRV earns affiliate commission when a reader opens an account through a link on this page. That is the
+entire business model, and we would rather state it than bury it.</p>
+<p>It does not buy placement. No operator has paid for a position, seen a page before publication, or had
+editorial input. Our commission rates are published against our rankings on
+<a href="/how-we-rate-casinos/#money">how we rate casinos</a> so the claim is checkable rather than asserted.</p></div>
+<div class="disc-item"><h3>{ic("info")}Offers and terms</h3>
+<p>18+. New customers only. Wagering requirements and full terms apply to every offer shown on this page.
+Bonus terms change without notice &mdash; always read the operator\'s own current terms before claiming.</p>
+<p>Figures here were verified in {{{{month}}}} and are re-checked monthly. Where we could not verify a figure
+we say so rather than estimate.</p></div>
+<div class="disc-item"><h3>{ic("warn")}Gambling carries risk</h3>
+<p>Every game referenced on this site has a negative expected value &mdash; it returns less than it takes.
+A higher RTP makes the entertainment cheaper, not profitable. Never gamble money you cannot afford to lose.</p>
+<p>Free, confidential help 24/7: <strong>Gambling Helpline 0800 654 655</strong> (free text 8006),
+<strong>Problem Gambling Foundation 0800 664 262</strong>, or <strong>Need to Talk 1737</strong>.
+See <a href="/responsible-gambling/">responsible gambling</a>.</p></div>
+</div></div></div></section>'''
 
 # ---------------------------------------------------------------- CSS
 CSS = r"""
@@ -676,9 +705,17 @@ background:#8FB61C;vertical-align:.15em;margin-right:.5em}
 border-bottom:1px solid var(--line-2);padding-bottom:1px}
 .tl-read:hover{color:var(--ink);border-color:var(--ink)}
 .tl-fine{font-size:.71rem;color:var(--muted-2);margin:9px 0 0;line-height:1.45}
-.tl-disc{margin:20px 0 0;font-size:.83rem;color:var(--muted);background:#fff;border:1px dashed var(--line-2);
-border-radius:10px;padding:13px 16px}
-.tl-disc .ic{color:var(--muted-2)}
+/* ---------- page-foot disclosures ---------- */
+.sec-disc{background:var(--paper);border-top:1px solid var(--line);padding:38px 0 44px}
+.disc h2{font-size:1.12rem;margin:0 0 4px;letter-spacing:-.01em}
+.disc h2::after{content:"";display:block;width:38px;height:3px;border-radius:2px;background:var(--lime-2);margin:9px 0 20px}
+.disc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.disc-item h3{display:flex;align-items:center;font-family:var(--h);font-weight:700;font-size:.88rem;
+color:var(--ink);margin:0 0 .5em;text-transform:uppercase;letter-spacing:.05em}
+.disc-item h3 .ic{color:var(--muted-2);width:.95em;height:.95em}
+.disc-item p{font-size:.82rem;line-height:1.6;color:var(--muted);margin:0 0 .7em}
+.disc-item p:last-child{margin-bottom:0}
+.disc-item strong{color:var(--ink)}
 
 /* ---------- tables ---------- */
 .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 0 1.4em;border:1px solid var(--line);
@@ -903,7 +940,8 @@ padding:0 4px}
 .tl-act .btn{height:48px;font-size:1rem;border-radius:10px}
 .tl-read{margin-top:11px;font-size:.82rem;display:inline-block;border-bottom-color:var(--line-2)}
 .tl-fine{margin-top:9px;font-size:.72rem}
-.tl-disc{font-size:.79rem;padding:12px 14px}
+.disc-grid{grid-template-columns:1fr;gap:18px}
+.sec-disc{padding:28px 0 34px}
 
 .pc,.g2,.g3,.g4{grid-template-columns:1fr}
 .toc ol{columns:1}
@@ -1098,6 +1136,7 @@ def build_page(path):
     # any unreplaced markers
     body = re.sub(r"\[\[(TOPLIST|FAQ|REVIEWGRID)\]\]", "", body)
     out.append(body)
+    out.append(disclosures_html(fm))
     out.append("</main>")
     out.append(foot_html())
     out.append("</body></html>")

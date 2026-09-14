@@ -262,9 +262,17 @@ background:#8FB61C;vertical-align:.15em;margin-right:.5em}
 border-bottom:1px solid var(--line-2);padding-bottom:1px}
 .tl-read:hover{color:var(--ink);border-color:var(--ink)}
 .tl-fine{font-size:.71rem;color:var(--muted-2);margin:9px 0 0;line-height:1.45}
-.tl-disc{margin:20px 0 0;font-size:.83rem;color:var(--muted);background:#fff;border:1px dashed var(--line-2);
-border-radius:10px;padding:13px 16px}
-.tl-disc .ic{color:var(--muted-2)}
+/* ---------- page-foot disclosures ---------- */
+.sec-disc{background:var(--paper);border-top:1px solid var(--line);padding:38px 0 44px}
+.disc h2{font-size:1.12rem;margin:0 0 4px;letter-spacing:-.01em}
+.disc h2::after{content:"";display:block;width:38px;height:3px;border-radius:2px;background:var(--lime-2);margin:9px 0 20px}
+.disc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.disc-item h3{display:flex;align-items:center;font-family:var(--h);font-weight:700;font-size:.88rem;
+color:var(--ink);margin:0 0 .5em;text-transform:uppercase;letter-spacing:.05em}
+.disc-item h3 .ic{color:var(--muted-2);width:.95em;height:.95em}
+.disc-item p{font-size:.82rem;line-height:1.6;color:var(--muted);margin:0 0 .7em}
+.disc-item p:last-child{margin-bottom:0}
+.disc-item strong{color:var(--ink)}
 
 /* ---------- tables ---------- */
 .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 0 1.4em;border:1px solid var(--line);
@@ -489,7 +497,8 @@ padding:0 4px}
 .tl-act .btn{height:48px;font-size:1rem;border-radius:10px}
 .tl-read{margin-top:11px;font-size:.82rem;display:inline-block;border-bottom-color:var(--line-2)}
 .tl-fine{margin-top:9px;font-size:.72rem}
-.tl-disc{font-size:.79rem;padding:12px 14px}
+.disc-grid{grid-template-columns:1fr;gap:18px}
+.sec-disc{padding:28px 0 34px}
 
 .pc,.g2,.g3,.g4{grid-template-columns:1fr}
 .toc ol{columns:1}
@@ -514,8 +523,6 @@ padding:0 4px}
 <span class="by-txt">By <a href="/authors/#claire-morrison"><b>Claire Morrison</b></a>, Senior Writer &amp; Reviewer
 <span class="by-sub">Fact-checked by <a href="/authors/#elizabeth-king"><b>Elizabeth King</b></a> &middot; <a href="/how-we-rate-casinos/">How we review</a></span></span>
 </div>
-<p class="hero-fine">18+. New customers only. Wagering requirements and full terms apply to every offer shown on
-this page. Gambling can be harmful &mdash; free, confidential help on <strong>0800 654 655</strong>.</p>
 </div></div></div></section><main id="main"><section class="sec"><div class="wrap"><div class="prose">
 <p class="upd">Last updated: 13 September 2026 &middot; Effective from: 13 September 2026</p>
 
