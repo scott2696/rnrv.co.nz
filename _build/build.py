@@ -428,7 +428,8 @@ def hero_html(fm, body_lede):
 {cta(card["op"], label=f"Visit {op['name']}", kind=kind, block=True)}
 <p class="hc-fine">18+. New customers only. T&amp;Cs apply.</p>
 </div></aside>'''
-    return f'''<section class="hero"><div class="wrap"><div class="hero-grid"><div class="hero-main">
+    rev = " hero-rev" if fm.get("reviewOf") else ""
+    return f'''<section class="hero{rev}"><div class="wrap"><div class="hero-grid"><div class="hero-main">
 {crumbs}
 <p class="eyebrow">{ic("clock")}Updated {UPDATED_HUMAN} &middot; New Zealand</p>
 <h1>{fm["h1"]}</h1>
@@ -915,6 +916,23 @@ body{font-size:16px}
 .hero-lede{order:5;font-size:.95rem;line-height:1.5;margin:0 0 4px;
 display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .hero-stats,.hero-ctas,.hero-pills,.hero-fine,.hero-card{display:none}
+
+/* --- review pages: the operator card drops below the hero copy on mobile --- */
+.hero-rev{padding-bottom:22px}
+.hero-rev .hero-card{display:block;position:static;max-width:520px;margin:16px auto 0;border-radius:18px}
+.hero-rev .hc-band{font-size:.8rem;letter-spacing:.08em;padding:11px 16px}
+.hero-rev .hc-body{padding:18px 16px 16px}
+.hero-rev .hc-logobox{max-width:236px;padding:10px 16px;margin-bottom:14px}
+.hero-rev .hc-logo{max-height:62px}
+.hero-rev .hc-name{font-size:1.3rem;margin-bottom:4px}
+.hero-rev .hc-sub{font-size:.9rem;margin-bottom:16px}
+.hero-rev .hc-offerbox{padding:16px 14px 15px;margin-bottom:15px}
+.hero-rev .hc-offer{font-size:1.3rem}
+.hero-rev .hc-offercta{font-size:.84rem;margin-top:11px}
+.hero-rev .hc-score{font-size:1rem;gap:8px;margin-bottom:13px}
+.hero-rev .hc-score .st{width:17px;height:17px}
+.hero-rev .hc-meta{font-size:.84rem;margin-bottom:15px}
+.hero-rev .hc-fine{font-size:.74rem}
 
 /* --- toplist: stacked card --- */
 .sec-tl{padding:16px 0 32px}
