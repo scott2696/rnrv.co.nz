@@ -122,9 +122,9 @@ adding CrownSlots there so the other sites can pick it up.
 Three named reviewers are defined in `build.py` (`AUTHORS`) and emitted as
 `Person` schema with `knowsAbout` and `jobTitle`:
 
-- **Tane Rāwiri** — testing, payments, pokies, payout timing
-- **Ana Whitaker** — regulation, bonus terms, tax, responsible gambling
-- **Hemi Toka** — sports and racing betting, odds and margins
+- **Claire Morrison** — testing, payments, pokies, payout timing
+- **Elizabeth King** — regulation, bonus terms, tax, responsible gambling
+- **Claire Morrison** — sports and racing betting, odds and margins
 
 Avatars are initial monograms rather than photographs. **Replace the names and
 add real photographs before launch** if these are to represent actual team

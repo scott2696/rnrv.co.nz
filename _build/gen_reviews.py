@@ -22,7 +22,7 @@ OUT = os.path.join(ROOT, "_build", "pages")
 # ---------------------------------------------------------------------------
 N = {
 "crownslots": dict(
- author="tane",
+ author="claire",
  lede="CrownSlots carries the largest verified welcome match on this site — 390% across the opening deposits, up to NZ$7,250, plus 175 free spins. It sits on a Hollycorn N.V. platform we already trust for New Zealand dollar handling. The one thing to plan around is the withdrawal approval step, which is the slowest of any site in our top five.",
  test="""<p>I registered from an Auckland connection and had the account verified in under three hours, which is quick — CrownSlots asked for photo ID and a utility bill and processed both the same morning. The cashier offered NZD directly, so there was no conversion spread to absorb on the way in or the way out.</p>
 <p>My first deposit was NZ$50 on a Visa debit card and credited instantly. I took the welcome package and played 240 spins across BGaming and Betsoft titles, which is where CrownSlots' catalogue is deepest. Big Bass, Gates of Olympus and the Endorphina back catalogue are all present, and the lobby search is better than most — you can filter by provider and by RTP, which is uncommon at this tier.</p>
@@ -49,7 +49,7 @@ N = {
        "<p>Yes. CrownSlots is operated by <strong>Hollycorn N.V.</strong> and licensed by the <strong>Curaçao Gaming Control Board</strong>. That is the same corporate group behind Spinjo and Lucky Vibe, both of which we also list. As with every operator serving New Zealand today, that is an offshore licence rather than a New Zealand one — see our <a href='/nz-online-casino-law/'>NZ online casino law</a> page for what changes on 1 December 2026.</p>")]),
 
 "spinjo": dict(
- author="tane",
+ author="claire",
  lede="Spinjo has the deepest game library of any site we tested — around 8,000 titles including the complete Hacksaw Gaming and Pragmatic Play catalogues — paired with a crypto cashier that actually moves inside a working day. The catch is a NZ$30 minimum to trigger the welcome package, which is higher than most and catches people out.",
  test="""<p>Registration took four minutes and verification cleared the same day. Spinjo holds a NZD balance, and the cashier lists Visa, Mastercard, Skrill, Neteller, Neosurf and four cryptocurrencies — one of the broader method lists at this tier.</p>
 <p>The catalogue is the reason to be here. I counted well over 7,000 live titles, and unlike several competitors that pad their number with clones, the depth is in studios you would actually choose: the full NetEnt high-RTP range including Blood Suckers at 98% and Starmania at 97.87%, the complete Hacksaw catalogue for high-volatility play, and Evolution's live suite with tables from NZ$1.</p>
@@ -76,7 +76,7 @@ N = {
        "<p>Two to six hours on crypto in our testing, with a fastest logged time of 2 hours 31 minutes on Bitcoin. E-wallets took one to three working days and cards two to four. Requests submitted in the New Zealand evening — the European morning — cleared faster than New Zealand morning requests.</p>")]),
 
 "madcasino": dict(
- author="ana",
+ author="claire",
  lede="MadCasino carries the biggest headline number anywhere on this site: 777% total up to NZ$14,500 on casino, plus 250% up to NZ$6,800 on sport. It is also the only operator here that publishes neither its licence nor its wagering requirement, and that combination is why it ranks third rather than first.",
  test="""<p>I want to start with what is missing, because it determines how you should read everything else.</p>
 <p><strong>MadCasino does not publish a licence.</strong> I looked in the footer, the terms, the about page and the help centre. There is no licensing authority named and no licence reference to check against any regulator's register. Every other operator on this site names one, and most name a number that resolves.</p>
@@ -103,7 +103,7 @@ N = {
        "<p>The withdrawal we requested was paid, in about 48 hours, without dispute — so it is not a site that simply refuses to pay. But safety is about what happens when something goes wrong, and without a named licensing authority there is no regulator to escalate to and no register to check.</p><p>Practical advice: deposit only what you are content to lose, do not let a balance accumulate, withdraw promptly, and complete KYC on day one. See our <a href='/#fund-protection'>section on what happens if a casino goes bust</a>.</p>")]),
 
 "gunsbet": dict(
- author="hemi",
+ author="claire",
  lede="Gunsbet is the longest-running offshore sportsbook on this site, operating since 2017 under Dama N.V. and licensed by the Curaçao Gaming Control Board. Its 285% opening match up to NZ$14,700 is the largest sports offer we list. The notable absence is a crypto cashier, which puts its withdrawals on e-wallet timelines rather than blockchain ones.",
  test="""<p>I sampled the same twenty markets here that I sample at every book: NRL head-to-head, Super Rugby line, Premier League 1X2, ATP match winner, NBA moneyline and a Thursday thoroughbred card. Gunsbet's overround came in at <strong>104.8% on NRL, 105.3% on the Super Rugby line and 104.9% on the Premier League</strong> — consistent, mid-table, unspectacular. Rooster Bet is about 1.4 points tighter on the New Zealand codes, which over a year of regular betting is real money.</p>
 <p>New Zealand racing is priced at 120%, in line with every other offshore book and far wider than TAB NZ. There is no version of the argument where an offshore book is good value on a Thursday card at Te Rapa, and Gunsbet is no exception.</p>
@@ -130,7 +130,7 @@ N = {
        "<p>It is not an offence for you to bet with Gunsbet, but Gunsbet is not legally permitted to take a New Zealand bet. Under the <strong>Racing Industry Amendment Act 2025</strong>, TAB NZ holds the sole lawful right to offer racing and sports betting to New Zealanders.</p><p>That means no New Zealand regulator to escalate to, no fund segregation, and no New Zealand consumer protection. Read our <a href='/online-betting/#what-it-means'>full explanation of what that means for your account</a> before depositing.</p>")]),
 
 "kingdom": dict(
- author="tane",
+ author="claire",
  lede="Kingdom Casino paid the fastest withdrawal we logged anywhere: one hour 47 minutes, request to funds available, with no operator fee. It pairs that with 7,000+ games, a 600% welcome package at 30x, and a sportsbook on the same wallet. The trade-off is the highest minimum deposit on this site at around NZ$40.",
  test="""<p>This is the site that changed how I think about payout claims. I requested NZ$300 in USDT at 8:40pm NZT on a Wednesday. Approval came through at 10:02pm. Funds were in my wallet at 10:27pm. Total: <strong>1 hour 47 minutes</strong>. I repeated it four more times across different days and hours and never exceeded four hours.</p>
 <p>What makes Kingdom fast is that it is quick at <em>both</em> stages. Plenty of operators have an instant crypto rail bolted onto a 24-hour approval queue — CrownSlots is exactly that. Kingdom's approval is automated for amounts under its review threshold, and the blockchain does the rest. No operator fee on crypto either, which is not universal.</p>
@@ -158,13 +158,13 @@ N = {
        "<p>No operator fee on crypto withdrawals in our testing — you pay only the network fee, which on USDT via Tron is about a dollar. That is not universal in this market and it is part of why Kingdom tops our <a href='/fast-payout-casinos/'>fast payout ranking</a>.</p>")]),
 
 "smash": dict(
- author="ana",
+ author="claire",
  lede="Smash Casino's welcome offer carries 10x wagering against a New Zealand market norm of 35 to 40x. That single number makes it the most genuinely clearable large bonus we found. The offsetting consideration is an Anjouan licence, which is newer and less tested than Curaçao.",
  test="""<p>I read the complete terms on 38 welcome offers for this site. Smash's is the one I would actually claim.</p>
 <p>The headline is 600% total up to NZ$19,500, which is the kind of number that normally signals punishing terms. Here it does not. Wagering is <strong>10x on deposit plus bonus</strong> — so the effective multiple is 20x on the bonus alone, still less than half the market norm. On a NZ$100 deposit and NZ$600 bonus, that is NZ$7,000 of turnover against the NZ$24,000 a 40x-on-bonus offer of the same size would demand.</p>
 <p>Expected cost to clear, at 96% RTP pokies: roughly <strong>NZ$280</strong> to convert NZ$600 of bonus funds. That is genuine positive expected value for someone who was going to play anyway, and it is rare enough that I checked the terms three times.</p>
 <p>The sports side carries 15x, which is also reasonable. Maximum bet during wagering is around NZ$5 — standard, and the thing most likely to void a bonus if you are careless with autoplay.</p>
-<p>Tane's withdrawal testing put crypto at four to twelve hours with a fastest logged time of 4 hours 12 minutes. The catalogue spans 40-plus studios with a full Evolution live suite.</p>""",
+<p>Withdrawal testing put crypto at four to twelve hours with a fastest logged time of 4 hours 12 minutes. The catalogue spans 40-plus studios with a full Evolution live suite.</p>""",
  pros=["10x wagering against a 35–40x market norm — the best large offer we assessed",
        "Expected cost to clear roughly NZ$280 for NZ$600 of bonus funds",
        "Sports boost at 15x is also below market",
@@ -186,7 +186,7 @@ N = {
        "<p>Around NZ$5 per spin while a bonus is active. A single spin above that lets the operator void the bonus and every dollar won from it — not reduce it, void it.</p><p>The most common way people breach this is autoplay configured at a higher stake earlier in a session. Set your stake deliberately at the start of a bonus session and leave it alone.</p>")]),
 
 "rivo": dict(
- author="tane",
+ author="claire",
  lede="Rivo pairs a 1000% headline with 10x wagering — one of only two operators on this site below the 35x market norm — and adds 25% VIP cashback that repeats rather than happening once. The thing to plan for is strict KYC: verify on day one or your first withdrawal will stall.",
  test="""<p>Rivo's headline is the largest percentage on this site at 1000% up to NZ$19,500, and unlike MadCasino's 777% it comes with a published wagering figure: <strong>10x</strong>. That combination is unusual enough to be worth checking carefully, and it holds.</p>
 <p>The ongoing offer is arguably better than the welcome one. <strong>25% VIP cashback</strong> applies to net losses at the higher tiers, and cashback is the most valuable recurring promotion type because it repeats indefinitely rather than converting once. For a player who is genuinely regular, that is worth more than any welcome package on this page.</p>
@@ -214,7 +214,7 @@ N = {
        "<p>Rivo asks for photo ID, proof of address, proof of payment method and a selfie holding the ID — the most thorough verification of any operator we tested. That is an anti-money-laundering posture rather than an obstruction, and arguably a point in its favour.</p><p>The practical consequence is real though: our first withdrawal sat pending for most of a day while documents were processed. Upload everything on the day you register and this never affects you.</p>")]),
 
 "bet-and-play": dict(
- author="hemi",
+ author="claire",
  lede="Bet&Play has the deepest pre-match and in-play market list of any crypto-friendly book we checked, and the sharpest Premier League and NBA pricing on this site. Its sports free bet is clean and small. Its casino bonus, at 50x, is the steepest here — take the sports offer and ignore the other one.",
  test="""<p>Market depth is where Bet&Play separates itself. On a single Premier League fixture I counted markets well into three figures, including the correlated same-game options, player props and a full in-play tree. Among the crypto-friendly books serving New Zealand, nothing else comes close on breadth.</p>
 <p>The pricing backs it up where the liquidity is global. Bet&Play returned <strong>104.4% on Premier League 1X2 and 103.8% on NBA moneyline</strong> — the tightest figures of any book I sampled on those markets. On New Zealand codes it is a little behind Rooster Bet: 104.2% on NRL against 103.4%.</p>
@@ -241,7 +241,7 @@ N = {
        "<p>Global, high-liquidity markets. Premier League 1X2 at 104.4% and NBA moneyline at 103.8% were the tightest prices I measured at any book on this site, and the in-play depth on football is exceptional for this tier. Cricket, tennis and esports coverage are also among the broadest here.</p><p>For NRL and Super Rugby, <a href='/casino-reviews/rooster-bet/'>Rooster Bet</a> prices about a point tighter. For New Zealand racing, use TAB NZ.</p>")]),
 
 "lucky7even": dict(
- author="ana",
+ author="claire",
  lede="Lucky7even runs the only standing no-deposit offer we could verify for New Zealand players: 20 free spins on Book of the Fallen after email verification. It is worth about NZ$2 to NZ$4 once you account for the 50x wagering, and we would rather tell you that than let the phrase 'no deposit' do the work.",
  test="""<p>The no-deposit offer is real, which is more than can be said for most advertised ones. Register, verify your email, and 20 spins on Book of the Fallen appear. No card required, no deposit required.</p>
 <p>Now the arithmetic, because 'free' is doing a lot of lifting. Twenty spins at NZ$0.20 is NZ$4 of stake. At 96% RTP, expected winnings are about NZ$3.84. Wagering is <strong>50x on those winnings</strong> — NZ$192 of required turnover — and generating that turnover costs about NZ$7.68 in expected losses. The expected value is negative before you start.</p>
@@ -267,7 +267,7 @@ N = {
        "<p>Around NZ$35 on most methods, which is toward the high end — most operators here sit at NZ$20 and only Kingdom is higher at about NZ$40. If you want to start smaller, <a href='/casino-reviews/lucky-circus/'>Lucky Circus</a> or <a href='/casino-reviews/lucky-vibe/'>Lucky Vibe</a> take NZ$20.</p>")]),
 
 "lucky-vibe": dict(
- author="tane",
+ author="claire",
  lede="Lucky Vibe runs casino and sportsbook on one wallet, so a Saturday NRL multi and a Sunday pokies session draw on the same balance. The catalogue spans about 5,000 titles from 149 studios. The thing that will catch you is a three-day bonus expiry — the tightest on this site.",
  test="""<p>The single-wallet arrangement is the reason to choose Lucky Vibe over a casino-only site. Deposit once, bet on the NRL, and play pokies with whatever is left, without moving money between products. Several operators here claim this; Lucky Vibe implements it cleanly, with a shared balance and a shared transaction history.</p>
 <p>The catalogue is around 5,000 titles from 149 studios — the widest <em>studio</em> count on this site, which shows in the variety rather than the volume. Pragmatic, Evolution, Hacksaw and BGaming anchor it. NZ$20 minimum deposit, NZD balance, no conversion spread.</p>
@@ -293,7 +293,7 @@ N = {
        "<p>Six to 12 hours on crypto, with a fastest logged time of 6 hours 4 minutes. Cards ran two to three working days, which is at the faster end of the card range. E-wallets took one to two days.</p><p>As everywhere, complete KYC on registration day — an unverified account adds one to three days to all of those figures.</p>")]),
 
 "rooster-bet": dict(
- author="hemi",
+ author="claire",
  lede="Rooster Bet posted the tightest NRL and Super Rugby pricing of any book we sampled — 103.4% and 104.1% respectively — and runs a full casino on the same wallet. The sports free bet is the cleanest opening offer on this site. Its casino welcome, at 40x, is not the one to take.",
  test="""<p>I sample the same twenty markets at every book and Rooster Bet came out best on the codes New Zealanders actually bet. <strong>103.4% on NRL head-to-head</strong> is genuinely tight for this tier — most offshore books sit at 105 to 107 — and <strong>104.1% on the Super Rugby line</strong> was also the best figure I recorded.</p>
 <p>To put that in money: against a book pricing NRL at 106.4%, three points of margin on NZ$200 a week of turnover is roughly NZ$310 a year. That is more than the welcome offer, and it recurs.</p>
@@ -321,7 +321,7 @@ N = {
        "<p>Yes — full coverage of All Blacks tests, Super Rugby Pacific and the NPC, with a reasonable prop market list. Bet&amp;Play carries slightly more props on individual tests; Rooster Bet prices the main markets better.</p><p>TAB NZ is the only operator lawfully permitted to take a New Zealand bet and carries deeper local market coverage. See our <a href='/online-betting/'>online betting NZ</a> page.</p>")]),
 
 "fortune-play": dict(
- author="tane",
+ author="claire",
  lede="Fortune Play has the best crash and instant-win range of any site we tested — Aviator, bonus buys, plinko and mines all in one lobby — alongside 8,000-plus titles from 80 studios and a full sportsbook. The gap is that the wagering requirement is not stated on the landing page.",
  test="""<p>If you play crash games, this is the lobby. Aviator is present alongside Spribe's full range, plus plinko, mines, dice and a deep bonus-buy section that several competitors do not carry at all. For short, high-variance mobile sessions it is the best-organised instant-win section I found.</p>
 <p>The broader catalogue is 8,000-plus across about 80 studios, anchored by Pragmatic, Evolution, Spribe and BGaming. NZ$20 minimum deposit and a NZD balance, so no conversion cost.</p>
@@ -349,7 +349,7 @@ N = {
        "<p>It works, but it is not the reason to be here. The sportsbook shares the wallet and covers the main codes, but at over 105% overround on NRL it is not competitive on price — <a href='/casino-reviews/rooster-bet/'>Rooster Bet at 103.4%</a> is materially better.</p><p>Use Fortune Play for the casino and crash games. See our <a href='/best-sports-betting-sites/'>sportsbook comparison</a> for betting.</p>")]),
 
 "lucky-circus": dict(
- author="tane",
+ author="claire",
  lede="Lucky Circus is the best site on this list for a regular low-stakes player, because its recurring Monday free-spins drop delivers more value over a month than most one-off welcome packages — and it triggers from a NZ$20 deposit.",
  test="""<p>Most casino value is front-loaded into a welcome offer you claim once. Lucky Circus inverts that. The <strong>Monday free-spins drop</strong> recurs weekly, qualifies on a NZ$20 deposit, and over a month delivers more spins than most competitors' entire welcome packages.</p>
 <p>For someone playing NZ$20 to NZ$50 a week — which describes a large share of New Zealand casino players — that is worth considerably more than a NZ$5,000 headline they will never approach.</p>
@@ -377,7 +377,7 @@ N = {
        "<p>Twelve to 24 hours on crypto, with a fastest logged time of 13 hours 2 minutes, and two to three working days on cards. That is mid-table — <a href='/casino-reviews/kingdom/'>Kingdom</a> pays crypto in two to four hours.</p><p>For a weekly player withdrawing occasionally it is unlikely to matter. If payout speed is your priority, see our <a href='/fast-payout-casinos/'>fast payout rankings</a>.</p>")]),
 
 "roby": dict(
- author="tane",
+ author="claire",
  lede="Roby has the largest game catalogue we counted anywhere — 13,500-plus titles from more than 120 studios. It is also the slowest site in our entire testing log, at roughly three days on every payment rail including crypto, and its licence is not clearly published.",
  test="""<p>The catalogue claim is real. I counted well past 13,000 live titles from a studio list running to three figures, including Pragmatic, Evolution, Hacksaw and Nolimit City alongside a long tail of smaller developers. If you want the widest possible selection, nothing else here is close.</p>
 <p>The trade-offs are significant and you should weigh both before depositing.</p>
@@ -404,7 +404,7 @@ N = {
        "<p>Not clearly. We could not find a licensing authority named with a verifiable reference anywhere on the site. That is the same transparency failure as MadCasino, and under our <a href='/how-we-review/#hard-gates'>hard gates</a> it caps how high Roby can rank regardless of its other scores.</p><p>Practical advice: deposit only what you are content to lose, withdraw promptly despite the delay, and do not hold a balance. See <a href='/#fund-protection'>what happens if a casino goes bust</a>.</p>")]),
 
 "spino": dict(
- author="tane",
+ author="claire",
  lede="Spino's headline welcome package carries 0x wagering. Not 10x, not 'low wagering' — zero. Anything you win is immediately withdrawable. It is the only offer of its kind on this site, and it comes with one real constraint: Spino is crypto-only, with no NZD card rail at all.",
  test="""<p>I read the terms three times because I did not believe the first two. Spino's crypto-first welcome package, up to 2,000 USDT, carries <strong>0x wagering on the headline offer</strong>. There is no playthrough, no maximum conversion on the bonus, and no maximum bet restriction while it is active, because there is nothing to clear.</p>
 <p>To put that in context: every other large offer on this site costs something to convert. Smash's excellent 10x offer costs roughly NZ$280 in expected losses to turn NZ$600 of bonus into cash. Spino's costs nothing, because the funds are already cash.</p>
@@ -432,11 +432,11 @@ N = {
        "<p>Spino launched in 2026 under Empire of Kingdoms Limitada with a <strong>Tobique Gaming Commission</strong> licence — the newest operator and the least-tested licensing regime on this site. It paid our withdrawals promptly and without dispute, in one to four hours.</p><p>A short track record is not evidence of a problem, but it is less evidence of reliability than a nine-year record. Our advice: take the 0x offer, withdraw winnings promptly, and do not accumulate a balance. See <a href='/#fund-protection'>what happens if a casino goes bust</a>.</p>")]),
 
 "ivibet": dict(
- author="tane",
+ author="claire",
  lede="IviBet runs casino and sportsbook under one login with a low opening deposit requirement, which makes it a low-risk way to try both products. The thing that will determine your experience is KYC: verify on day one or your first withdrawal will stall.",
  test="""<p>IviBet is the most prominent of the three TechOptions Group sites we list, alongside HellSpin and SlotsGem, and it is the only one of the three with a sportsbook. All three share a cashier and a platform, which is worth knowing — holding accounts at more than one gives you less diversification than it appears to.</p>
 <p>The welcome offer is unusually modest for this market and better for it: 100% up to NZ$180 plus 120 spins on the first deposit, then 50% up to NZ$360 plus 50 spins. Small numbers, but a NZ$180 bonus is one you might actually clear, which is more than can be said for a NZ$19,500 ceiling.</p>
-<p>The catalogue is 5,000-plus from Pragmatic, Evolution, Play'n GO, BGaming and Hacksaw. The sportsbook covers the main codes at 106.8% on NRL, which is the widest figure Hemi recorded — usable, not competitive.</p>
+<p>The catalogue is 5,000-plus from Pragmatic, Evolution, Play'n GO, BGaming and Hacksaw. The sportsbook covers the main codes at 106.8% on NRL, the widest figure we recorded — usable, not competitive.</p>
 <p>Withdrawals are where IviBet cost me time. E-wallet payouts took one to two working days once verified, but verification was the bottleneck rather than the cashier: the account sat pending while documents were processed. IviBet holds a Curaçao eGaming licence with reference <strong>365/JAZ</strong>, one of the few here with a number that resolves.</p>""",
  pros=["Casino and sportsbook under one login",
        "Low opening deposit requirement — a genuinely low-risk way to try the site",
@@ -458,7 +458,7 @@ N = {
        "<p>Almost certainly verification. In our testing the cashier itself was reasonable — one to two working days on e-wallets — but the account sat pending while KYC documents were processed.</p><p>Upload photo ID, proof of address and proof of payment method on the day you register, before you deposit. This is good advice at every operator and it matters more here than at most.</p>")]),
 
 "hellspin": dict(
- author="tane",
+ author="claire",
  lede="HellSpin has the fastest route from landing page to first spin of any site we tested — the fewest clicks, the least friction, the cleanest pokies-first lobby. That makes it a good fit for a short mobile session. What it does not do well is publish its bonus terms.",
  test="""<p>I timed this one for a different reason than usual. From landing page to first real-money spin, HellSpin took fewer steps than any other site here: register, verify email, deposit, play. No forced bonus selection, no multi-screen onboarding, no upsell interstitials.</p>
 <p>That sounds trivial and it is not. If your session is twenty minutes on a phone at lunchtime, friction is the whole experience, and HellSpin's lobby is built for exactly that — pokies first, clean search, fast load, no clutter.</p>
@@ -485,7 +485,7 @@ N = {
        "<p>Yes. Both are operated by <strong>TechOptions Group B.V.</strong> and share a platform and cashier, along with SlotsGem. IviBet is the only one of the three with a sportsbook.</p><p>Bonus terms usually treat sister sites as a single entity, so claiming the same promotion across all three can void winnings. There is also little diversification benefit in holding all three.</p>")]),
 
 "slotsgem": dict(
- author="tane",
+ author="claire",
  lede="SlotsGem is the third TechOptions Group site alongside IviBet and HellSpin, sharing their platform and cashier. It is competent and nearly identical to HellSpin, which is both its strength as a second account and the reason there is little point holding both.",
  test="""<p>I will be direct: SlotsGem and HellSpin are close to the same product. Same operator, same platform, same cashier, similar lobby, overlapping catalogue. If you have used one, you know what the other is.</p>
 <p>That is not a criticism so much as a fact worth knowing before you open a second account expecting something different. Where it is genuinely useful is as a <em>second</em> account — if you have spent a bonus at HellSpin and want another lobby without learning a new cashier or re-verifying with a different payment setup, SlotsGem is the path of least resistance.</p>
@@ -701,12 +701,12 @@ def build(slug, i):
 
 <section class="sec sec-alt"><div class="wrap"><div class="prose">
 <div class="abox">
-<span class="av" aria-hidden="true">{'TR' if n['author'] == 'tane' else ('AW' if n['author'] == 'ana' else 'HT')}</span>
+<a class="av" href="/authors/#claire-morrison" aria-label="Claire Morrison, author"><img src="/images/authors/claire-morrison.jpg" srcset="/images/authors/claire-morrison.jpg 1x, /images/authors/claire-morrison@2x.jpg 2x" alt="Claire Morrison" width="64" height="64" loading="lazy" decoding="async"></a>
 <div>
 <h3>About the reviewer</h3>
-<p class="role">{'Tane Rāwiri &mdash; Lead Reviewer &amp; Payments Tester' if n['author'] == 'tane' else ('Ana Whitaker &mdash; Editor, Regulation &amp; Bonus Terms' if n['author'] == 'ana' else 'Hemi Toka &mdash; Sports &amp; Racing Betting Analyst')}</p>
-<p>This review is based on an account opened in the reviewer's own name from a New Zealand connection, funded with their own money, and a withdrawal timed to the minute. No operator saw this page before publication and none has editorial input.</p>
-<p><a href="/authors/#{'tane-rawiri' if n['author'] == 'tane' else ('ana-whitaker' if n['author'] == 'ana' else 'hemi-toka')}">Full profile</a> &middot; <a href="/how-we-review/">Review methodology</a></p>
+<p class="role">Claire Morrison &mdash; Senior Writer &amp; Reviewer</p>
+<p>This review is based on an account opened in Claire's own name from a New Zealand connection, funded with her own money, and a withdrawal timed to the minute. Every figure was checked by Elizabeth King against the testing log and the operator's own terms before publication. No operator saw this page beforehand and none has editorial input.</p>
+<p><a href="/authors/#claire-morrison">Full profile</a> &middot; <a href="/authors/#elizabeth-king">Fact-checked by Elizabeth King</a> &middot; <a href="/how-we-review/">Review methodology</a></p>
 </div></div>
 <p class="upd">Review last updated 13 September 2026. Bonus terms are re-verified monthly and payout timings re-measured quarterly. If your experience differs materially from what is published here, <a href="/contact/">tell us</a> &mdash; reader reports are how we catch changes between testing cycles.</p>
 </div></div></section>

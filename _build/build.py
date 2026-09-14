@@ -23,51 +23,39 @@ ORDER = [s for s, _ in sorted(OPS.items(), key=lambda kv: kv[1]["rank"])]
 
 # ---------------------------------------------------------------- authors
 AUTHORS = {
- "tane": dict(
-   name="Tane Rāwiri", slug="tane-rawiri", initials="TR",
-   role="Lead Reviewer &amp; Payments Tester",
-   jobTitle="Lead Reviewer and Payments Tester",
-   knows=["online casinos","online pokies","NZD payment processing","withdrawal testing",
-          "cryptocurrency gambling","KYC and account verification"],
-   short="Opens every account on this site personally and times every withdrawal from an Auckland connection.",
-   bio="Tane spent six years in payments operations — four of them reconciling card and e-wallet settlement "
-       "for a licensed gaming platform — before moving to the reviewing side of the cashier. He opens every "
-       "account RNRV writes about using his own name and his own New Zealand dollars, completes KYC like any "
-       "other customer, and logs the timestamp on every deposit and every withdrawal request. If a site is "
-       "listed here as paying inside four hours, Tane has the transaction history to show it."),
- "ana": dict(
-   name="Ana Whitaker", slug="ana-whitaker", initials="AW",
-   role="Editor, Regulation &amp; Bonus Terms",
-   jobTitle="Editor, Regulation and Bonus Terms",
+ "claire": dict(
+   name="Claire Morrison", slug="claire-morrison", initials="CM",
+   role="Senior Writer &amp; Reviewer",
+   jobTitle="Senior Writer and Reviewer",
+   photo="/images/authors/claire-morrison.jpg",
+   knows=["online casinos","online pokies","casino bonuses","NZD payment processing",
+          "withdrawal testing","sports betting","New Zealand gambling"],
+   short="Opens every account on this site personally, deposits her own New Zealand dollars and times every withdrawal.",
+   bio="Claire has spent fifteen years writing about consumer finance and regulated industries in New Zealand, "
+       "the last four of them covering online gambling. She opens every account RNRV writes about in her own name, "
+       "completes verification like any other customer, deposits her own New Zealand dollars and logs the timestamp "
+       "on every withdrawal request from her home connection north of Auckland. The payout figures on this site are "
+       "hers, and so is the decision to publish the ones that are inconvenient."),
+ "elizabeth": dict(
+   name="Elizabeth King", slug="elizabeth-king", initials="EK",
+   role="Editor &amp; Fact-Checker",
+   jobTitle="Editor and Fact-Checker",
+   photo="/images/authors/elizabeth-king.jpg",
    knows=["New Zealand gambling law","Online Casino Gambling Act 2026","Department of Internal Affairs licensing",
-          "bonus terms and conditions","gambling taxation","responsible gambling policy"],
-   short="Reads the full terms on every offer we publish and tracks the DIA licensing programme week by week.",
-   bio="Ana read law at Victoria University of Wellington and spent five years covering regulatory affairs "
-       "before joining RNRV as editor. She reads the complete terms and conditions on every bonus this site "
-       "publishes — not the marketing summary — and re-checks them each month. She maintains our record of the "
-       "Department of Internal Affairs licensing timeline and fact-checks every legal, tax and licensing claim "
-       "on the site against primary sources."),
- "hemi": dict(
-   name="Hemi Toka", slug="hemi-toka", initials="HT",
-   role="Sports &amp; Racing Betting Analyst",
-   jobTitle="Sports and Racing Betting Analyst",
-   knows=["sports betting","horse racing betting","NRL betting","Super Rugby betting",
-          "betting odds and margins","TAB NZ"],
-   short="Prices up NRL, Super Rugby and thoroughbred markets and measures the overround on every book we list.",
-   bio="Hemi has been modelling New Zealand and Australian racing markets for a decade and spent three seasons "
-       "as a trading assistant on a rugby league book. For RNRV he samples the same twenty markets across every "
-       "sportsbook we cover — NRL head-to-head, Super Rugby line, Premier League, and a Thursday night "
-       "thoroughbred card — and calculates the overround so readers can see which book is actually taking the "
-       "smallest cut."),
- "team": dict(
-   name="The RNRV Editorial Team", slug="editorial-team", initials="RN",
-   role="Editorial Team",
-   jobTitle="Editorial Team",
-   knows=["online casinos","New Zealand gambling","responsible gambling"],
-   short="Our New Zealand-based editorial desk.",
-   bio="RNRV's editorial desk is based in New Zealand. Every page on this site is written by a named reviewer, "
-       "fact-checked by a second person, and dated with the month it was last verified."),
+          "bonus terms and conditions","gambling taxation","responsible gambling policy","editorial standards"],
+   short="Checks every claim on this site against a primary source before it publishes.",
+   bio="Elizabeth read law at Victoria University of Wellington and spent a decade in regulatory and editorial roles "
+       "before joining RNRV. Nothing publishes on this site until she has checked it: the complete terms behind every "
+       "bonus figure, every payout time against the testing log, and every legal and tax claim against the "
+       "legislation or the Department of Internal Affairs guidance it rests on. Where a figure could not be verified, "
+       "the decision to write \"check current terms\" rather than estimate is hers."),
 }
+# Every page is written by Claire and fact-checked by Elizabeth. Older fragment
+# front matter still names the previous bylines, so those keys alias across.
+WRITER = "claire"
+CHECKER = "elizabeth"
+for _old in ("tane", "ana", "hemi", "team"):
+    AUTHORS[_old] = AUTHORS[WRITER]
 
 # ---------------------------------------------------------------- navigation
 NAV = [
@@ -237,10 +225,14 @@ def toplist(slugs, kind="casino", intro=None, heading=None, hid="toplist"):
             f'<b>{op["rating"]}<span class="of5">/5</span></b></div>'
             f'</div>'
             f'<div class="tl-offer">'
-            f'<div class="tl-offerbox">'
+            f'<a class="tl-offerbox" href="{aff_url}" target="_blank" rel="nofollow sponsored noopener" '
+            f'aria-label="Claim the welcome offer at {op["name"]}">'
             f'<span class="tl-label">Welcome offer</span>'
-            f'<p class="tl-bonus">{short}</p>'
-            f'</div>'
+            f'<span class="tl-bonus">{short}</span>'
+            f'<span class="tl-offercta">Claim this offer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+            f'stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+            f'<path d="M5 12h13M13 6l6 6-6 6"/></svg></span>'
+            f'</a>'
             f'<p class="tl-usp">{op["usp"]}</p>'
             f'<div class="tl-feats">{featc}</div>'
             f'</div>'
@@ -382,7 +374,8 @@ New Zealand dollars and time every withdrawal, so the rankings on this site refl
 
 # ---------------------------------------------------------------- hero
 def hero_html(fm, body_lede):
-    a = AUTHORS[fm.get("author", "team")]
+    a = AUTHORS[fm.get("author", WRITER)]
+    ck = AUTHORS[CHECKER]
     crumbs = ""
     if fm.get("crumbs"):
         parts = ['<a href="/">Home</a>']
@@ -422,7 +415,7 @@ def hero_html(fm, body_lede):
 <div class="hc-logobox"><img class="hc-logo" src="{op_logo(card["op"], sports=(kind=="sports"))}" alt="{op['name']} logo" width="150" height="64" loading="eager" decoding="async"></div>
 <p class="hc-name">{op['name']}</p>
 <p class="hc-sub">{card.get("sub", op['usp'])}</p>
-<div class="hc-offerbox"><span class="hc-offerlab">Exclusive welcome offer</span><p class="hc-offer">{offer}</p></div>
+<a class="hc-offerbox" href="{html.escape(aff(card["op"], kind), quote=True)}" target="_blank" rel="nofollow sponsored noopener" aria-label="Claim the welcome offer at {op['name']}"><span class="hc-offerlab">Exclusive welcome offer</span><span class="hc-offer">{offer}</span><span class="hc-offercta">Claim this offer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></a>
 <div class="hc-score">{stars(op['rating'])}<b>{op['rating']}</b><span class="of5">/5</span></div>
 <p class="hc-meta">{card.get("meta", "")}</p>
 {cta(card["op"], label=f"Visit {op['name']}", kind=kind, block=True)}
@@ -435,9 +428,9 @@ def hero_html(fm, body_lede):
 <p class="hero-lede">{body_lede}</p>
 {stats}{ctas}{pills}
 <div class="byline">
-<span class="av" aria-hidden="true">{a['initials']}</span>
+<a class="av" href="/authors/#{a['slug']}" aria-label="{strip_tags(a['name'])}, author"><img src="{a['photo']}" srcset="{a['photo']} 1x, {a['photo'].replace('.jpg','@2x.jpg')} 2x" alt="{strip_tags(a['name'])}" width="44" height="44" loading="eager" decoding="async"></a>
 <span class="by-txt">By <a href="/authors/#{a['slug']}"><b>{a['name']}</b></a>, {a['role']}
-<span class="by-sub">Fact-checked by <a href="/authors/">the RNRV editorial desk</a> &middot; <a href="/how-we-review/">How we review</a></span></span>
+<span class="by-sub">Fact-checked by <a href="/authors/#{ck['slug']}"><b>{ck['name']}</b></a> &middot; <a href="/how-we-review/">How we review</a></span></span>
 </div>
 <p class="hero-fine">18+. New customers only. Wagering requirements and full terms apply to every offer shown on
 this page. Gambling can be harmful &mdash; free, confidential help on <strong>0800 654 655</strong>.</p>
@@ -549,8 +542,9 @@ letter-spacing:.1em;color:var(--lime);margin:0 0 12px;font-weight:600}
 background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:99px;padding:5px 12px}
 .pill .ic{color:var(--lime);width:.9em;height:.9em}
 .byline{display:flex;align-items:center;gap:12px;padding:15px 0 0;border-top:1px solid rgba(255,255,255,.12);margin-bottom:14px}
-.av{width:40px;height:40px;border-radius:50%;background:var(--lime);color:var(--ink);display:flex;align-items:center;
-justify-content:center;font-family:var(--h);font-weight:800;font-size:.88rem;flex:none;letter-spacing:.02em}
+.av{width:44px;height:44px;border-radius:50%;overflow:hidden;flex:none;display:block;
+background:var(--ink-3);box-shadow:0 0 0 2px rgba(200,255,61,.55)}
+.av img{width:100%;height:100%;object-fit:cover;display:block}
 .by-txt{font-size:.88rem;color:rgba(255,255,255,.78);line-height:1.45}
 .by-txt a{color:#fff;text-decoration:none;border-bottom:1px solid rgba(200,255,61,.55)}
 .by-txt a:hover{color:var(--lime)}
@@ -563,18 +557,25 @@ justify-content:center;font-family:var(--h);font-weight:800;font-size:.88rem;fle
 text-transform:uppercase;letter-spacing:.07em;padding:9px 18px;text-align:center}
 .hc-body{padding:20px 20px 18px;text-align:center}
 .hc-logobox{display:block;background:#fff;border:1px solid var(--line);border-radius:10px;
-padding:11px 16px;margin:0 auto 13px;max-width:212px}
-.hc-logo{max-height:46px;width:auto;margin:0 auto;object-fit:contain}
+padding:8px 14px;margin:0 auto 13px;max-width:212px}
+.hc-logo{max-height:58px;max-width:100%;width:auto;margin:0 auto;object-fit:contain}
 .hc-name{font-family:var(--h);font-weight:700;font-size:1.24rem;color:var(--ink);margin:0 0 2px}
 .hc-sub{font-size:.86rem;color:var(--muted);margin:0 0 14px;line-height:1.45}
-.hc-offerbox{position:relative;background:var(--ink);border-radius:12px;
-padding:14px 14px 15px;margin:0 0 14px;box-shadow:0 10px 26px -12px rgba(18,21,26,.85)}
+.hc-offerbox{display:block;position:relative;background:var(--ink);border-radius:12px;
+padding:14px 14px 13px;margin:0 0 14px;text-decoration:none;cursor:pointer;
+box-shadow:0 10px 26px -12px rgba(18,21,26,.85);transition:transform .13s ease,box-shadow .13s ease}
+.hc-offerbox:hover{transform:translateY(-2px);box-shadow:0 14px 30px -12px rgba(18,21,26,.95)}
+.hc-offerbox:focus-visible{outline:3px solid var(--lime);outline-offset:3px}
 .hc-offerlab{display:block;font-family:var(--h);font-size:.64rem;font-weight:800;text-transform:uppercase;
 letter-spacing:.13em;color:var(--lime);margin-bottom:6px}
 .hc-offerlab::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;
 background:var(--lime);vertical-align:.17em;margin-right:.55em}
-.hc-offer{font-family:var(--h);font-weight:800;font-size:1.2rem;color:var(--lime);margin:0;
+.hc-offer{display:block;font-family:var(--h);font-weight:800;font-size:1.2rem;color:var(--lime);margin:0;
 line-height:1.24;letter-spacing:-.02em;text-wrap:balance}
+.hc-offercta{display:inline-flex;align-items:center;gap:.4em;margin-top:9px;font-family:var(--h);
+font-weight:700;font-size:.78rem;color:#fff;border-bottom:1px solid rgba(255,255,255,.32);padding-bottom:2px}
+.hc-offercta svg{width:13px;height:13px;transition:transform .13s ease}
+.hc-offerbox:hover .hc-offercta svg{transform:translateX(3px)}
 .hc-score{display:flex;align-items:center;justify-content:center;gap:6px;margin:0 0 12px;font-size:.92rem}
 .hc-score b{font-family:var(--h)}
 .hc-score .of5{color:var(--muted);font-size:.85rem}
@@ -629,8 +630,8 @@ font-size:1.3rem;color:var(--muted-2);letter-spacing:-.03em}
 letter-spacing:.08em;background:var(--lime);color:var(--ink);padding:4px 11px;border-radius:99px;
 font-family:var(--h);white-space:nowrap;z-index:2}
 .tl-brand{text-align:center;min-width:0}
-.tl-logo{display:block;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:9px}
-.tl-logo img{max-height:42px;width:auto;margin:0 auto;object-fit:contain}
+.tl-logo{display:block;background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 10px;margin-bottom:9px}
+.tl-logo img{max-height:56px;max-width:100%;width:auto;margin:0 auto;object-fit:contain}
 .tl-name{font-family:var(--h);font-weight:700;font-size:1rem;color:var(--ink);margin:0 0 6px;line-height:1.25}
 .tl-tag{display:none}
 .tl-bar{height:7px;border-radius:99px;background:var(--line);overflow:hidden;margin:0 0 7px}
@@ -641,12 +642,20 @@ background:linear-gradient(90deg,var(--lime-2),var(--lime))}
 .tl-scorerow b{font-family:var(--h);font-size:1.02rem;color:var(--ink)}
 .tl-scorerow .of5{color:var(--muted-2);font-size:.8rem;font-weight:500}
 .tl-offer{min-width:0}
-.tl-offerbox{background:#F6FFE4;border:1px solid #DFF3AE;border-radius:10px;padding:11px 14px;margin:0 0 10px}
+.tl-offerbox{display:block;background:#F6FFE4;border:1px solid #DFF3AE;border-radius:10px;
+padding:11px 14px;margin:0 0 10px;text-decoration:none;cursor:pointer;
+transition:background .13s ease,border-color .13s ease,transform .13s ease}
+.tl-offerbox:hover{background:#EEFFCE;border-color:var(--lime-2);transform:translateY(-1px)}
+.tl-offerbox:focus-visible{outline:3px solid var(--lime-2);outline-offset:2px}
+.tl-offercta{display:inline-flex;align-items:center;gap:.35em;margin-top:7px;font-family:var(--h);
+font-weight:700;font-size:.75rem;color:#4F6B0A;border-bottom:1px solid rgba(79,107,10,.3);padding-bottom:1px}
+.tl-offercta svg{width:12px;height:12px;transition:transform .13s ease}
+.tl-offerbox:hover .tl-offercta svg{transform:translateX(3px)}
 .tl-label{display:block;font-size:.64rem;text-transform:uppercase;letter-spacing:.1em;color:#5E7C10;
 font-weight:800;font-family:var(--h);margin-bottom:4px}
 .tl-label::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;
 background:#8FB61C;vertical-align:.15em;margin-right:.5em}
-.tl-bonus{font-family:var(--h);font-weight:700;font-size:1.02rem;color:var(--ink);margin:0;line-height:1.32}
+.tl-bonus{display:block;font-family:var(--h);font-weight:700;font-size:1.02rem;color:var(--ink);margin:0;line-height:1.32}
 .tl-usp{font-size:.89rem;color:var(--muted);margin:0 0 11px;line-height:1.5}
 .tl-feats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 16px}
 .tl-feat{display:flex;align-items:baseline;gap:.3em;font-size:.79rem;line-height:1.4;color:var(--muted)}
@@ -723,7 +732,7 @@ padding:16px 20px;margin:0 0 1.4em;box-shadow:var(--sh)}
 .rv-grid{margin:0 0 1.6em}
 .rv-card{display:flex;flex-direction:column;padding:18px 20px}
 .rv-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
-.rv-top img{max-height:36px;width:auto;object-fit:contain;max-width:130px}
+.rv-top img{max-height:46px;width:auto;object-fit:contain;max-width:140px}
 .rv-score{display:flex;align-items:center;gap:5px;font-size:.85rem;flex:none}
 .rv-score b{font-family:var(--h)}
 .rv-card h3{margin:0 0 .25em;font-size:1.05rem}
@@ -764,7 +773,7 @@ transform:translateY(-70%) rotate(45deg);transition:transform .15s ease}
 /* ---------- author box ---------- */
 .abox{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;
 display:grid;grid-template-columns:64px minmax(0,1fr);gap:18px;box-shadow:var(--sh);margin:0 0 1.4em}
-.abox .av{width:64px;height:64px;font-size:1.24rem}
+.abox .av{width:64px;height:64px;box-shadow:0 0 0 2px var(--line)}
 .abox h3{margin:0 0 .1em;font-size:1.1rem}
 .abox .role{font-size:.86rem;color:var(--muted);margin:0 0 .55em;font-weight:600}
 .abox p{font-size:.92rem;color:var(--muted);margin:0 0 .6em}
@@ -851,7 +860,7 @@ body{font-size:16px}
 .eyebrow{order:2;margin:0 0 8px;font-size:.7rem;letter-spacing:.08em}
 .hero h1{order:3;font-size:1.72rem;line-height:1.14;margin:0 0 10px}
 .byline{order:4;padding:0;border-top:none;margin:0 0 10px;gap:10px}
-.byline .av{width:34px;height:34px;font-size:.75rem}
+.byline .av{width:38px;height:38px}
 .by-txt{font-size:.82rem}
 .by-sub{font-size:.74rem;margin-top:1px}
 .hero-lede{order:5;font-size:.95rem;line-height:1.5;margin:0 0 4px;
@@ -871,8 +880,8 @@ font-size:1.45rem;color:#5E7C10;text-align:left;line-height:1;margin:0 0 2px;pad
 .tl-card:first-child .tl-rank{background:none;color:#5E7C10}
 .tl-badge{top:12px;right:12px;font-size:.6rem;padding:5px 10px}
 .tl-brand{margin-top:6px}
-.tl-logo{display:inline-block;padding:8px 14px;margin:0 auto 8px;border-radius:9px;min-width:150px}
-.tl-logo img{max-height:38px}
+.tl-logo{display:inline-block;padding:7px 12px;margin:0 auto 8px;border-radius:9px;min-width:172px}
+.tl-logo img{max-height:52px}
 .tl-name{font-size:1.12rem;margin:0 0 4px}
 .tl-tag{display:block;font-size:.8rem;color:var(--muted);margin:0 0 10px;line-height:1.4;
 padding:0 4px}
@@ -927,23 +936,26 @@ def person_schema(key):
         "jobTitle": a["jobTitle"],
         "description": strip_tags(a["bio"]),
         "knowsAbout": a["knows"],
+        "image": DOMAIN + a["photo"].replace(".jpg", "@2x.jpg"),
         "worksFor": {"@id": f"{DOMAIN}/#organization"},
     }
 
 def head_html(fm, extra_schema):
     url = DOMAIN + fm["url"]
-    a = AUTHORS[fm.get("author", "team")]
+    a = AUTHORS[fm.get("author", WRITER)]
+    ck = AUTHORS[CHECKER]
     graph = [
         org_schema(),
         {"@type": "WebSite", "@id": f"{DOMAIN}/#website", "url": DOMAIN + "/", "name": SITE,
          "inLanguage": "en-NZ", "publisher": {"@id": f"{DOMAIN}/#organization"}},
-        person_schema(fm.get("author", "team")),
+        person_schema(fm.get("author", WRITER)),
+        person_schema(CHECKER),
         {"@type": "WebPage", "@id": f"{url}#webpage", "url": url, "name": strip_tags(fm["title"]),
          "description": strip_tags(fm["description"]), "inLanguage": "en-NZ",
          "isPartOf": {"@id": f"{DOMAIN}/#website"},
          "datePublished": fm.get("published", UPDATED), "dateModified": fm.get("modified", UPDATED),
          "author": {"@id": f"{DOMAIN}/authors/#{a['slug']}"},
-         "reviewedBy": {"@id": f"{DOMAIN}/#organization"},
+         "reviewedBy": {"@id": f"{DOMAIN}/authors/#{ck['slug']}"},
          "primaryImageOfPage": {"@type": "ImageObject", "url": f"{DOMAIN}/favicon-512x512.png"}},
     ]
     crumbs = [{"@type": "ListItem", "position": 1, "name": "Home", "item": DOMAIN + "/"}]
