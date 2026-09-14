@@ -190,7 +190,7 @@ def stars(rating):
     return f'<span class="stars" role="img" aria-label="Rated {rating} out of 5">{"".join(out)}</span>'
 
 # ---------------------------------------------------------------- blocks
-def toplist(slugs, kind="casino", intro=None, heading=None, hid="toplist"):
+def toplist(slugs, kind="casino", intro=None, heading=None, hid="toplist", top_badge="Editor's #1"):
     """Ranked operator cards — the primary conversion unit.
 
     One markup structure serves both layouts: a horizontal grid on desktop, and a
@@ -203,7 +203,7 @@ def toplist(slugs, kind="casino", intro=None, heading=None, hid="toplist"):
         logo = op_logo(slug, sports=(kind == "sports"))
         bonus = op.get("welcomeSports") if kind == "sports" and op.get("welcomeSports") else op["welcome"]
         short = op.get("welcomeSports") if kind == "sports" and op.get("welcomeSports") else op.get("short", bonus)
-        badge = op.get("badge") or ("Editor's #1" if i == 1 else "")
+        badge = op.get("badge") or (top_badge if i == 1 else "")
         pct = round(op["rating"] / 5 * 100)
         aff_url = html.escape(aff(slug, kind), quote=True)
         feats = []
@@ -1092,7 +1092,8 @@ def build_page(path):
         slugs = t["ops"]
         blocks["TOPLIST"] = toplist(slugs, kind=t.get("kind", "casino"),
                                     intro=t.get("intro"), heading=t.get("heading"),
-                                    hid=t.get("id", "toplist"))
+                                    hid=t.get("id", "toplist"),
+                                    top_badge=t.get("topBadge", "Editor's #1"))
         kind = t.get("kind", "casino")
         extra.append({
             "@type": "ItemList", "@id": f"{DOMAIN}{fm['url']}#itemlist",
