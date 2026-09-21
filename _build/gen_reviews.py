@@ -42,7 +42,7 @@ N = {
 <p>What it is not is a fast-payout site. If you want a win in your wallet the same afternoon, Kingdom or Spino will do it in hours and CrownSlots will take a day. Know which you are optimising for before you deposit — and if it is the bonus, budget the time.</p>""",
  who="Best for a player who wants the largest clearable-in-principle welcome package and does not need same-day withdrawals. Not the right pick if payout speed is your first criterion.",
  faq=[("What is the CrownSlots welcome bonus?",
-       "<p>390% total across the opening deposits, up to NZ$7,250, plus 175 free spins. That is converted from the operator's euro pricing of €3,700 at roughly 1.96 NZD per EUR. The full 390% requires funding each stage of the package rather than a single deposit, and wagering is around 40x — check the current terms at the cashier before claiming.</p>"),
+       "<p>390% total across the opening deposits, up to NZ$7,250, plus 175 free spins. The full 390% requires funding each stage of the package rather than a single deposit, and wagering is around 40x — check the current terms at the cashier before claiming.</p>"),
       ("How long do CrownSlots withdrawals take?",
        "<p>Crypto settlement is genuinely instant once released, but the release itself took just over 24 hours in our testing. Our measured total was 24 hours 51 minutes on USDT. E-wallets ran one to three working days and cards three to five. Complete KYC before you deposit — it does not speed up the approval step, but an unverified account adds one to three days on top.</p>"),
       ("Is CrownSlots licensed?",
@@ -123,7 +123,7 @@ N = {
 <p>For a bettor optimising on price, Rooster Bet is tighter on the codes New Zealanders actually bet. And for New Zealand racing specifically, neither is the answer — <strong>TAB NZ</strong> is, and it pays us nothing to say so. See our <a href="/online-betting/">online betting NZ</a> page for the legal position, which you should read before opening any offshore betting account.</p>""",
  who="For a bettor who values a long operating record and deep in-play markets over the tightest price or the fastest payout. Not for anyone who wants crypto withdrawals.",
  faq=[("What is the Gunsbet welcome offer?",
-       "<p>285% up to NZ$14,700 plus 285 free spins, converted from the operator's €7,500 pricing at roughly 1.96 NZD per EUR. It is the largest sports welcome offer on this site by headline value.</p><p>The turnover requirement is not stated prominently. Confirm it at the cashier before depositing — at a typical 15x, a NZ$285 bonus would require about NZ$4,275 of qualifying bets, usually at minimum odds around 1.80.</p>"),
+       "<p>285% up to NZ$14,700 plus 285 free spins. It is the largest sports welcome offer on this site by headline value.</p><p>The turnover requirement is not stated prominently. Confirm it at the cashier before depositing — at a typical 15x, a NZ$285 bonus would require about NZ$4,275 of qualifying bets, usually at minimum odds around 1.80.</p>"),
       ("Does Gunsbet accept cryptocurrency?",
        "<p>No. Gunsbet is one of the few operators on this site with no crypto cashier at all, so deposits and withdrawals run on cards, e-wallets and bank transfer only. Our measured withdrawal times were one to two working days on e-wallets and up to five on cards.</p><p>If crypto speed matters to you, <a href='/casino-reviews/rooster-bet/'>Rooster Bet</a> or <a href='/casino-reviews/bet-and-play/'>Bet&amp;Play</a> offer comparable sportsbooks with crypto rails.</p>"),
       ("Is Gunsbet legal in New Zealand?",
@@ -666,8 +666,7 @@ def build(slug, i):
 <h2 id="bonus">The welcome offer</h2>
 <div class="note"><p class="note-h">{op['welcome']}</p>
 <p><strong>Wagering:</strong> {op['wagering']}<br>
-<strong>Minimum deposit:</strong> {op['minDep']}
-{'<br><strong>Original currency:</strong> ' + op['welcomeEur'] if op.get('welcomeEur') else ''}</p>
+<strong>Minimum deposit:</strong> {op['minDep']}</p>
 <p>Bonus terms change without notice. Always read the operator's current terms before claiming &mdash; and see <a href="/casino-bonus/#decline">when to decline a bonus</a>, because a bonus you cannot clear locks your own deposit too.</p></div>
 <p>Our editor read the complete terms on this offer rather than the promotional summary. The comparison against every other welcome offer we list, including the expected cost of clearing each one, is on our <a href="/casino-bonus/#arithmetic">casino bonuses page</a>.</p>
 
