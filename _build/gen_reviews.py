@@ -514,24 +514,24 @@ N = {
 
 # ---------------------------------------------------------------------------
 TITLES = {
- "crownslots": "CrownSlots Review: 390% Bonus Tested [{{month}}]",
- "spinjo": "Spinjo Casino Review: 8,000 Games [{{month}}]",
- "madcasino": "MadCasino Review: 777% Bonus, Read First [{{month}}]",
- "gunsbet": "Gunsbet Review: Odds & Margins Tested [{{month}}]",
- "kingdom": "Kingdom Casino Review: Fastest Payout [{{month}}]",
- "smash": "Smash Casino Review: 10x Wagering [{{month}}]",
- "rivo": "Rivo Casino Review: 25% VIP Cashback [{{month}}]",
- "bet-and-play": "Bet&Play Review: Deepest Betting Markets [{{month}}]",
- "lucky7even": "Lucky7even Review: Real No Deposit Spins [{{month}}]",
- "lucky-vibe": "Lucky Vibe Review: One Wallet for Both [{{month}}]",
- "rooster-bet": "Rooster Bet Review: Best NRL Odds [{{month}}]",
- "fortune-play": "Fortune Play Review: Best Crash Games [{{month}}]",
- "lucky-circus": "Lucky Circus Review: Weekly Free Spins [{{month}}]",
- "roby": "Roby Casino Review: 13,500 Games [{{month}}]",
- "spino": "Spino Casino Review: 0x Wagering Bonus [{{month}}]",
- "ivibet": "IviBet Review: Casino & Sport, One Login [{{month}}]",
- "hellspin": "HellSpin Review: Fastest Mobile Lobby [{{month}}]",
- "slotsgem": "SlotsGem Review: An Honest Assessment [{{month}}]"
+ "crownslots": "CrownSlots Review NZ [{{month}}]: 390% Bonus Tested",
+ "spinjo": "Spinjo Casino Review NZ [{{month}}]: 8,000 Games",
+ "madcasino": "MadCasino Review NZ [{{month}}]: 777% Bonus, Read First",
+ "gunsbet": "Gunsbet Review NZ [{{month}}]: Odds & Margins Tested",
+ "kingdom": "Kingdom Casino Review NZ [{{month}}]: Fastest Payout",
+ "smash": "Smash Casino Review NZ [{{month}}]: 10x Wagering",
+ "rivo": "Rivo Casino Review NZ [{{month}}]: 25% VIP Cashback",
+ "bet-and-play": "Bet&Play Review NZ [{{month}}]: Deepest Betting Markets",
+ "lucky7even": "Lucky7even Review NZ [{{month}}]: Real No Deposit Spins",
+ "lucky-vibe": "Lucky Vibe Review NZ [{{month}}]: One Wallet for Both",
+ "rooster-bet": "Rooster Bet Review NZ [{{month}}]: Best NRL Odds",
+ "fortune-play": "Fortune Play Review NZ [{{month}}]: Best Crash Games",
+ "lucky-circus": "Lucky Circus Review NZ [{{month}}]: Weekly Free Spins",
+ "roby": "Roby Casino Review NZ [{{month}}]: 13,500 Games",
+ "spino": "Spino Casino Review NZ [{{month}}]: 0x Wagering Bonus",
+ "ivibet": "IviBet Review NZ [{{month}}]: Casino & Sport, One Login",
+ "hellspin": "HellSpin Review NZ [{{month}}]: Fastest Mobile Lobby",
+ "slotsgem": "SlotsGem Review NZ [{{month}}]: An Honest Assessment"
 }
 DESCS = {
  "crownslots": "CrownSlots review NZ: we tested the 390% welcome bonus, timed a withdrawal at 24h 51m and checked the Curaçao licence. Honest pros, cons and verdict.",
@@ -600,11 +600,11 @@ def build(slug, i):
         "url": url,
         "title": TITLES[slug],
         "description": DESCS[slug],
-        "h1": f"{op['name']} Review",
+        "h1": f"{op['name']} Review NZ [{{{{month}}}}]: Tested with Real NZ Dollars",
         "lede": n["lede"],
         "author": n["author"],
         "published": "2026-03-01",
-        "modified": "2026-09-14",
+        "modified": "2026-10-01",
         "priority": "0.7",
         "changefreq": "monthly",
         "crumbs": [["Casino Reviews", "/casino-reviews/"], [op["name"], url]],
@@ -709,7 +709,7 @@ def build(slug, i):
 <p>This review is based on an account opened in Claire's own name from a New Zealand connection, funded with her own money, and a withdrawal timed to the minute. Every figure was checked by Elizabeth King against the testing log and the operator's own terms before publication. No operator saw this page beforehand and none has editorial input.</p>
 <p><a href="/authors/#claire-morrison">Full profile</a> &middot; <a href="/authors/#elizabeth-king">Fact-checked by Elizabeth King</a> &middot; <a href="/how-we-rate-casinos/">Review methodology</a></p>
 </div></div>
-<p class="upd">Review last updated 13 September 2026. Bonus terms are re-verified monthly and payout timings re-measured quarterly. If your experience differs materially from what is published here, <a href="/contact/">tell us</a> &mdash; reader reports are how we catch changes between testing cycles.</p>
+<p class="upd">Review last updated 1 October 2026. Bonus terms are re-verified monthly and payout timings re-measured quarterly. If your experience differs materially from what is published here, <a href="/contact/">tell us</a> &mdash; reader reports are how we catch changes between testing cycles.</p>
 </div></div></section>
 '''
 

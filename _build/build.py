@@ -7,6 +7,7 @@ chrome, design tokens, schema block and self-referencing canonical, so the
 homepage layout and colour scheme propagate site-wide by construction.
 """
 import json, os, re, html, datetime
+import seo_titles
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "_build", "pages")
@@ -14,9 +15,9 @@ SRC = os.path.join(ROOT, "_build", "pages")
 DOMAIN = "https://rnrv.co.nz"
 SITE = "RNRV"
 TAGLINE = "NZ Online Casino &amp; Betting Guide"
-UPDATED = "2026-09-13"
-UPDATED_HUMAN = "13 September 2026"
-MONTH_YEAR = datetime.date.today().strftime("%B %Y")
+UPDATED = "2026-10-01"
+UPDATED_HUMAN = "1 October 2026"
+MONTH_YEAR = datetime.date.fromisoformat(UPDATED).strftime("%B %Y")
 FOUNDED = "2026"
 
 OPS = json.load(open(os.path.join(ROOT, "_build", "operators.json")))
@@ -1203,6 +1204,7 @@ def build_page(path):
     dest_dir = os.path.join(ROOT, fm["url"].strip("/"))
     os.makedirs(dest_dir, exist_ok=True)
     dest = os.path.join(dest_dir, "index.html")
+    doc = seo_titles.sync_schema(doc)
     open(dest, "w", encoding="utf-8").write(doc)
     return fm, len(re.findall(r"\w+", strip_tags(body)))
 
